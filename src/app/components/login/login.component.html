@@ -1,0 +1,32 @@
+<div fxLayout="row wrap" fxLayoutAlign="center space-between"
+class="pt-content login-bg">
+    <div fxLayout="column" fxLayoutGap="5%"  fxFlex="30" style="margin-top: 1rem;">
+        <mat-card>
+          <div fxLayout="column">
+              <ng-container [formGroup]="loginForm">
+                  <h1 style="text-align: center;">Iniciar Sesión</h1>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="identifier">
+                    <mat-error>Email inválido</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password">
+                    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    <mat-error>Campo requerido</mat-error>
+                </mat-form-field>
+                  <button mat-raised-button color="primary" (click)="onLogin()">Iniciar Sesión</button>
+              </ng-container>
+          </div>
+        </mat-card>
+        <mat-card fxFlex.gt-md="30">
+          <h3 style="text-align: center;">
+            ¿Nuevo en My Pets? 
+            <a mat-stroked-button href="https://www.google.com/" color="primary" target="_blank">Crear cuenta</a>
+        </h3>
+        </mat-card>
+    </div>
+</div>
