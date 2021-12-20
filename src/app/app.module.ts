@@ -17,15 +17,24 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { LoginComponent } from './components/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component'
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { MaterialElevationDirective } from './directives/material-elevation.directive';
+import { SignupVetComponent } from './components/signup-vet/signup-vet.component';
+import { SignupOwnerComponent } from './components/signup-owner/signup-owner.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    SignupComponent,
+    MaterialElevationDirective,
+    SignupVetComponent,
+    SignupOwnerComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +51,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component'
     MatIconModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    MatStepperModule
   ],
   providers: [],
   bootstrap: [AppComponent]
