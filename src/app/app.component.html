@@ -1,4 +1,15 @@
-<mat-toolbar color="primary" class="toolbar">
-  <h1>My Pets</h1>
+<mat-toolbar color="primary" class="toolbar" fxLayout="row" fxLayoutAlign="space-between center">
+  <div name="title">
+    <h1>My Pets</h1>
+  </div>
+  <div name="actions">
+    <div name="unauthActions" *ngIf="!currentUser" fxLayoutGap="5%">
+      <a mat-raised-button routerLink="/login">Iniciar Sesión</a>
+      <a mat-stroked-button routerLink="/signup">Registrarse</a>
+    </div>
+    <div name="authActions" *ngIf="currentUser" fxLayoutGap="5%">
+      <button mat-raised-button (click)="onLogout()">Cerrar Sesión</button>
+    </div>
+  </div>
 </mat-toolbar>
-<app-login></app-login>
+<router-outlet></router-outlet>

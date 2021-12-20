@@ -1,6 +1,8 @@
 <div fxLayout="row wrap" fxLayoutAlign="center space-between"
 class="pt-content login-bg">
-    <div fxLayout="column" fxLayoutGap="5%"  fxFlex="30" style="margin-top: 1rem;">
+    <div fxLayout="column" fxLayoutGap="5%" 
+    fxFlex.gt-md="30" fxFlex.lt-md="90"
+    style="margin-top: 1rem;">
         <mat-card>
           <div fxLayout="column">
               <ng-container [formGroup]="loginForm">
@@ -18,14 +20,16 @@ class="pt-content login-bg">
                       </button>
                     <mat-error>Campo requerido</mat-error>
                 </mat-form-field>
-                  <button mat-raised-button color="primary" (click)="onLogin()">Iniciar Sesión</button>
+                  <button mat-raised-button color="primary" (click)="onLogin()" [disabled]="loginInProgress">
+                    <span>Iniciar Sesión</span>
+                  </button>
               </ng-container>
           </div>
         </mat-card>
         <mat-card fxFlex.gt-md="30">
           <h3 style="text-align: center;">
             ¿Nuevo en My Pets? 
-            <a mat-stroked-button href="https://www.google.com/" color="primary" target="_blank">Crear cuenta</a>
+            <a mat-stroked-button routerLink="/login" color="primary">Crear cuenta</a>
         </h3>
         </mat-card>
     </div>
