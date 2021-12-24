@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import {environment} from 'src/app/environment'
+import { environment } from 'src/app/environment'
 import { Observable } from 'rxjs';
 
 interface LoginObject {

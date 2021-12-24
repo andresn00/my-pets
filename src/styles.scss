@@ -60,3 +60,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .cursor-pointer {
   cursor: pointer;
 }
+
+.card-90 {
+  box-sizing: border-box;
+  max-width: 90%;
+  margin: auto;
+}

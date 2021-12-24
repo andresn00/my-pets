@@ -1,35 +1,34 @@
-<div fxLayout="row wrap" fxLayoutAlign="center space-between"
-class="pt-content light-gray-bg">
-    <div fxLayout="column" fxLayoutGap="5%" 
-    fxFlex.gt-md="30" fxFlex.lt-md="90">
-        <mat-card>
-          <div fxLayout="column">
-              <ng-container [formGroup]="loginForm">
-                  <h1 style="text-align: center;">Iniciar Sesión</h1>
-                  <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input matInput formControlName="identifier">
-                    <mat-error>Email inválido</mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Contraseña</mat-label>
-                    <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password">
-                    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-                        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                      </button>
-                    <mat-error>Campo requerido</mat-error>
-                </mat-form-field>
-                  <button mat-raised-button color="primary" (click)="onLogin()" [disabled]="loginInProgress">
-                    <span>Iniciar Sesión</span>
-                  </button>
-              </ng-container>
-          </div>
-        </mat-card>
-        <mat-card fxFlex.gt-md="30">
-          <h3 style="text-align: center;">
-            ¿Nuevo en My Pets? 
-            <a mat-stroked-button routerLink="/signup" color="primary">Crear cuenta</a>
-        </h3>
-        </mat-card>
-    </div>
+<div fxLayout="row wrap" fxLayoutAlign="center space-between" class="pt-content light-gray-bg">
+  <div fxLayout="column" fxLayoutGap="5%" fxFlex.gt-md="30" fxFlex.lt-md="90">
+    <mat-card>
+      <div fxLayout="column">
+        <ng-container [formGroup]="loginForm">
+          <h1 style="text-align: center;">Iniciar Sesión</h1>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="identifier">
+            <mat-error>Email inválido</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Contraseña</mat-label>
+            <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error>Campo requerido</mat-error>
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="onLogin()" [disabled]="loginInProgress">
+            <span>Iniciar Sesión</span>
+          </button>
+        </ng-container>
+      </div>
+    </mat-card>
+    <mat-card fxFlex.gt-md="30">
+      <h3 style="text-align: center;">
+        ¿Nuevo en My Pets?
+        <a mat-stroked-button routerLink="/signup" color="primary">Crear cuenta</a>
+      </h3>
+    </mat-card>
+  </div>
 </div>
