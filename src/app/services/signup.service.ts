@@ -6,7 +6,7 @@ import { environment } from 'src/app/environment'
 import { StorageService } from './storage.service';
 import { Employee } from '../Models/Employee';
 import { Observable } from 'rxjs';
-import { RestBodyObject } from '../Models/RestBodyObject';
+import { RestBody } from '../Models/RestObjects';
 
 @Injectable({
   providedIn: 'root'
@@ -14,35 +14,32 @@ import { RestBodyObject } from '../Models/RestBodyObject';
 export class SignupService {
   private vetsApi: string = `${environment.host}${environment.vetsApi}`
   private employeesApi: string = `${environment.host}${environment.employeesApi}`
-  private usersApi: string = `${environment.host}${environment.usersApi}`
+  private registerUsersApi: string = `${environment.host}/api/auth/local/register`
 
   constructor(
     private http: HttpClient,
     private storageService: StorageService
   ) { }
 
-  createVet(vetData: Vet): Observable<any> {
-    const vetBody: RestBodyObject = {
-      data: vetData
+  registerVet(vet: Vet): Observable<any> {
+    const vetBody: RestBody<Vet> = {
+      data: vet
     }
-    console.log(`vetBody`, vetBody)
     return this.http.post(this.vetsApi, vetBody)
   }
 
-  createEmployee(employeeData: Employee): Observable<any> {
-    const employeeBody: RestBodyObject = {
-      data: employeeData
+  registerEmployee(employee: Employee): Observable<any> {
+    const employeeBody: RestBody<Employee> = {
+      data: employee
     }
-    console.log(`employeeBody`, employeeBody)
     return this.http.post(this.employeesApi, employeeBody)
   }
 
-  createUser(userData: User): Observable<any> {
-    const userBody: RestBodyObject = {
-      data: userData
+  registerUser(user: User): Observable<any> {
+    const userBody: RestBody<User> = {
+      data: user
     }
-    console.log(`userBody`, userBody)
-    return this.http.post(this.usersApi, userData)
+    return this.http.post(this.registerUsersApi, user)
   }
 
   rollbackVet(id: number): Observable<any> {
@@ -50,6 +47,6 @@ export class SignupService {
   }
 
   rollbackUser(id?: number): Observable<any> {
-    return this.http.delete(`${this.usersApi}/${id}`)
+    return this.http.delete(`${this.registerUsersApi}/${id}`)
   }
 }

@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Session } from 'src/app/Models/Session';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { EmployeeService } from 'src/app/services/collections/employee.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { openNotificationSnackBar } from 'src/app/utils';
 
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthenticationService,
     private storageService: StorageService,
+    private employeeService: EmployeeService,
     private router: Router,
     private snackBar: MatSnackBar
   ) { }
@@ -40,12 +42,12 @@ export class LoginComponent implements OnInit {
     this.loginInProgress = true
     this.authService.login(this.loginForm.value).subscribe({
       next: (session: Session) => {
-        // TODO: fetch whole user and store it
-          // TODO: fetch employee where user.id == session.user.id (populate)
-          // TODO: if !employee fetch customer
-        // TODO: redirect: vet ? dashboard : pets
         this.storageService.setCurrentSession(session)
-        this.router.navigate(['./dashboard'])
+        if (session.user.isEmployee){
+          this.router.navigate(['./dashboard'])
+        } else {
+          // this.router.navigate(['./pets'])
+        }
       },
       error: err => {
         openNotificationSnackBar(this.snackBar, 'Email o contraseña inválidos', 'warn')

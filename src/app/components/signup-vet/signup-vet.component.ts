@@ -3,10 +3,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Employee } from 'src/app/Models/Employee';
-import { RestObject } from 'src/app/Models/ResObject';
+import { SingleResponse } from 'src/app/Models/RestObjects';
+import { Session } from 'src/app/Models/Session';
 import { User } from 'src/app/Models/User';
 import { Vet } from 'src/app/Models/Vet';
 import { SignupService } from 'src/app/services/signup.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { openNotificationSnackBar } from 'src/app/utils';
 
 @Component({
@@ -38,6 +40,7 @@ export class SignupVetComponent implements OnInit {
 
   constructor(
     private signupService: SignupService,
+    private storageService: StorageService,
     private router: Router,
     private snackBar: MatSnackBar
   ) { }
@@ -47,36 +50,38 @@ export class SignupVetComponent implements OnInit {
 
 
   onFormsSubmit() {
-    if (!this.vetForm.valid) return
-    if (!this.accountForm.valid) return
-    const vetData: Vet = <Vet>this.vetForm.value
-    const userData: User = <User>this.accountForm.value
-    const employeeData: Employee = {
-      name: vetData.name,
-      ci: vetData.ruc,
-      address: vetData.address,
-      phone: vetData.phone
+    if (!this.vetForm.valid || !this.accountForm.valid) return
+    const vet: Vet = <Vet>this.vetForm.value
+    const user: User = <User>this.accountForm.value
+    user.isEmployee = true
+    const employee: Employee = {
+      name: vet.name,
+      ci: vet.ruc,
+      address: vet.address,
+      phone: vet.phone
     }
-    this.signUp(vetData, userData, employeeData);
+    this.signUp(vet, user, employee);
   }
 
-  private signUp(vetData: Vet, userData: User, employeeData: Employee) {
+  private signUp(vet: Vet, user: User, employee: Employee) {
     this.signupInProgress = true
-    this.signupService.createVet(vetData).subscribe({
-      next: (vetRes: RestObject) => {
-        this.signupService.createUser(userData).subscribe({
-          next: (userRes: User) => {
-            employeeData.user = userRes.id;
-            employeeData.vet = vetRes.data.id;
-            this.signupService.createEmployee(employeeData).subscribe({
-              next: (employeeRes: RestObject) => {
-                this.router.navigate(['../login']).then(() => {
+    this.signupService.registerVet(vet).subscribe({
+      next: (vetRes: SingleResponse<Vet>) => {
+        this.signupService.registerUser(user).subscribe({
+          next: (userSession: Session) => {
+            console.log(`userRes`, userSession)
+            employee.user = userSession.user.id;
+            employee.vet = vetRes.data.id;
+            this.signupService.registerEmployee(employee).subscribe({
+              next: (employeeRes: SingleResponse<Employee>) => {
+                this.storageService.setCurrentSession(userSession)
+                this.router.navigate(['../dashboard']).then(() => {
                   openNotificationSnackBar(this.snackBar, 'Veterinaria registrada con éxito.', 'primary')
                 })
               },
               error: err => {
                 console.log(`err employee`, err);
-                this.signupService.rollbackUser(userRes.id).subscribe()
+                this.signupService.rollbackUser(userSession.user.id).subscribe()
                 this.signupService.rollbackVet(vetRes.data.id).subscribe()
                 const errMessage = err.status === 400 ? 'Registro existente' : 'Error creando registro'
                 openNotificationSnackBar(this.snackBar, errMessage, 'warn')

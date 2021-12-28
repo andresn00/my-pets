@@ -19,7 +19,8 @@ const routes: Routes = [
       { path: '**', redirectTo: 'options'},
     ]
   },
-  { path: 'dashboard', canActivate: [AuthGuard], component: DashboardComponent }
+  { path: 'dashboard', canActivate: [AuthGuard], component: DashboardComponent },
+
 ];
 
 @NgModule({

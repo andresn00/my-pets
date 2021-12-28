@@ -1,5 +1,6 @@
 import { Customer } from "./Customer";
 import { Employee } from "./Employee";
+import { SingleResponse } from "./RestObjects";
 
 export interface User {
     id?: number,
@@ -8,7 +9,8 @@ export interface User {
     provider?: string,
     confirmed?: boolean,
     blocked?: boolean,
-    employee?: Employee | number
-    customer?: Customer | number
+    employee?: SingleResponse<Employee> | number
+    customer?: SingleResponse<Customer> | number
+    isEmployee: boolean
     [x: string]: any
 }

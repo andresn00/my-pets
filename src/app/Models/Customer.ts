@@ -1,4 +1,5 @@
 import { Pet } from "./Pet";
+import { ListResponse, SingleResponse } from "./RestObjects";
 import { User } from "./User";
 import { Vet } from "./Vet";
 
@@ -7,8 +8,8 @@ export interface Customer {
     ci?: string | null
     phone?: string | null
     address?: string | null
-    vets?: Vet[] | number[] | null
-    user?: User | number | null
-    pets?: Pet[] | number[] | null
+    vets?: ListResponse<Vet> | number[] | null
+    user?: SingleResponse<User> | number | null
+    pets?: ListResponse<Pet> | number[] | null
     [x: string]: any
 }

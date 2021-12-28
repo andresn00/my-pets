@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from 'src/app/environment'
 import { Observable } from 'rxjs';
+import { Session } from '../Models/Session';
 
 interface LoginObject {
   identifier: string,
@@ -17,8 +18,8 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) { }
 
-  login(data: LoginObject): Observable<any> {
-    return this.http.post(this.loginApi, data)
+  login(data: LoginObject): Observable<Session> {
+    return this.http.post<Session>(this.loginApi, data)
   }
 
 }

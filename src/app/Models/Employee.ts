@@ -1,3 +1,4 @@
+import { SingleResponse } from "./RestObjects";
 import { User } from "./User";
 import { Vet } from "./Vet";
 
@@ -6,7 +7,7 @@ export interface Employee {
     ci?: string | null
     phone?: string | null
     address?: string | null
-    vet?: Vet | number | null
-    user?: User | number | null
+    vet?: SingleResponse<Vet> | number | null
+    user?: SingleResponse<User> | number | null
     [x: string]: any
 }
