@@ -41,6 +41,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe({
       next: (session: Session) => {
         // TODO: fetch whole user and store it
+          // TODO: fetch employee where user.id == session.user.id (populate)
+          // TODO: if !employee fetch customer
         // TODO: redirect: vet ? dashboard : pets
         this.storageService.setCurrentSession(session)
         this.router.navigate(['./dashboard'])

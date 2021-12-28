@@ -17,6 +17,7 @@ import { openNotificationSnackBar } from 'src/app/utils';
 export class SignupVetComponent implements OnInit {
 
   hidePassword: boolean = true
+  signupInProgress: boolean = false
 
   vetFormTitle: string = 'Datos de la veterinaria'
   accountFormTitle: string = 'Datos de la cuenta principal'
@@ -60,6 +61,7 @@ export class SignupVetComponent implements OnInit {
   }
 
   private signUp(vetData: Vet, userData: User, employeeData: Employee) {
+    this.signupInProgress = true
     this.signupService.createVet(vetData).subscribe({
       next: (vetRes: RestObject) => {
         this.signupService.createUser(userData).subscribe({
@@ -78,6 +80,7 @@ export class SignupVetComponent implements OnInit {
                 this.signupService.rollbackVet(vetRes.data.id).subscribe()
                 const errMessage = err.status === 400 ? 'Registro existente' : 'Error creando registro'
                 openNotificationSnackBar(this.snackBar, errMessage, 'warn')
+                this.signupInProgress = false
               }
             });
           },
@@ -86,6 +89,7 @@ export class SignupVetComponent implements OnInit {
             this.signupService.rollbackVet(vetRes.data.id).subscribe()
             const errMessage = err.status === 400 ? 'Email en uso' : 'Error creando registro'
             openNotificationSnackBar(this.snackBar, errMessage, 'warn')
+            this.signupInProgress = false
           }
         });
       },
@@ -93,9 +97,10 @@ export class SignupVetComponent implements OnInit {
         console.log(`err vet`, err)
         const errMessage = err.status === 400 ? 'Veterinaria existente' : 'Error creando registro'
         openNotificationSnackBar(this.snackBar, errMessage, 'warn')
+        this.signupInProgress = false
       }
     });
   }
 }
 
-// TODO: Snackbar when fails
+// TODO: spinner when sign up in progress
