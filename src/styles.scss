@@ -48,8 +48,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding-top: calc(70px + 1.5em);
 }
 
+.mx-content {
+  box-sizing: border-box;
+  max-width: 90%;
+  margin: auto;
+}
+
 .mt-1 {
-  margin-top: 1rem;
+  margin-top: 1rem !important;
 }
 
 .light-gray-bg {
@@ -61,8 +67,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   cursor: pointer;
 }
 
-.card-90 {
-  box-sizing: border-box;
-  max-width: 90%;
-  margin: auto;
+.mb-1-5 {
+  margin-bottom: 1.5rem !important;
 }

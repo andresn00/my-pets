@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Session } from 'src/app/Models/Session';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { openNotificacionSnackBar } from 'src/app/utils';
+import { openNotificationSnackBar } from 'src/app/utils';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     if (!this.loginForm.valid) {
-      openNotificacionSnackBar(this.snackBar, 'Email o contraseña inválidos', 'warn')
+      openNotificationSnackBar(this.snackBar, 'Email o contraseña inválidos', 'warn')
       return
     }
     this.loginInProgress = true
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['./dashboard'])
       },
       error: err => {
-        openNotificacionSnackBar(this.snackBar, 'Email o contraseña inválidos', 'warn')
+        openNotificationSnackBar(this.snackBar, 'Email o contraseña inválidos', 'warn')
         this.loginInProgress = false
       }
     })
