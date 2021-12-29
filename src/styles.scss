@@ -44,6 +44,12 @@ $my-pets-theme: mat.define-light-theme((
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+
+.toolbar {
+  position: fixed;
+  z-index: 100;
+}
+
 .pt-content {
   padding-top: calc(70px + 1.5em);
 }

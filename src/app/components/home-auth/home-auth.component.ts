@@ -1,0 +1,60 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Employee } from 'src/app/Models/Employee';
+import { ListResponse } from 'src/app/Models/RestObjects';
+import { Session } from 'src/app/Models/Session';
+import { User } from 'src/app/Models/User';
+import { EmployeeService } from 'src/app/services/collections/employee.service';
+import { StorageService } from 'src/app/services/storage.service';
+
+interface Link {
+  name: string
+  url: string
+  icon: string
+}
+@Component({
+  selector: 'app-home-auth',
+  templateUrl: './home-auth.component.html',
+  styleUrls: ['./home-auth.component.scss']
+})
+export class HomeAuthComponent implements OnInit {
+
+  currentUser!: User
+  currentEmployee!: ListResponse<Employee>
+  
+  links: Link[] = [
+    { name: 'Dashboard', url: 'dashboard', icon: 'home' },
+    { name: 'Clientes', url: 'users', icon: 'person' },
+    { name: 'Veterinaria', url: 'vet', icon: 'local_hospital' },
+  ]
+  activeUrl!: string
+
+  constructor(
+    private storageService: StorageService,
+    private employeeService: EmployeeService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    this.loadSession();
+  }
+
+  private loadSession() {
+    const currentSession = <Session>this.storageService.getCurrentSession();
+    this.currentUser = currentSession.user;
+    if (this.currentUser.isEmployee) {
+      this.employeeService.fetchEmployeeByUserId(this.currentUser.id as number)
+      .subscribe((emp: ListResponse<Employee>) => {
+          console.log('setCurrentEmployee', emp)
+          this.storageService.setCurrentEmployee(emp);
+          this.currentEmployee = emp
+        });
+    }
+  }
+
+  onLogout() {
+    this.storageService.removeCurrentSession()
+    this.router.navigate(['./login'])
+  }
+
+}

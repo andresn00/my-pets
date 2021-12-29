@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from 'src/app/environment';
+import { Employee } from 'src/app/Models/Employee';
+import { ListResponse, SingleResponse } from 'src/app/Models/RestObjects';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +15,13 @@ export class EmployeeService {
     private http: HttpClient
   ) { }
 
-  fetchEmployeeByUserId(userId: number): Observable<any> {
-    const url: string = `${this.employeesApi}`
-    
+  fetchEmployeeByUserId(userId: number): Observable<ListResponse<Employee>> {
     let params: HttpParams = new HttpParams()
-    params.append('filters[user][id][$eq]', userId.toString())
-    params.append('populate', '*')
-    return this.http.get<any>(url, {params: params})
+    params = params.appendAll({
+      'filters[user][id][$eq]': userId.toString(),
+      'populate': '*'
+    })
+    return this.http.get<ListResponse<Employee>>(this.employeesApi, { params })
   }
 
 }

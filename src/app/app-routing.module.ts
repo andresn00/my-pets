@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { HomeAuthComponent } from './components/home-auth/home-auth.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupOptionsComponent } from './components/signup-options/signup-options.component';
 import { SignupOwnerComponent } from './components/signup-owner/signup-owner.component';
 import { SignupVetComponent } from './components/signup-vet/signup-vet.component';
+import { UsersComponent } from './components/users/users.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UnauthGuard } from './guards/unauth.guard';
 
@@ -19,7 +21,15 @@ const routes: Routes = [
       { path: '**', redirectTo: 'options'},
     ]
   },
-  { path: 'dashboard', canActivate: [AuthGuard], component: DashboardComponent },
+  { 
+    path: '', canActivate: [AuthGuard], component: HomeAuthComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'users', component: UsersComponent },
+      { path: 'vet', component: UsersComponent },
+      { path: '**', redirectTo: 'dashboard' },
+    ]
+  },
 
 ];
 

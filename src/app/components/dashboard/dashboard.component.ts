@@ -20,11 +20,11 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.session = this.storageService.getCurrentSession()
-    this.employeeService.fetchEmployeeByUserId(<number>this.session?.user.id)
-      .subscribe((employee: ListResponse<Employee>) => {
-        console.log(`employee`, employee)
-      })
+    // this.session = this.storageService.getCurrentSession()
+    // this.employeeService.fetchEmployeeByUserId(<number>this.session?.user.id)
+    //   .subscribe((employee: ListResponse<Employee>) => {
+    //     console.log(`employee`, employee)
+    //   })
   }
 
 }

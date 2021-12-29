@@ -10,7 +10,7 @@ import { StorageService } from './services/storage.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  currentUser!: User | undefined | null
+  currentSession!: Session | null
 
   constructor(
     private storageService: StorageService,
@@ -21,12 +21,11 @@ export class AppComponent {
     this.loadUserSession()
     this.storageService.sessionChanged.subscribe(s => {
       this.loadUserSession()
-      console.log(`s`, s)
     })
   }
 
   loadUserSession() {
-    this.currentUser = this.storageService.getCurrentSession()?.user
+    this.currentSession = this.storageService.getCurrentSession()
   }
 
   onLogout() {

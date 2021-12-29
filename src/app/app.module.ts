@@ -19,13 +19,18 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MaterialElevationDirective } from './directives/material-elevation.directive';
 import { SignupVetComponent } from './components/signup-vet/signup-vet.component';
 import { SignupOwnerComponent } from './components/signup-owner/signup-owner.component';
-import { SignupOptionsComponent } from './components/signup-options/signup-options.component'
+import { SignupOptionsComponent } from './components/signup-options/signup-options.component';
+import { HomeAuthComponent } from './components/home-auth/home-auth.component';
+import { UsersComponent } from './components/users/users.component'
 
 @NgModule({
   declarations: [
@@ -35,7 +40,9 @@ import { SignupOptionsComponent } from './components/signup-options/signup-optio
     MaterialElevationDirective,
     SignupVetComponent,
     SignupOwnerComponent,
-    SignupOptionsComponent
+    SignupOptionsComponent,
+    HomeAuthComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +60,10 @@ import { SignupOptionsComponent } from './components/signup-options/signup-optio
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatStepperModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTabsModule,
+    MatButtonToggleModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { Employee } from '../Models/Employee';
+import { ListResponse } from '../Models/RestObjects';
 import { Session } from '../Models/Session';
 
 @Injectable({
@@ -10,6 +12,8 @@ export class StorageService {
 
   private currentSessionKey: string = 'currentSession'
   private currentSession!: Session | null
+  private currentEmployeeKey: string = 'currentEmployee'
+  private currentEmployee!: ListResponse<Employee> | null
 
   public sessionChanged: Subject<any> = new Subject<any>()
 
@@ -20,6 +24,8 @@ export class StorageService {
    loadSessionData(): void {
     const sessionStr = localStorage.getItem(this.currentSessionKey)
     this.currentSession = sessionStr ? <Session> JSON.parse(sessionStr) : null
+    const employeeStr = localStorage.getItem(this.currentEmployeeKey)
+    this.currentEmployee = employeeStr ? <ListResponse<Employee>> JSON.parse(employeeStr) : null
    }
 
    setCurrentSession(session: Session){
@@ -28,14 +34,29 @@ export class StorageService {
      this.sessionChanged.next(true)
    }
 
+   setCurrentEmployee(employee: ListResponse<Employee>){
+     this.currentEmployee = employee
+     localStorage.setItem(this.currentEmployeeKey, JSON.stringify(employee))
+   }
+
    getCurrentSession(): Session | null {
      return this.currentSession
+   }
+
+   getCurrentEmployee(): ListResponse<Employee> | null {
+     return this.currentEmployee
    }
 
    removeCurrentSession(): void {
      localStorage.removeItem(this.currentSessionKey)
      this.currentSession = null
+     this.removeCurrentEmployee()
      this.sessionChanged.next(true)
+   }
+
+   removeCurrentEmployee(): void {
+     localStorage.removeItem(this.currentEmployeeKey)
+     this.currentEmployee = null
    }
 
    isAuthenticated(): boolean {

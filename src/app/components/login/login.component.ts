@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       next: (session: Session) => {
         this.storageService.setCurrentSession(session)
         if (session.user.isEmployee){
-          this.router.navigate(['./dashboard'])
+          this.router.navigate(['./'])
         } else {
           // this.router.navigate(['./pets'])
         }
