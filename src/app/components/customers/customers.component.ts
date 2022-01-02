@@ -17,7 +17,6 @@ import { StorageService } from 'src/app/services/storage.service';
 export class CustomersComponent implements OnInit {
 
   currentVetId!: number
-  customers!: Customer[]
   customersDataSource: MatTableDataSource<Customer> = new MatTableDataSource()
   displayedColumns: string[] = ['name', 'ci', 'phone', 'address']
 
@@ -51,11 +50,11 @@ export class CustomersComponent implements OnInit {
     this.vetService.fetchVetById(this.currentVetId, 'customers')
       .subscribe((vet: SingleResponse<Vet>) => {
         const custResponse = <ListResponse<Customer>> vet.data.attributes.customers
-        this.customers = custResponse.data.map(c => {
+        const customers = custResponse.data.map(c => {
           return { id: c.id, ...c.attributes}
         })
-        console.log(`customers`, this.customers)
-        this.customersDataSource = new MatTableDataSource(this.customers)
+        console.log(`customers`, customers)
+        this.customersDataSource.data = customers
       })
   }
 
