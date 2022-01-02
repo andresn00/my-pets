@@ -21,7 +21,7 @@ export class EmployeeService {
       'filters[user][id][$eq]': userId.toString(),
       'populate': '*'
     })
-    return this.http.get<ListResponse<Employee>>(this.employeesApi, { params })
+    return this.http.get<ListResponse<Employee>>(`${this.employeesApi}?filters[user][id][$eq]=6&populate=*`)
   }
 
 }

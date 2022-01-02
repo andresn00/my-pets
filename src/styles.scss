@@ -15,10 +15,10 @@
 
 
 $my-pets-primary: mat.define-palette(mat.$indigo-palette);
-// $my-pets-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$my-pets-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
 // $my-pets-primary: mat.define-palette(mat.$blue-palette, A700);
-$my-pets-accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
+// $my-pets-accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
 $my-pets-warn: mat.define-palette(mat.$red-palette, A400);
 
 // The warn palette is optional (defaults to red).
@@ -54,7 +54,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding-top: calc(70px + 1.5em);
 }
 
-.mx-content {
+.content-90 {
   box-sizing: border-box;
   max-width: 90%;
   margin: auto;
@@ -75,4 +75,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mb-1-5 {
   margin-bottom: 1.5rem !important;
+}
+
+.width-100 {
+  width: 100%;
 }

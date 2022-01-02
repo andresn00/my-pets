@@ -24,7 +24,7 @@ export class HomeAuthComponent implements OnInit {
   
   links: Link[] = [
     { name: 'Dashboard', url: 'dashboard', icon: 'home' },
-    { name: 'Clientes', url: 'users', icon: 'person' },
+    { name: 'Clientes', url: 'customers', icon: 'person' },
     { name: 'Veterinaria', url: 'vet', icon: 'local_hospital' },
   ]
   activeUrl!: string
@@ -45,7 +45,6 @@ export class HomeAuthComponent implements OnInit {
     if (this.currentUser.isEmployee) {
       this.employeeService.fetchEmployeeByUserId(this.currentUser.id as number)
       .subscribe((emp: ListResponse<Employee>) => {
-          console.log('setCurrentEmployee', emp)
           this.storageService.setCurrentEmployee(emp);
           this.currentEmployee = emp
         });

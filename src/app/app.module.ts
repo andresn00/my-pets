@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout'
@@ -22,6 +22,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -30,7 +33,8 @@ import { SignupVetComponent } from './components/signup-vet/signup-vet.component
 import { SignupOwnerComponent } from './components/signup-owner/signup-owner.component';
 import { SignupOptionsComponent } from './components/signup-options/signup-options.component';
 import { HomeAuthComponent } from './components/home-auth/home-auth.component';
-import { UsersComponent } from './components/users/users.component'
+import { CustomersComponent } from './components/customers/customers.component'
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,7 @@ import { UsersComponent } from './components/users/users.component'
     SignupOwnerComponent,
     SignupOptionsComponent,
     HomeAuthComponent,
-    UsersComponent
+    CustomersComponent
   ],
   imports: [
     BrowserModule,
@@ -63,9 +67,14 @@ import { UsersComponent } from './components/users/users.component'
     MatDividerModule,
     MatTabsModule,
     MatButtonToggleModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

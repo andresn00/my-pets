@@ -4,6 +4,7 @@ import { User } from "./User";
 import { Vet } from "./Vet";
 
 export interface Customer {
+    id?: number
     name: string
     ci?: string | null
     phone?: string | null

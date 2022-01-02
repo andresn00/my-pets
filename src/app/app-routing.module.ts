@@ -6,7 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupOptionsComponent } from './components/signup-options/signup-options.component';
 import { SignupOwnerComponent } from './components/signup-owner/signup-owner.component';
 import { SignupVetComponent } from './components/signup-vet/signup-vet.component';
-import { UsersComponent } from './components/users/users.component';
+import { CustomersComponent } from './components/customers/customers.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UnauthGuard } from './guards/unauth.guard';
 
@@ -25,8 +25,13 @@ const routes: Routes = [
     path: '', canActivate: [AuthGuard], component: HomeAuthComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'users', component: UsersComponent },
-      { path: 'vet', component: UsersComponent },
+      { 
+        path: 'customers', children: [
+        { path: '', component: CustomersComponent },
+        { path: '**', redirectTo: '' }
+      ] 
+    },
+      { path: 'vet', component: CustomersComponent },
       { path: '**', redirectTo: 'dashboard' },
     ]
   },

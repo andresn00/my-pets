@@ -1,3 +1,4 @@
+import { Customer } from "./Customer";
 import { Employee } from "./Employee";
 import { ListResponse } from "./RestObjects";
 export interface Vet {
@@ -7,5 +8,6 @@ export interface Vet {
     phone?: string | null
     avatar?: any | null
     employees?: ListResponse<Employee> | number[] | null
+    customers?: ListResponse<Customer> | number[] | null
     [x: string]: any
 }
