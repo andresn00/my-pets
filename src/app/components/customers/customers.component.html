@@ -6,7 +6,7 @@
       <input matInput (keyup)="applyFilter($event)" placeholder="Nombre, CI o Teléfono">
     </mat-form-field>
     <div fxLayoutGap="5px">
-      <button mat-raised-button color="primary">
+      <button mat-raised-button color="primary" (click)="openCreateCustomerDialog()">
         <mat-icon>person_add</mat-icon>
         <span>Crear cliente</span>
       </button>

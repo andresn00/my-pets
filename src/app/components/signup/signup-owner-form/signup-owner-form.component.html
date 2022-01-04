@@ -1,0 +1,114 @@
+<mat-stepper orientation="vertical" linear #stepper> -->
+    <mat-step [stepControl]="customerForm" [label]="customerFormTitle">
+      <h1>{{ customerFormTitle }}</h1>
+      <form [formGroup]="customerForm" fxLayout="column">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="name">
+          <mat-error>Campo Requerido</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>CI</mat-label>
+          <input matInput formControlName="ci">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Teléfono</mat-label>
+          <input matInput formControlName="phone">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Dirección</mat-label>
+          <textarea matInput formControlName="address"></textarea>
+          <mat-error>Campo Requerido</mat-error>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="accountForm" [label]="accountFormTitle">
+      <h1>{{ accountFormTitle }}</h1>
+      <form [formGroup]="accountForm" fxLayout="column">
+        <mat-form-field appearance="outline" fxFlex.gt-md="30" fxFlex.lt-md>
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username">
+          <mat-error>Campo Requerido</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex.gt-md="30" fxFlex.lt-md>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+          <mat-error>Email inválido</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex.gt-md="30" fxFlex.lt-md>
+          <mat-label>Contraseña</mat-label>
+          <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password">
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error>Campo Requerido</mat-error>
+        </mat-form-field>
+        <div fxFlex fxLayoutAlign="center">
+          <h2>Avatar</h2>
+          <input hidden matInput formControlName="avatar">
+        </div>
+        <div>
+          <button mat-button matStepperPrevious>Anterior</button>
+          <button mat-button matStepperNext color="primary" [disabled]="signupInProgress" (click)="onFormsSubmit()">
+            Finalizar
+          </button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-stepper>
+
+
+        <!-- <div fxLayout="row wrap" fxLayoutGap="0" fxLayoutAlign="space-evenly">
+        <form [formGroup]="customerForm" fxLayout="column" fxFlex.gt-md="40" fxFlex.lt-md="90">
+          <h1>Datos personales</h1>
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="name">
+            <mat-error>Campo Requerido</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>CI</mat-label>
+            <input matInput formControlName="ci">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Teléfono</mat-label>
+            <input matInput formControlName="phone">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Dirección</mat-label>
+            <textarea matInput formControlName="address"></textarea>
+            <mat-error>Campo Requerido</mat-error>
+          </mat-form-field>
+        </form>
+        <form [formGroup]="accountForm" fxLayout="column" fxFlex.gt-md="40" fxFlex.lt-md="90">
+          <h1>Datos del usuario</h1>
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username">
+            <mat-error>Campo Requerido</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+            <mat-error>Email inválido</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Contraseña</mat-label>
+            <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error>Campo Requerido</mat-error>
+          </mat-form-field>
+          <div>
+            <h2>Avatar</h2>
+            <input hidden matInput formControlName="avatar">
+          </div>
+        </form>
+      </div> -->
+      

@@ -22,7 +22,7 @@ export class SignupVetComponent implements OnInit {
   signupInProgress: boolean = false
 
   vetFormTitle: string = 'Datos de la veterinaria'
-  accountFormTitle: string = 'Datos de la cuenta principal'
+  accountFormTitle: string = 'Datos del usuario principal'
 
   vetForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -60,10 +60,10 @@ export class SignupVetComponent implements OnInit {
       address: vet.address,
       phone: vet.phone
     }
-    this.signUp(vet, user, employee);
+    this.signup(vet, user, employee);
   }
 
-  private signUp(vet: Vet, user: User, employee: Employee) {
+  private signup(vet: Vet, user: User, employee: Employee) {
     this.signupInProgress = true
     this.signupService.registerVet(vet).subscribe({
       next: (vetRes: SingleResponse<Vet>) => {

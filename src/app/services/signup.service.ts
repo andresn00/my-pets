@@ -6,7 +6,8 @@ import { environment } from 'src/app/environment'
 import { StorageService } from './storage.service';
 import { Employee } from '../Models/Employee';
 import { Observable } from 'rxjs';
-import { RestBody } from '../Models/RestObjects';
+import { RestBody, SingleResponse } from '../Models/RestObjects';
+import { Customer } from '../Models/Customer';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ import { RestBody } from '../Models/RestObjects';
 export class SignupService {
   private vetsApi: string = `${environment.host}${environment.vetsApi}`
   private employeesApi: string = `${environment.host}${environment.employeesApi}`
+  private customersApi: string = `${environment.host}${environment.customersApi}`
   private registerUsersApi: string = `${environment.host}/api/auth/local/register`
 
   constructor(
@@ -33,6 +35,13 @@ export class SignupService {
       data: employee
     }
     return this.http.post(this.employeesApi, employeeBody)
+  }
+
+  registerCustomer(customer: Customer): Observable<SingleResponse<Customer>> {
+    const customerBody: RestBody<Customer> = {
+      data: customer
+    }
+    return this.http.post<SingleResponse<Customer>>(this.customersApi, customerBody)
   }
 
   registerUser(user: User): Observable<any> {

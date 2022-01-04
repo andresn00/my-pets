@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,6 +9,7 @@ import { ListResponse, SingleResponse } from 'src/app/Models/RestObjects';
 import { Vet } from 'src/app/Models/Vet';
 import { VetService } from 'src/app/services/collections/vet.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { SignupOwnerDialogComponent } from '../signup/signup-owner-dialog/signup-owner-dialog.component';
 
 @Component({
   selector: 'app-users',
@@ -26,7 +28,8 @@ export class CustomersComponent implements OnInit {
   
   constructor(
     private storageService: StorageService,
-    private vetService: VetService
+    private vetService: VetService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -65,5 +68,15 @@ export class CustomersComponent implements OnInit {
     if (this.customersDataSource.paginator) {
       this.customersDataSource.paginator.firstPage();
     }
+  }
+
+  openCreateCustomerDialog(){
+    const data = {
+      vetId: this.currentVetId
+    }
+    const dialogRef = this.dialog.open(SignupOwnerDialogComponent, {data, minWidth: '50%', maxWidth: '90%'})
+    dialogRef.afterClosed().subscribe(() => {
+      this.getCustomersByVetId()
+    })
   }
 }
