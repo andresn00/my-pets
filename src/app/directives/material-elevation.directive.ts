@@ -15,25 +15,21 @@ export class MaterialElevationDirective {
     private renderer: Renderer2
   ) { 
     this.setElevation(this.defaultElevation)
+    this.setCursorPointer()
   }
 
   ngOnChanges(_changes: SimpleChanges){
     this.setElevation(this.defaultElevation)
+    this.setCursorPointer()
   }
 
   @HostListener('mouseenter')
   onMouseEnter() {
-    if (this.canSelect){
-      this.renderer.addClass(this.element.nativeElement, 'cursor-pointer')
-    }
     this.setElevation(this.raisedElevation)
   }
 
   @HostListener('mouseleave')
   onMouseLeave() {
-    if (this.canSelect){
-      this.renderer.removeClass(this.element.nativeElement, 'cursor-pointer')
-    }
     this.setElevation(this.defaultElevation)
   }
 
@@ -47,5 +43,10 @@ export class MaterialElevationDirective {
     // add the given elevation class
     const newClass = `mat-elevation-z${amount}`;
     this.renderer.addClass(this.element.nativeElement, newClass);
+  }
+  setCursorPointer(){
+    if (this.canSelect){
+      this.renderer.addClass(this.element.nativeElement, 'cursor-pointer')
+    }
   }
 }

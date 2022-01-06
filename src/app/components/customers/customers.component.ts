@@ -9,6 +9,7 @@ import { ListResponse, SingleResponse } from 'src/app/Models/RestObjects';
 import { Vet } from 'src/app/Models/Vet';
 import { VetService } from 'src/app/services/collections/vet.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { UiService } from 'src/app/services/ui.service';
 import { SignupOwnerDialogComponent } from '../signup/signup-owner-dialog/signup-owner-dialog.component';
 
 @Component({
@@ -17,7 +18,7 @@ import { SignupOwnerDialogComponent } from '../signup/signup-owner-dialog/signup
   styleUrls: ['./customers.component.scss']
 })
 export class CustomersComponent implements OnInit {
-
+  url: string = 'customers'
   currentVetId!: number
   customersDataSource: MatTableDataSource<Customer> = new MatTableDataSource()
   displayedColumns: string[] = ['name', 'ci', 'phone', 'address']
@@ -29,6 +30,7 @@ export class CustomersComponent implements OnInit {
   constructor(
     private storageService: StorageService,
     private vetService: VetService,
+    private uiService: UiService,
     private dialog: MatDialog
   ) { }
 

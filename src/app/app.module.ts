@@ -26,6 +26,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatListModule } from '@angular/material/list';
 
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -38,6 +40,8 @@ import { CustomersComponent } from './components/customers/customers.component'
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { SignupOwnerFormComponent } from './components/signup/signup-owner-form/signup-owner-form.component';
 import { SignupOwnerDialogComponent } from './components/signup/signup-owner-dialog/signup-owner-dialog.component';
+import { CustomersPetsComponent } from './components/customers-pets/customers-pets.component';
+import { PetsCardComponent } from './components/pets-card/pets-card.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +55,9 @@ import { SignupOwnerDialogComponent } from './components/signup/signup-owner-dia
     HomeAuthComponent,
     CustomersComponent,
     SignupOwnerFormComponent,
-    SignupOwnerDialogComponent
+    SignupOwnerDialogComponent,
+    CustomersPetsComponent,
+    PetsCardComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +82,9 @@ import { SignupOwnerDialogComponent } from './components/signup/signup-owner-dia
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatDialogModule
+    MatDialogModule,
+    MatBadgeModule,
+    MatListModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }

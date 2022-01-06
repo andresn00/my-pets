@@ -1,0 +1,9 @@
+.mat-row-selectable .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row-selectable:hover .mat-cell {
+  border-color: currentColor;
+}

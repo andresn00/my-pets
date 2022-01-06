@@ -1,25 +1,23 @@
 <div class="light-gray-bg">
-    <div class="pt-content">
-      <div fxLayout="row wrap" fxLayoutAlign="center stretch" fxLayoutGap.gt-md="5%">
-        <mat-card appMaterialElevation [canSelect]="true" routerLink="../vet"
-          fxFlex.gt-md="20" fxFlex.lt-md="60">
-          <mat-card-header fxLayoutAlign="center">
-            <mat-card-title>Veterinaria</mat-card-title>
-          </mat-card-header>
-          <img mat-card-image 
-          src="https://thumbs.dreamstime.com/b/stethoscope-animal-icon-vector-design-vet-clinic-logo-template-pet-care-veterinary-logo-stethoscope-animal-icon-vector-165562620.jpg"
-          >
-        </mat-card>
-        <mat-card appMaterialElevation [canSelect]="true" routerLink="../owner"
-          fxFlex.gt-md="20" fxFlex.lt-md="60">
-          <mat-card-header fxLayoutAlign="center">
-            <mat-card-title>Dueño de Mascota</mat-card-title>
-          </mat-card-header>
-          <img mat-card-image 
-          src="https://i.pinimg.com/originals/af/fb/c9/affbc96be98edecba473e0e630069b3b.png"
-          >
-        </mat-card>
+  <div class="pt-content">
+    <div class="mt-1-5" fxLayout="row wrap" fxLayoutAlign="space-evenly">
+      <mat-card class="card mb-1-5" *ngFor="let card of cards" [routerLink]="[card.link]"
+      appMaterialElevation [canSelect]="true">
+      <div fxLayout="column" style="height: 100%;">
+        <div fxLayoutAlign="center center" fxFlex="30" [style.background-color]="card.bgColor">
+          <mat-card-title [style.color]="card.color" style="text-align: center;">
+            {{ card.title }}
+          </mat-card-title>
+        </div>
+        <div fxFlex fxLayoutAlign="center center">
+          <mat-icon class="icon" [style.color]="card.color">
+            {{ card.icon }}
+          </mat-icon>
+        </div>
       </div>
-    </div>
+    </mat-card>
   </div>
-  
+</div>
+</div>
+
+

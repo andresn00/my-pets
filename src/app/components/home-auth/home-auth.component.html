@@ -6,11 +6,11 @@
       </a>
     </div>
     <div name="actions" fxLayoutGap="5%">
-      <button mat-mini-fab color="">
+      <button mat-mini-fab color="" matBadge="1" matBadgeColor="accent">
         <mat-icon>notifications</mat-icon>
       </button>
       <button mat-raised-button [mat-menu-trigger-for]="profileMenu">
-        {{currentEmployee?.data?.[0]?.attributes?.name}}
+        {{currentEmployee?.data?.[0]?.attributes?.name || 'Perfil'}}
       </button>
       <mat-menu #profileMenu>
         <a mat-menu-item>Perfil</a>

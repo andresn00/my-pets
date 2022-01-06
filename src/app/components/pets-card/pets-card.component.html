@@ -1,0 +1,13 @@
+<mat-card class="card" appMaterialElevation [canSelect]="true">
+  <mat-card-header>
+    <mat-card-title>{{pet.name}}</mat-card-title>
+  </mat-card-header>
+  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="">
+  <mat-card-content>
+      <mat-list>
+        <mat-list-item> {{pet.sex || 'Macho'}} </mat-list-item>
+        <mat-list-item> {{pet.species}} </mat-list-item>
+        <mat-list-item> {{pet.race}} </mat-list-item>
+      </mat-list>
+  </mat-card-content>
+</mat-card>

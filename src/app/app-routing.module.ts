@@ -9,6 +9,7 @@ import { SignupVetComponent } from './components/signup/signup-vet/signup-vet.co
 import { CustomersComponent } from './components/customers/customers.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UnauthGuard } from './guards/unauth.guard';
+import { CustomersPetsComponent } from './components/customers-pets/customers-pets.component';
 
 const routes: Routes = [
   { path: 'login', canActivate: [UnauthGuard], component: LoginComponent },
@@ -28,6 +29,7 @@ const routes: Routes = [
       { 
         path: 'customers', children: [
         { path: '', component: CustomersComponent },
+        { path: ':userId', component: CustomersPetsComponent },
         { path: '**', redirectTo: '' }
       ] 
     },

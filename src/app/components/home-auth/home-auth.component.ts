@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 import { Employee } from 'src/app/Models/Employee';
 import { ListResponse } from 'src/app/Models/RestObjects';
 import { Session } from 'src/app/Models/Session';
 import { User } from 'src/app/Models/User';
 import { EmployeeService } from 'src/app/services/collections/employee.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { UiService } from 'src/app/services/ui.service';
 
 interface Link {
   name: string
@@ -32,11 +34,13 @@ export class HomeAuthComponent implements OnInit {
   constructor(
     private storageService: StorageService,
     private employeeService: EmployeeService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.loadSession();
+    const activeLink = this.links.filter(l => { return this.router.url.includes(l.url) }) 
+    this.activeUrl = activeLink[0].url
   }
 
   private loadSession() {

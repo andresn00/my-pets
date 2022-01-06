@@ -1,1 +1,17 @@
-<p>dashboard works!</p>
+<div class="mt-1-5" fxLayout="row wrap" fxLayoutAlign="space-around">
+    <mat-card class="card mb-1-5" *ngFor="let card of cards" 
+    appMaterialElevation [canSelect]="true">
+        <div fxLayout="column" style="height: 100%;">
+            <div fxLayoutAlign="center center" fxFlex="30" [style.background-color]="card.bgColor">
+                <mat-card-title [style.color]="card.color" style="text-align: center;">
+                    {{ card.title }}
+                </mat-card-title>
+            </div>
+            <div fxFlex fxLayoutAlign="center center">
+                <mat-icon class="icon" [style.color]="card.color">
+                    {{ card.icon }}
+                </mat-icon>
+            </div>
+        </div>
+    </mat-card>
+</div>
