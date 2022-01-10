@@ -10,7 +10,7 @@ import { Vet } from 'src/app/Models/Vet';
 import { VetService } from 'src/app/services/collections/vet.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UiService } from 'src/app/services/ui.service';
-import { SignupOwnerDialogComponent } from '../signup/signup-owner-dialog/signup-owner-dialog.component';
+import { SignupOwnerDialogComponent } from '../../signup/signup-owner-dialog/signup-owner-dialog.component';
 
 @Component({
   selector: 'app-users',

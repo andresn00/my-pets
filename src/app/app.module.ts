@@ -28,6 +28,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -36,12 +37,13 @@ import { SignupVetComponent } from './components/signup/signup-vet/signup-vet.co
 import { SignupOwnerComponent } from './components/signup/signup-owner/signup-owner.component';
 import { SignupOptionsComponent } from './components/signup/signup-options/signup-options.component';
 import { HomeAuthComponent } from './components/home-auth/home-auth.component';
-import { CustomersComponent } from './components/customers/customers.component'
+import { CustomersComponent } from './components/customer/customers/customers.component'
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { SignupOwnerFormComponent } from './components/signup/signup-owner-form/signup-owner-form.component';
 import { SignupOwnerDialogComponent } from './components/signup/signup-owner-dialog/signup-owner-dialog.component';
-import { CustomersPetsComponent } from './components/customers-pets/customers-pets.component';
-import { PetsCardComponent } from './components/pets-card/pets-card.component';
+import { CustomersPetsComponent } from './components/customer/customers-pets/customers-pets.component';
+import { PetsCardComponent } from './components/pet/pets-card/pets-card.component';
+import { PetFormComponent } from './components/pet/pet-form/pet-form.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import { PetsCardComponent } from './components/pets-card/pets-card.component';
     SignupOwnerFormComponent,
     SignupOwnerDialogComponent,
     CustomersPetsComponent,
-    PetsCardComponent
+    PetsCardComponent,
+    PetFormComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,8 @@ import { PetsCardComponent } from './components/pets-card/pets-card.component';
     MatPaginatorModule,
     MatDialogModule,
     MatBadgeModule,
-    MatListModule
+    MatListModule,
+    MatSidenavModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }

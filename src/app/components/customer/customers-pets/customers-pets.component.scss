@@ -1,0 +1,22 @@
+.card {
+    width: 200px;
+    height: 310px;
+    background: #e6eaff;
+}
+
+.add-icon {
+    position: absolute;
+    left: 104px;
+    top: 125px;
+    color: white;
+    transform: scale(1.5);
+}
+
+.drawer-container {
+    height: calc(100vh - 114px);
+    width: 100%;
+}
+.side-drawer {
+    width: 325px;
+    max-width: 90%;
+}

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Pet } from 'src/app/Models/Pet';
+import { getPetSex, getAge, getAgeToString } from 'src/app/utils';
 
 @Component({
   selector: 'app-pets-card',
@@ -7,12 +8,16 @@ import { Pet } from 'src/app/Models/Pet';
   styleUrls: ['./pets-card.component.scss']
 })
 export class PetsCardComponent implements OnInit {
-
   @Input() pet!: Pet
+  
+  defaultImg: string = 'https://material.angular.io/assets/img/examples/shiba2.jpg'
+  
+  getPetSex = getPetSex
+  getAge = getAge
+  getAgeToString = getAgeToString
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

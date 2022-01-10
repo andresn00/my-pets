@@ -5,7 +5,7 @@
     <mat-card>
       <mat-stepper orientation="vertical" linear #stepper>
         <mat-step [stepControl]="vetForm" [label]="vetFormTitle">
-          <h1>{{ vetFormTitle }}</h1>
+          <!-- <h1>{{ vetFormTitle }}</h1> -->
           <form [formGroup]="vetForm" fxLayout="column" fxFlex.gt-md="40" fxFlex.lt-md>
             <mat-form-field appearance="outline">
               <mat-label>Nombre</mat-label>
@@ -32,7 +32,7 @@
 
         </mat-step>
         <mat-step [stepControl]="accountForm" [label]="accountFormTitle">
-          <h1>{{ accountFormTitle }}</h1>
+          <!-- <h1>{{ accountFormTitle }}</h1> -->
           <form [formGroup]="accountForm" fxLayout="column" fxFlex.gt-md="40" fxFlex.lt-md>
             <mat-form-field appearance="outline" fxFlex.gt-md="30" fxFlex.lt-md>
               <mat-label>Username</mat-label>

@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   loginInProgress: boolean = false
 
   loginForm: FormGroup = new FormGroup({
-    identifier: new FormControl('', [Validators.required, Validators.email]),
+    identifier: new FormControl('', [Validators.required]),
     password: new FormControl('', Validators.required)
   })
 

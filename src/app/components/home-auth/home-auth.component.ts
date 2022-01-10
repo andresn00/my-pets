@@ -39,8 +39,13 @@ export class HomeAuthComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadSession();
-    const activeLink = this.links.filter(l => { return this.router.url.includes(l.url) }) 
-    this.activeUrl = activeLink[0].url
+    this.setActiveLink();
+  }
+
+  setActiveLink() {
+    const activeLink = this.links.filter(l => { return this.router.url.includes(l.url); });
+    this.activeUrl = activeLink[0].url;
+    console.log(`activeLink`, activeLink)
   }
 
   private loadSession() {
