@@ -5,8 +5,8 @@ import { Customer } from 'src/app/Models/Customer';
 import { User } from 'src/app/Models/User';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/services/storage.service';
-import { openNotificationSnackBar } from 'src/app/utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-signup-owner',
@@ -17,6 +17,7 @@ export class SignupOwnerComponent implements OnInit {
 
   constructor(
     private storageService: StorageService,
+    private uiService: UiService,
     private router: Router,
     private snackBar: MatSnackBar
   ) { }
@@ -30,7 +31,7 @@ export class SignupOwnerComponent implements OnInit {
     const customer: Customer = emitObj.customer
     // this.storageService.setCurrentSession(userSession)
     // this.router.navigate(['../pets']).then(() => {
-    //   openNotificationSnackBar(this.snackBar, 'Veterinaria registrada con éxito.', 'primary')
+    //   this.uiService.openNotificationSnackBar('Veterinaria registrada con éxito.', 'primary')
     // })
   }
 }

@@ -6,7 +6,7 @@ import { Session } from 'src/app/Models/Session';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { EmployeeService } from 'src/app/services/collections/employee.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { openNotificationSnackBar } from 'src/app/utils';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-login',
@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthenticationService,
     private storageService: StorageService,
     private employeeService: EmployeeService,
+    private uiService: UiService,
     private router: Router,
-    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     if (!this.loginForm.valid) {
-      openNotificationSnackBar(this.snackBar, 'Email o contraseña inválidos', 'warn')
+      this.uiService.openNotificationSnackBar('Usuario o contraseña inválidos', 'warn')
       return
     }
     this.loginInProgress = true
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
         }
       },
       error: err => {
-        openNotificationSnackBar(this.snackBar, 'Email o contraseña inválidos', 'warn')
+        this.uiService.openNotificationSnackBar('Usuario o contraseña inválidos', 'warn')
         this.loginInProgress = false
       }
     })

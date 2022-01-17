@@ -16,12 +16,13 @@
     </mat-list>
   </mat-drawer>
   <div>
-    <button type="button" mat-button (click)="profileDrawer.toggle()">
+    <button type="button" mat-button (click)="profileDrawer.toggle()" *ngIf="!profileDrawer.opened">
+      <mat-icon>menu</mat-icon>
       Información Cliente
     </button>
 
-    <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
-      <mat-card appMaterialElevation [canSelect]="true" class="card mb-1-5">
+    <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" class="mt-1-5">
+      <mat-card appMaterialElevation [canSelect]="true" class="card mb-1-5" (click)="openPetDialog()">
         <div style="height: 100%; color: #3f51b5" fxLayout="column" fxLayoutGap="50px" fxLayoutAlign="center center">
           <div>
               <mat-icon class="icon-4x" color="primary">pets</mat-icon>
@@ -30,7 +31,8 @@
           <h1>Nueva mascota</h1>
         </div>
       </mat-card>
-      <app-pets-card *ngFor="let pet of pets" [pet]="pet" class="mb-1-5"></app-pets-card>
+      <app-pets-card *ngFor="let pet of pets" [pet]="pet"
+      [routerLink]="['/pet', pet.id]" class="mb-1-5"></app-pets-card>
     </div>
   
   </div>

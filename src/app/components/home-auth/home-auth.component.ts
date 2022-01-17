@@ -44,7 +44,7 @@ export class HomeAuthComponent implements OnInit {
 
   setActiveLink() {
     const activeLink = this.links.filter(l => { return this.router.url.includes(l.url); });
-    this.activeUrl = activeLink[0].url;
+    this.activeUrl = activeLink[0]?.url;
     console.log(`activeLink`, activeLink)
   }
 

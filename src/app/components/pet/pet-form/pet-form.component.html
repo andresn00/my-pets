@@ -1,1 +1,46 @@
-<p>pet-form works!</p>
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="petForm" fxLayout="column">
+        <div fxLayout="row wrap" fxLayoutGap.gt-md="10px">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Fecha de Nacimineto</mat-label>
+                <input matInput [matDatepicker]="dpBirthday" formControlName="birthday">
+                <mat-datepicker-toggle matSuffix [for]="dpBirthday"></mat-datepicker-toggle>
+                <mat-datepicker #dpBirthday disabled="false"></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row wrap" fxLayoutGap.gt-md="10px">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Sexo</mat-label>
+                <mat-select formControlName="sex">
+                    <mat-option [value]="0">Hembra</mat-option>
+                    <mat-option [value]="1">Macho</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Especie</mat-label>
+                <input matInput formControlName="species">
+            </mat-form-field>
+        </div>
+        <div fxLayout="row wrap" fxLayoutGap.gt-md="10px">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Raza</mat-label>
+                <input matInput formControlName="race">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Color</mat-label>
+                <input matInput formControlName="color">
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="null">Cancelar</button>
+    <button mat-button color="primary" [mat-dialog-close]="petForm" [disabled]="!petForm.valid">
+        Guardar
+    </button>
+</div>

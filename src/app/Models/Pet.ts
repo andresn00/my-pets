@@ -1,3 +1,6 @@
+import { Customer } from "./Customer";
+import { SingleResponse } from "./RestObjects";
+
 export interface Pet {
     id?: number
     name: string
@@ -7,4 +10,5 @@ export interface Pet {
     color?: string
     birthday?: Date
     avatar?: string
+    customer?: SingleResponse<Customer> | number | null
 }

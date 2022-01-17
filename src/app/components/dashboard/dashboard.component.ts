@@ -22,9 +22,9 @@ export class DashboardComponent implements OnInit {
 
   cards: Card[] = [
     { title: 'Citas para hoy', icon: 'date_range', bgColor: '#d1e7dd', color: '#008f4e' },
-    { title: 'Peluquerías activas', icon: 'pets', bgColor: '#ffe3c3', color: '#b66200' },
+    { title: 'Peluquerías activas', icon: 'content_cut', bgColor: '#ffe3c3', color: '#b66200' },
     { title: 'Hospitalizaciones activas', icon: 'local_hospital', bgColor: '#f5c2c7', color: '#be0025' },
-    { title: 'Hospedajes activos', icon: 'location_city', bgColor: '#cfe2ff', color: '#084298' },
+    { title: 'Hospedajes activos', icon: 'house', bgColor: '#cfe2ff', color: '#084298' },
   ]
   constructor(
     private uiService: UiService

@@ -10,29 +10,35 @@ import { CustomersComponent } from './components/customer/customers/customers.co
 import { AuthGuard } from './guards/auth.guard';
 import { UnauthGuard } from './guards/unauth.guard';
 import { CustomersPetsComponent } from './components/customer/customers-pets/customers-pets.component';
+import { PetComponent } from './components/pet/pet/pet.component';
 
 const routes: Routes = [
   { path: 'login', canActivate: [UnauthGuard], component: LoginComponent },
   {
     path: 'signup', canActivate: [UnauthGuard],
     children: [
-      { path: 'vet', component: SignupVetComponent},
-      { path: 'owner', component: SignupOwnerComponent},
-      { path: 'options', component: SignupOptionsComponent},
-      { path: '**', redirectTo: 'options'},
+      { path: 'vet', component: SignupVetComponent },
+      { path: 'owner', component: SignupOwnerComponent },
+      { path: 'options', component: SignupOptionsComponent },
+      { path: '**', redirectTo: 'options' },
     ]
   },
-  { 
+  {
     path: '', canActivate: [AuthGuard], component: HomeAuthComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { 
+      {
         path: 'customers', children: [
-        { path: '', component: CustomersComponent },
-        { path: ':customerId', component: CustomersPetsComponent },
-        { path: '**', redirectTo: '' }
-      ] 
-    },
+          { path: '', component: CustomersComponent },
+          { path: ':customerId', component: CustomersPetsComponent },
+          { path: '**', redirectTo: '' }
+        ]
+      },
+      {
+        path: 'pet', children: [
+          { path: ':petId', component: PetComponent },
+        ]
+      },
       { path: 'vet', component: CustomersComponent },
       { path: '**', redirectTo: 'dashboard' },
     ]

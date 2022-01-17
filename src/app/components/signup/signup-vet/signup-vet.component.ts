@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Employee } from 'src/app/Models/Employee';
 import { SingleResponse } from 'src/app/Models/RestObjects';
@@ -9,7 +8,7 @@ import { User } from 'src/app/Models/User';
 import { Vet } from 'src/app/Models/Vet';
 import { SignupService } from 'src/app/services/signup.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { openNotificationSnackBar } from 'src/app/utils';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-signup-vet',
@@ -42,7 +41,7 @@ export class SignupVetComponent implements OnInit {
     private signupService: SignupService,
     private storageService: StorageService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private uiService: UiService
   ) { }
 
   ngOnInit(): void {
@@ -76,7 +75,7 @@ export class SignupVetComponent implements OnInit {
               next: (employeeRes: SingleResponse<Employee>) => {
                 this.storageService.setCurrentSession(userSession)
                 this.router.navigate(['../dashboard']).then(() => {
-                  openNotificationSnackBar(this.snackBar, 'Veterinaria registrada con éxito.', 'primary')
+                  this.uiService.openNotificationSnackBar('Veterinaria registrada con éxito.', 'primary')
                 })
               },
               error: err => {
@@ -84,7 +83,7 @@ export class SignupVetComponent implements OnInit {
                 this.signupService.rollbackUser(userSession.user.id).subscribe()
                 this.signupService.rollbackVet(vetRes.data.id).subscribe()
                 const errMessage = err.status === 400 ? 'Registro existente' : 'Error creando registro'
-                openNotificationSnackBar(this.snackBar, errMessage, 'warn')
+                this.uiService.openNotificationSnackBar(errMessage, 'warn')
                 this.signupInProgress = false
               }
             });
@@ -93,7 +92,7 @@ export class SignupVetComponent implements OnInit {
             console.log(`err user`, err);
             this.signupService.rollbackVet(vetRes.data.id).subscribe()
             const errMessage = err.status === 400 ? 'Email en uso' : 'Error creando registro'
-            openNotificationSnackBar(this.snackBar, errMessage, 'warn')
+            this.uiService.openNotificationSnackBar(errMessage, 'warn')
             this.signupInProgress = false
           }
         });
@@ -101,7 +100,7 @@ export class SignupVetComponent implements OnInit {
       error: err => {
         console.log(`err vet`, err)
         const errMessage = err.status === 400 ? 'Veterinaria existente' : 'Error creando registro'
-        openNotificationSnackBar(this.snackBar, errMessage, 'warn')
+        this.uiService.openNotificationSnackBar(errMessage, 'warn')
         this.signupInProgress = false
       }
     });

@@ -1,13 +1,5 @@
-import { MatSnackBar } from "@angular/material/snack-bar"
 import * as moment from 'moment';
 
-export const openNotificationSnackBar = (snackBar: MatSnackBar, message: string, color: string, time: number = 3000) => {
-  return snackBar.open(message, '', {
-    duration: time,
-    panelClass: ['mat-toolbar', `mat-${color}`]
-  })
-
-}
 
 export const getPetSex = (n: number) => {
   return n === 0 ? 'Hembra' : 'Macho'

@@ -5,7 +5,7 @@ import { Customer } from 'src/app/Models/Customer';
 import { Session } from 'src/app/Models/Session';
 import { User } from 'src/app/Models/User';
 import { SignupService } from 'src/app/services/signup.service';
-import { openNotificationSnackBar } from 'src/app/utils';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-signup-owner-form',
@@ -37,7 +37,7 @@ export class SignupOwnerFormComponent implements OnInit {
 
   constructor(
     private signupService: SignupService,
-    private snackBar: MatSnackBar
+    private uiService: UiService
   ) { }
 
   ngOnInit(): void {
@@ -70,14 +70,14 @@ export class SignupOwnerFormComponent implements OnInit {
               error: (err) => {
                 this.signupService.rollbackUser(userSession.user.id).subscribe()
                 const errMessage = err.status === 400 ? 'Registro existente' : 'Error creando registro'
-                openNotificationSnackBar(this.snackBar, errMessage, 'warn')
+                this.uiService.openNotificationSnackBar(errMessage, 'warn')
                 this.signupInProgress = false
               }
             })
         },
         error: err => {
           const errMessage = err.status === 400 ? 'Email en uso' : 'Error creando registro'
-          openNotificationSnackBar(this.snackBar, errMessage, 'warn')
+          this.uiService.openNotificationSnackBar(errMessage, 'warn')
           this.signupInProgress = false
         }
       })

@@ -58,7 +58,6 @@ export class CustomersComponent implements OnInit {
         const customers = custResponse.data.map(c => {
           return { id: c.id, ...c.attributes}
         })
-        console.log(`customers`, customers)
         this.customersDataSource.data = customers
       })
   }

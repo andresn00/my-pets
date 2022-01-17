@@ -29,6 +29,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -44,6 +47,7 @@ import { SignupOwnerDialogComponent } from './components/signup/signup-owner-dia
 import { CustomersPetsComponent } from './components/customer/customers-pets/customers-pets.component';
 import { PetsCardComponent } from './components/pet/pets-card/pets-card.component';
 import { PetFormComponent } from './components/pet/pet-form/pet-form.component';
+import { PetComponent } from './components/pet/pet/pet.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +64,8 @@ import { PetFormComponent } from './components/pet/pet-form/pet-form.component';
     SignupOwnerDialogComponent,
     CustomersPetsComponent,
     PetsCardComponent,
-    PetFormComponent
+    PetFormComponent,
+    PetComponent
   ],
   imports: [
     BrowserModule,
@@ -88,9 +93,12 @@ import { PetFormComponent } from './components/pet/pet-form/pet-form.component';
     MatDialogModule,
     MatBadgeModule,
     MatListModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
-  providers: [
+  providers: [ MatNativeDateModule,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]

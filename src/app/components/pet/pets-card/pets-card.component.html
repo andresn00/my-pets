@@ -9,7 +9,7 @@
   <mat-card-content>
       <mat-list>
         <mat-list-item> {{getPetSex(pet.sex) }} </mat-list-item>
-        <mat-list-item> {{pet.race}} </mat-list-item>
+        <mat-list-item> {{pet.race || 'Sin raza'}} </mat-list-item>
         <mat-list-item> {{getAgeToString(getAge(pet.birthday)) || 'Sin edad'}} </mat-list-item>
       </mat-list>
   </mat-card-content>
