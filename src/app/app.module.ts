@@ -9,6 +9,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout'
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/moment'
+import { MomentDateAdapter, MomentDateModule } from '@angular/material-moment-adapter';
+import * as moment from 'moment'
+export const momentAdapterFactory = () => {
+  return adapterFactory(moment)
+}
 
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatButtonModule } from '@angular/material/button';
@@ -48,6 +55,8 @@ import { CustomersPetsComponent } from './components/customer/customers-pets/cus
 import { PetsCardComponent } from './components/pet/pets-card/pets-card.component';
 import { PetFormComponent } from './components/pet/pet-form/pet-form.component';
 import { PetComponent } from './components/pet/pet/pet.component';
+import { PetGeneralComponent } from './components/pet/pet-general/pet-general.component';
+import { ConfirmationDialogComponent } from './components/utils/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +74,9 @@ import { PetComponent } from './components/pet/pet/pet.component';
     CustomersPetsComponent,
     PetsCardComponent,
     PetFormComponent,
-    PetComponent
+    PetComponent,
+    PetGeneralComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +86,11 @@ import { PetComponent } from './components/pet/pet/pet.component';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    MomentDateModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: momentAdapterFactory,
+    }),
     MatToolbarModule,
     MatButtonModule,
     MatCardModule,
@@ -98,7 +114,7 @@ import { PetComponent } from './components/pet/pet/pet.component';
     MatDatepickerModule,
     MatNativeDateModule,
   ],
-  providers: [ MatNativeDateModule,
+  providers: [ 
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]

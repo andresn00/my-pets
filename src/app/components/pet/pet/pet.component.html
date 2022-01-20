@@ -6,8 +6,8 @@
       </button>
     </div>
       <mat-nav-list>
-          <mat-list-item *ngFor="let option of options">
-              <a matLine>
+          <mat-list-item *ngFor="let option of options" [routerLinkActive]="['nav-list-item-active']">
+              <a matLine [routerLink]="option.url">
                   {{ option.title }}
               </a>
               <mat-icon mat-list-icon>{{ option.icon }}</mat-icon>
@@ -19,6 +19,6 @@
       <mat-icon>menu</mat-icon>
       Menú
     </button>
-
+    <router-outlet></router-outlet>
   </div>
 </mat-drawer-container>

@@ -11,6 +11,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { UnauthGuard } from './guards/unauth.guard';
 import { CustomersPetsComponent } from './components/customer/customers-pets/customers-pets.component';
 import { PetComponent } from './components/pet/pet/pet.component';
+import { PetGeneralComponent } from './components/pet/pet-general/pet-general.component';
 
 const routes: Routes = [
   { path: 'login', canActivate: [UnauthGuard], component: LoginComponent },
@@ -36,7 +37,13 @@ const routes: Routes = [
       },
       {
         path: 'pet', children: [
-          { path: ':petId', component: PetComponent },
+          {
+            path: ':petId', component: PetComponent, children: [
+              { path: 'general', component: PetGeneralComponent },
+              { path: 'consulta-general', component: PetGeneralComponent },
+              { path: '**', redirectTo: 'general' },
+            ]
+          },
         ]
       },
       { path: 'vet', component: CustomersComponent },

@@ -40,7 +40,8 @@
 </div>
 <div mat-dialog-actions>
     <button mat-button [mat-dialog-close]="null">Cancelar</button>
-    <button mat-button color="primary" [mat-dialog-close]="petForm" [disabled]="!petForm.valid">
+    <button mat-button color="primary" [disabled]="!petForm.valid"
+    (click)="closeDialog()">
         Guardar
     </button>
 </div>

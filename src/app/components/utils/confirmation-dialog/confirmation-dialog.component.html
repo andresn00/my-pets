@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+    <p [innerHtml]="data.message"></p>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button [matDialogClose]="false">Cancelar</button>
+    <button mat-raised-button [matDialogClose]="true" [color]="data.actionColor || ''">{{data.actionName}}</button>
+</div>

@@ -1,16 +1,24 @@
-<mat-card class="card" appMaterialElevation [canSelect]="true">
-  <img mat-card-image [src]="pet.avatar || defaultImg" alt=""
-  height="150px">
-  <mat-card-header>
-    <mat-card-title>{{pet.name}}</mat-card-title>
-    <mat-card-subtitle>{{pet.species}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-divider [inset]="true"></mat-divider>
-  <mat-card-content>
-      <mat-list>
-        <mat-list-item> {{getPetSex(pet.sex) }} </mat-list-item>
-        <mat-list-item> {{pet.race || 'Sin raza'}} </mat-list-item>
-        <mat-list-item> {{getAgeToString(getAge(pet.birthday)) || 'Sin edad'}} </mat-list-item>
-      </mat-list>
-  </mat-card-content>
-</mat-card>
+<div (mouseenter)="showActions = true" (mouseleave)="showActions = false" (touchmove)="showActions = true">
+  <mat-card class="card" appMaterialElevation [canSelect]="true" >
+    <div [routerLink]="['/pet', pet.id]">
+      <img mat-card-image [src]="pet.avatar || defaultImg" alt=""
+      height="150px">
+      <mat-card-header>
+        <mat-card-title>{{pet.name}}</mat-card-title>
+        <mat-card-subtitle>{{pet.species}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-divider [inset]="true"></mat-divider>
+      <mat-card-content>
+          <mat-list>
+            <mat-list-item> {{getPetSex(pet.sex) }} </mat-list-item>
+            <mat-list-item> {{pet.race || 'Sin raza'}} </mat-list-item>
+            <mat-list-item> {{getAgeToString(getAge(pet.birthday)) || 'Sin edad'}} </mat-list-item>
+          </mat-list>
+      </mat-card-content>
+    </div>
+  </mat-card>
+  <div *ngIf="showActions">
+    <button mat-stroked-button (click)="onEdit()" fxFlex>Editar</button>
+    <button mat-stroked-button (click)="onDelete()" color="warn" fxFlex>Eliminar</button>
+  </div>
+</div>

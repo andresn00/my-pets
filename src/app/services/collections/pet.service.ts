@@ -15,6 +15,17 @@ export class PetService {
     private http: HttpClient
   ) { }
 
+  
+  fetchPetById(petId: number, populate?: string): Observable<SingleResponse<Pet>>{
+    const url = `${this.petsApi}/${petId}`
+    let params: HttpParams = new HttpParams()
+    params = params.appendAll({
+      'populate': `${populate || ''}`
+    })
+    
+    return this.http.get<SingleResponse<Pet>>(url, {params})
+  }
+  
   createPet(pet: Pet): Observable<SingleResponse<Pet>> {
     const petData: RestBody<Pet> = {
       data: pet
@@ -22,14 +33,14 @@ export class PetService {
     return this.http.post<SingleResponse<Pet>>(this.petsApi, petData)
   }
 
-  fetchVetById(petId: number, populate?: string): Observable<SingleResponse<Pet>>{
-    const url = `${this.petsApi}/${petId}`
-    let params: HttpParams = new HttpParams()
-    params = params.appendAll({
-      'populate': `${populate || ''}`
-    })
-
-    return this.http.get<SingleResponse<Pet>>(url, {params})
+  updatePet(petId: number, pet: Pet): Observable<SingleResponse<Pet>> {
+    const petData: RestBody<Pet> = {
+      data: pet
+    }
+    return this.http.put<SingleResponse<Pet>>(`${this.petsApi}/${petId}`, petData)
+  }
+  deletePet(petId: number): Observable<SingleResponse<Pet>> {
+    return this.http.delete<SingleResponse<Pet>>(`${this.petsApi}/${petId}`)
   }
 
 }

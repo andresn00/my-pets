@@ -13,7 +13,9 @@ import { CustomerService } from 'src/app/services/collections/customer.service';
 import { PetService } from 'src/app/services/collections/pet.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UiService } from 'src/app/services/ui.service';
+import { ConfirmationDialogData } from 'src/app/utils';
 import { PetFormComponent } from '../../pet/pet-form/pet-form.component';
+import { ConfirmationDialogComponent } from '../../utils/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-customers-pets',
@@ -73,27 +75,65 @@ export class CustomersPetsComponent implements OnInit {
       pet
     }
     const dialogRef = this.dialog.open(PetFormComponent, { data, minWidth: '50%', maxWidth: '90vw' })
-    dialogRef.afterClosed().subscribe((petForm: FormGroup) => {
-      if (!petForm) return
-      if (!petForm.valid) {
-        this.openPetDialog(petForm.value)
-        this.uiService.openNotificationSnackBar('Formulario inválido', 'warn')
-        return
-      }
-      this.addPet(petForm.value)
+    return dialogRef
+  }
+  addPet() {
+    const dialogRef = this.openPetDialog()
+    dialogRef.afterClosed().subscribe((pet: Pet | null) => {
+      if (!pet) return
+      pet.customer = this.customer.data.id
+      this.petService.createPet(pet).subscribe({
+        next: petRes => {
+          this.pets.push({ id: petRes.data.id, ...petRes.data.attributes })
+          this.uiService.openNotificationSnackBar('Mascota creada', 'primary')
+        },
+        error: err => {
+          this.openPetDialog(pet)
+          this.uiService.openNotificationSnackBar('Error creando mascota', 'warn')
+        }
+      })
     })
   }
-  addPet(pet: Pet) {
-    pet.customer = this.customer.data.id
-    this.petService.createPet(pet).subscribe({
-      next: petRes => {
-        this.pets.push({ id: petRes.data.id, ...petRes.data.attributes })
-        this.uiService.openNotificationSnackBar('Mascota creada', 'primary')
-      },
-      error: err => {
-        this.openPetDialog(pet)
-        this.uiService.openNotificationSnackBar('Error creando mascota', 'warn')
-      }
+
+  editPet(pet: Pet) {
+    const dialogRef = this.openPetDialog(pet)
+    dialogRef.afterClosed().subscribe((petFormValue: Pet | null) => {
+      if (!petFormValue) return
+      this.petService.updatePet(pet.id as number, petFormValue).subscribe({
+        next: petRes => {
+          this.pets = this.pets.filter(p => p.id != pet.id)
+          this.pets.push({ id: petRes.data.id, ...petRes.data.attributes })
+          this.uiService.openNotificationSnackBar('Mascota editada', 'primary')
+        },
+        error: err => {
+          this.openPetDialog(petFormValue)
+          this.uiService.openNotificationSnackBar('Error editando mascota', 'warn')
+        }
+      })
+    })
+  }
+
+  deletePet(pet: Pet) {
+    const data: ConfirmationDialogData = {
+      title: 'Eliminar Mascota',
+      message: `¿Está seguro que desea eliminar la mascota <strong>${pet.name}</strong>?`,
+      actionName: 'Eliminar',
+      actionColor: 'warn'
+    }
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, { data })
+    dialogRef.afterClosed().subscribe((resp: boolean) => {
+      console.log('resp', resp);
+      if (!resp) return
+      const petId: number = pet.id as number
+      this.petService.deletePet(petId).subscribe({
+        next: petRes => {
+          this.pets = this.pets.filter(p => p.id != pet.id)
+          this.uiService.openNotificationSnackBar('Mascota eliminada', 'primary')
+        },
+        error: err => {
+          this.uiService.openNotificationSnackBar('Error eliminando mascota', 'warn')
+        }
+      })
     })
   }
 

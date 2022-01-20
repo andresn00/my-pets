@@ -17,13 +17,13 @@ export class PetComponent implements OnInit {
   pet!: SingleResponse<Pet>
 
   options = [
-    { title: 'General', icon: 'pets' },
-    { title: 'Consulta General', icon: 'healing' },
-    { title: 'Vacunas', icon: 'vaccines' },
-    { title: 'Desparasitaciones', icon: 'medication_liquid' },
-    { title: 'Hospitalización', icon: 'local_hospital' },
-    { title: 'Peluquería', icon: 'content_cut' },
-    { title: 'Hospedaje', icon: 'house' },
+    { title: 'General', icon: 'pets', url: 'general' },
+    { title: 'Consulta General', icon: 'healing', url: 'consulta-general' },
+    { title: 'Vacunas', icon: 'vaccines', url: 'vacunas' },
+    { title: 'Desparasitaciones', icon: 'medication_liquid', url: 'desparasitaciones' },
+    { title: 'Hospitalización', icon: 'local_hospital', url: 'hospitalizacion' },
+    { title: 'Peluquería', icon: 'content_cut', url: 'peluqueria' },
+    { title: 'Hospedaje', icon: 'house', url: 'hospedaje' },
   ]
   constructor(
     private petService: PetService,
@@ -38,7 +38,7 @@ export class PetComponent implements OnInit {
   }
 
   getPet() {
-    this.petService.fetchVetById(+this.petId, '*').subscribe({
+    this.petService.fetchPetById(+this.petId, '*').subscribe({
       next: petResponse => {
         this.pet = petResponse
       },

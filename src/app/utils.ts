@@ -1,5 +1,12 @@
 import * as moment from 'moment';
 
+export interface ConfirmationDialogData {
+  title: string
+  message: string
+  actionName: string
+  actionColor?: string
+}
+
 
 export const getPetSex = (n: number) => {
   return n === 0 ? 'Hembra' : 'Macho'

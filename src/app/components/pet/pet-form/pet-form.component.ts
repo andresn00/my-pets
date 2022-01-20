@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Pet } from 'src/app/Models/Pet';
 
 interface PetFormData {
@@ -24,7 +24,8 @@ export class PetFormComponent implements OnInit {
     avatar: new FormControl(),
   })
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: PetFormData
+    @Inject(MAT_DIALOG_DATA) public data: PetFormData,
+    private dialogRef: MatDialogRef<PetFormComponent>,
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +36,11 @@ export class PetFormComponent implements OnInit {
       })
       this.petForm.markAllAsTouched()
     }
+  }
+
+  closeDialog(){
+    if (!this.petForm.valid) return
+    this.dialogRef.close(this.petForm.value)
   }
 
 }
