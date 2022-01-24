@@ -46,8 +46,8 @@ export class CustomersComponent implements OnInit {
   }
 
   private loadVetId() {
-    const currentEmployee: ListResponse<Employee> = <ListResponse<Employee>>this.storageService.getCurrentEmployee();
-    const currentVet: SingleResponse<Vet> = <SingleResponse<Vet>>currentEmployee.data[0].attributes.vet;
+    const currentEmployee: Employee = <Employee> this.storageService.getCurrentEmployee();
+    const currentVet: SingleResponse<Vet> = <SingleResponse<Vet>>currentEmployee.vet;
     this.currentVetId = currentVet?.data.id;
   }
 

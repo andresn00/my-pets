@@ -15,11 +15,11 @@ export class EmployeeService {
     private http: HttpClient
   ) { }
 
-  fetchEmployeeByUserId(userId: number): Observable<ListResponse<Employee>> {
+  fetchEmployeeByUserId(userId: number, populate?: string): Observable<ListResponse<Employee>> {
     let params: HttpParams = new HttpParams()
     params = params.appendAll({
       'filters[user][id][$eq]': userId.toString(),
-      'populate': '*'
+      'populate': `${populate || '*'}`
     })
     return this.http.get<ListResponse<Employee>>(`${this.employeesApi}`, {params})
   }

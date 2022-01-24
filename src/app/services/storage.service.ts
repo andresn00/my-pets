@@ -13,7 +13,7 @@ export class StorageService {
   private currentSessionKey: string = 'currentSession'
   private currentSession!: Session | null
   private currentEmployeeKey: string = 'currentEmployee'
-  private currentEmployee!: ListResponse<Employee> | null
+  private currentEmployee!: Employee | null
 
   public sessionChanged: Subject<any> = new Subject<any>()
 
@@ -25,7 +25,7 @@ export class StorageService {
     const sessionStr = localStorage.getItem(this.currentSessionKey)
     this.currentSession = sessionStr ? <Session> JSON.parse(sessionStr) : null
     const employeeStr = localStorage.getItem(this.currentEmployeeKey)
-    this.currentEmployee = employeeStr ? <ListResponse<Employee>> JSON.parse(employeeStr) : null
+    this.currentEmployee = employeeStr ? <Employee> JSON.parse(employeeStr) : null
    }
 
    setCurrentSession(session: Session){
@@ -34,7 +34,7 @@ export class StorageService {
      this.sessionChanged.next(true)
    }
 
-   setCurrentEmployee(employee: ListResponse<Employee>){
+   setCurrentEmployee(employee: Employee){
      this.currentEmployee = employee
      localStorage.setItem(this.currentEmployeeKey, JSON.stringify(employee))
    }
@@ -43,7 +43,7 @@ export class StorageService {
      return this.currentSession
    }
 
-   getCurrentEmployee(): ListResponse<Employee> | null {
+   getCurrentEmployee(): Employee | null {
      return this.currentEmployee
    }
 

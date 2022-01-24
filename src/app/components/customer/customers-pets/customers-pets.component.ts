@@ -49,6 +49,7 @@ export class CustomersPetsComponent implements OnInit {
       .subscribe({
         next: c => {
           this.customer = c
+          console.log('c', c);
           const pets = c.data.attributes.pets as ListResponse<Pet>
           this.pets = this.spreadPetsAttributes(pets)
           this.user = this.customer.data.attributes.user as SingleResponse<User>
@@ -69,16 +70,16 @@ export class CustomersPetsComponent implements OnInit {
 
   }
 
-  openPetDialog(pet?: Pet) {
+  openPetDialog(title: string, pet?: Pet) {
     const data = {
-      title: 'Nueva Mascota',
+      title,
       pet
     }
     const dialogRef = this.dialog.open(PetFormComponent, { data, minWidth: '50%', maxWidth: '90vw' })
     return dialogRef
   }
   addPet() {
-    const dialogRef = this.openPetDialog()
+    const dialogRef = this.openPetDialog('Nueva Mascota')
     dialogRef.afterClosed().subscribe((pet: Pet | null) => {
       if (!pet) return
       pet.customer = this.customer.data.id
@@ -88,7 +89,7 @@ export class CustomersPetsComponent implements OnInit {
           this.uiService.openNotificationSnackBar('Mascota creada', 'primary')
         },
         error: err => {
-          this.openPetDialog(pet)
+          this.openPetDialog('Nueva Mascota', pet)
           this.uiService.openNotificationSnackBar('Error creando mascota', 'warn')
         }
       })
@@ -96,7 +97,7 @@ export class CustomersPetsComponent implements OnInit {
   }
 
   editPet(pet: Pet) {
-    const dialogRef = this.openPetDialog(pet)
+    const dialogRef = this.openPetDialog('Editar Mascota', pet)
     dialogRef.afterClosed().subscribe((petFormValue: Pet | null) => {
       if (!petFormValue) return
       this.petService.updatePet(pet.id as number, petFormValue).subscribe({
@@ -106,7 +107,7 @@ export class CustomersPetsComponent implements OnInit {
           this.uiService.openNotificationSnackBar('Mascota editada', 'primary')
         },
         error: err => {
-          this.openPetDialog(petFormValue)
+          this.openPetDialog('Editar Mascota', petFormValue)
           this.uiService.openNotificationSnackBar('Error editando mascota', 'warn')
         }
       })
@@ -140,8 +141,8 @@ export class CustomersPetsComponent implements OnInit {
   validateCustomerBelongsToVet() {
     const customersVets = this.customer.data.attributes.vets as ListResponse<Vet>
     const customersVetsIds: number[] = customersVets.data.map(v => v.id)
-    const employeeLoged = this.storageService.getCurrentEmployee() as ListResponse<Employee>
-    const vet = employeeLoged.data[0].attributes.vet as SingleResponse<Vet>
+    const employeeLoged = this.storageService.getCurrentEmployee() as Employee
+    const vet = employeeLoged.vet as SingleResponse<Vet>
     if (!customersVetsIds.includes(vet.data.id)) {
       this.router.navigate(['customers']).then(() => {
         this.uiService.openNotificationSnackBar('Cliente inexistente', 'warn')

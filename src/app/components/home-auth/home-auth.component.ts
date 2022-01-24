@@ -23,7 +23,7 @@ export class HomeAuthComponent implements OnInit {
 
   currentUser!: User
   currentEmployee!: ListResponse<Employee>
-  
+
   links: Link[] = [
     { name: 'Dashboard', url: 'dashboard', icon: 'home' },
     { name: 'Clientes', url: 'customers', icon: 'person' },
@@ -52,9 +52,10 @@ export class HomeAuthComponent implements OnInit {
     const currentSession = <Session>this.storageService.getCurrentSession();
     this.currentUser = currentSession.user;
     if (this.currentUser.isEmployee) {
-      this.employeeService.fetchEmployeeByUserId(this.currentUser.id as number)
-      .subscribe((emp: ListResponse<Employee>) => {
-          this.storageService.setCurrentEmployee(emp);
+      this.employeeService.fetchEmployeeByUserId(this.currentUser.id as number, 'user,vet')
+        .subscribe((emp: ListResponse<Employee>) => {
+          const employee = { id: emp.data[0].id, ...emp.data[0].attributes}
+          this.storageService.setCurrentEmployee(employee);
           this.currentEmployee = emp
         });
     }

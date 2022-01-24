@@ -15,11 +15,11 @@ export class CustomerService {
     private http: HttpClient
   ) { }
 
-  fetchCustomerById(id: number | string): Observable<SingleResponse<Customer>> {
+  fetchCustomerById(id: number | string, populate?: string): Observable<SingleResponse<Customer>> {
     const url: string = `${this.customersApi}/${id}`
     let params = new HttpParams()
     params = params.appendAll({
-      populate: '*'
+      populate: `${populate || '*'}`
     })
     return this.http.get<SingleResponse<Customer>>(url, {params})
   }
