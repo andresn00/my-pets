@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Employee } from 'src/app/Models/Employee';
+import { ListResponse } from 'src/app/Models/RestObjects';
 import { Session } from 'src/app/Models/Session';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { EmployeeService } from 'src/app/services/collections/employee.service';
@@ -43,8 +45,13 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe({
       next: (session: Session) => {
         this.storageService.setCurrentSession(session)
-        if (session.user.isEmployee){
-          this.router.navigate(['./'])
+        if (session.user.isEmployee) {
+          this.employeeService.fetchEmployeeByUserId(session.user.id as number, 'user,vet')
+            .subscribe((emp: ListResponse<Employee>) => {
+              const employee = { id: emp.data[0].id, ...emp.data[0].attributes }
+              this.storageService.setCurrentEmployee(employee);
+              this.router.navigate(['./'])
+            });
         } else {
           // this.router.navigate(['./pets'])
         }

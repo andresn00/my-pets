@@ -40,6 +40,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es'
+registerLocaleData(localeEs)
+
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MaterialElevationDirective } from './directives/material-elevation.directive';
@@ -55,9 +59,10 @@ import { CustomersPetsComponent } from './components/customer/customers-pets/cus
 import { PetsCardComponent } from './components/pet/pets-card/pets-card.component';
 import { PetFormComponent } from './components/pet/pet-form/pet-form.component';
 import { PetComponent } from './components/pet/pet/pet.component';
-import { PetGeneralComponent } from './components/pet/pet-general/pet-general.component';
 import { ConfirmationDialogComponent } from './components/utils/confirmation-dialog/confirmation-dialog.component';
-
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { VetComponent } from './components/vet/vet.component';
+import { PetHistoryComponent } from './components/pet/pet-history/pet-history.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,8 +80,10 @@ import { ConfirmationDialogComponent } from './components/utils/confirmation-dia
     PetsCardComponent,
     PetFormComponent,
     PetComponent,
-    PetGeneralComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    CalendarComponent,
+    VetComponent,
+    PetHistoryComponent
   ],
   imports: [
     BrowserModule,

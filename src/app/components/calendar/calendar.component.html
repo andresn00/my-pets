@@ -1,0 +1,22 @@
+<div class="content-90 pt-1 pb-2">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <h1>
+      {{viewDate | calendarDate
+          : view +"ViewTitle"
+          : locale
+      }}
+    </h1>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+    <button mat-raised-button color="primary" mwlCalendarPreviousView [(viewDate)]="viewDate" [view]="view"
+      (viewDateChange)="viewDateChange.next(viewDate)">
+      Anterior
+    </button>
+    <button mat-raised-button color="primary" mwlCalendarNextView [(viewDate)]="viewDate" [view]="view"
+      (viewDateChange)="viewDateChange.next(viewDate)">
+      Siguiente
+    </button>
+  </div>
+  <mwl-calendar-month-view [viewDate]="viewDate" [events]="apptsEvents" [refresh]="refreshCalendar" [locale]="locale">
+  </mwl-calendar-month-view>
+</div>

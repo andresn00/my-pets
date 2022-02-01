@@ -1,0 +1,26 @@
+<mat-drawer-container class="drawer-container">
+    <mat-drawer #profileDrawer mode="side" opened class="side-drawer light-gray-bg">
+      <div fxLayoutAlign="end">
+        <button mat-icon-button (click)="profileDrawer.toggle()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+        <mat-nav-list>
+            <mat-list-item *ngFor="let option of options" [routerLinkActive]="['nav-list-item-active']">
+                <a matLine>
+                <!-- <a matLine [routerLink]="option.url"> -->
+                    {{ option.title }}
+                </a>
+                <mat-icon mat-list-icon>{{ option.icon }}</mat-icon>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-drawer>
+    <div>
+      <button type="button" mat-button (click)="profileDrawer.toggle()" *ngIf="!profileDrawer.opened">
+        <mat-icon>menu</mat-icon>
+        Menú
+      </button>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-container>
+  

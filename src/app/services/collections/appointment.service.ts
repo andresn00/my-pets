@@ -21,7 +21,7 @@ export class AppointmentService {
     params = params.appendAll({
       'filters[vet][id]': `${vetId}`,
       'filters[date][$gte]': `${startDate}`,
-      'filters[date][$lt]': `${endDate}`,
+      'filters[date][$lte]': `${endDate}`,
       'populate': '*'
     })
     return this.http.get<ListResponse<Appointment>>(this.appointmentsApi, { params })

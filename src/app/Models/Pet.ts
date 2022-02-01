@@ -1,5 +1,6 @@
+import { Appointment } from "./Appointment";
 import { Customer } from "./Customer";
-import { SingleResponse } from "./RestObjects";
+import { ListResponse, SingleResponse } from "./RestObjects";
 
 export interface Pet {
     id?: number
@@ -11,4 +12,5 @@ export interface Pet {
     birthday?: Date
     avatar?: string
     customer?: SingleResponse<Customer> | number | null
+    appointments?: ListResponse<Appointment> | number
 }

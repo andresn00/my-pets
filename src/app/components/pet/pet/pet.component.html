@@ -1,24 +1,48 @@
 <mat-drawer-container class="drawer-container">
-  <mat-drawer #profileDrawer mode="side" opened class="side-drawer light-gray-bg">
+  <mat-drawer #profileDrawer mode="side" opened class="pb-2 side-drawer light-gray-bg">
     <div fxLayoutAlign="end">
       <button mat-icon-button (click)="profileDrawer.toggle()">
         <mat-icon>close</mat-icon>
       </button>
     </div>
-      <mat-nav-list>
-          <mat-list-item *ngFor="let option of options" [routerLinkActive]="['nav-list-item-active']">
-              <a matLine [routerLink]="option.url">
-                  {{ option.title }}
-              </a>
-              <mat-icon mat-list-icon>{{ option.icon }}</mat-icon>
-          </mat-list-item>
-      </mat-nav-list>
+    <h1 style="text-align: center;">{{pet?.name}}</h1>
+    <mat-list>
+      <mat-list-item>Especie: {{pet?.species || 'N/A'}} </mat-list-item>
+      <mat-list-item>Raza: {{pet?.race || 'N/A'}} </mat-list-item>
+      <mat-list-item>Sexo: {{pet && getPetSex(pet.sex)}} </mat-list-item>
+      <mat-list-item>Color: {{pet?.color || 'N/A'}} </mat-list-item>
+      <mat-list-item>Edad: {{getAgeToString(getAge(pet?.birthday)) || 'N/A'}} </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+    <h2 class="mt-1" style="text-align: center;">Dueño</h2>
+    <mat-list>
+      <mat-list-item>Nombre: {{customer?.name || 'N/A'}} </mat-list-item>
+      <mat-list-item>CI: {{customer?.ci || 'N/A'}} </mat-list-item>
+      <mat-list-item>Teléfono: {{customer?.phone || 'N/A'}} </mat-list-item>
+      <mat-list-item>Dirección: {{customer?.address || 'N/A'}} </mat-list-item>
+    </mat-list>
+
   </mat-drawer>
-  <div>
-    <button type="button" mat-button (click)="profileDrawer.toggle()" *ngIf="!profileDrawer.opened">
-      <mat-icon>menu</mat-icon>
-      Menú
-    </button>
-    <router-outlet></router-outlet>
+  <button mat-button (click)="profileDrawer.toggle()" *ngIf="!profileDrawer.opened">
+    <mat-icon>menu</mat-icon>
+    Menú
+  </button>
+  
+  <div class="content-90 pt-1 pb-2">
+    <h1>Citas Pendientes</h1>
+    <mat-list>
+      <mat-list-item *ngFor="let appt of appts">{{convertDateFormat(appt.date, '', 'DD-MM-YYYY hh:mm A')}}</mat-list-item>
+    </mat-list>
+    <h1>Acciones</h1>
+    <div fxLayout="row wrap" fxLayoutAlign="space-evenly">
+      <mat-card class="action-card mb-1" appMaterialElevation [canSelect]="true"
+      *ngFor="let action of actions" (click)="action.click()">
+        <div fxLayout="column" fxLayoutAlign="center center" 
+        [style.background-color]="action.bgColor" [style.color]="action.color">
+          <mat-icon class="icon-2x mt-1 mb-1">{{action.icon}}</mat-icon>
+          <h4 class="text-center">{{action.title}}</h4>
+        </div>
+      </mat-card>
+    </div>
   </div>
 </mat-drawer-container>

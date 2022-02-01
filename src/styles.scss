@@ -83,6 +83,16 @@ body {
 .mb-2 {
   margin-bottom: 2rem !important;
 }
+.mb-1 {
+  margin-bottom: 1rem !important;
+}
+
+.mt-1-5 {
+  margin-top: 1.5rem !important;
+}
+.mt-1 {
+  margin-top: 1rem !important;
+}
 
 .pb-2 {
   padding-bottom: 2rem !important;
@@ -90,10 +100,6 @@ body {
 
 .pt-1 {
   padding-top: 1rem !important;
-}
-
-.mt-1-5 {
-  margin-top: 1.5rem !important;
 }
 
 .width-100 {
@@ -108,6 +114,14 @@ body {
   transform: scale(4);
 }
 
+.icon-2x {
+  transform: scale(2);
+}
+
 .nav-list-item-active {
   background-color: mat.get-color-from-palette($my-pets-accent, lighter) !important;
+}
+
+.text-center {
+  text-align: center;
 }

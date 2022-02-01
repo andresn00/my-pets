@@ -1,5 +1,5 @@
 .drawer-container {
-    height: calc(100vh - 114px);
+    height: calc(100% - 114px);
     width: 100%;
 }
 .side-drawer {
@@ -9,4 +9,13 @@
 
 .is-active {
     background-color: red;
+}
+
+.action-card {
+    width: 130px;
+    height: 130px;
+    padding: 0;
+}
+.action-card div {
+    height: 100%;
 }

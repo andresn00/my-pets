@@ -1,0 +1,12 @@
+.drawer-container {
+    height: calc(100vh - 114px);
+    width: 100%;
+}
+.side-drawer {
+    width: 325px;
+    max-width: 90%;
+}
+
+.is-active {
+    background-color: red;
+}
