@@ -44,25 +44,25 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es'
 registerLocaleData(localeEs)
 
-import { LoginComponent } from './components/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LoginComponent } from './pages/login/login.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MaterialElevationDirective } from './directives/material-elevation.directive';
-import { SignupVetComponent } from './components/signup/signup-vet/signup-vet.component';
-import { SignupOwnerComponent } from './components/signup/signup-owner/signup-owner.component';
-import { SignupOptionsComponent } from './components/signup/signup-options/signup-options.component';
-import { HomeAuthComponent } from './components/home-auth/home-auth.component';
-import { CustomersComponent } from './components/customer/customers/customers.component'
+import { SignupVetComponent } from './pages/signup-vet/signup-vet.component';
+import { SignupOwnerComponent } from './pages/signup-owner/signup-owner.component';
+import { SignupOptionsComponent } from './pages/signup-options/signup-options.component';
+import { HomeAuthComponent } from './pages/home-auth/home-auth.component';
+import { CustomersComponent } from './pages/customer/customers/customers.component'
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { SignupOwnerFormComponent } from './components/signup/signup-owner-form/signup-owner-form.component';
 import { SignupOwnerDialogComponent } from './components/signup/signup-owner-dialog/signup-owner-dialog.component';
-import { CustomersPetsComponent } from './components/customer/customers-pets/customers-pets.component';
+import { CustomersPetsComponent } from './pages/customer/customers-pets/customers-pets.component';
 import { PetsCardComponent } from './components/pet/pets-card/pets-card.component';
 import { PetFormComponent } from './components/pet/pet-form/pet-form.component';
-import { PetComponent } from './components/pet/pet/pet.component';
+import { PetComponent } from './pages/pet/pet/pet.component';
 import { ConfirmationDialogComponent } from './components/utils/confirmation-dialog/confirmation-dialog.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
-import { VetComponent } from './components/vet/vet.component';
-import { PetHistoryComponent } from './components/pet/pet-history/pet-history.component';
+import { VetComponent } from './pages/vet/vet.component';
+import { PetHistoryComponent } from './pages/pet/pet-history/pet-history.component';
 @NgModule({
   declarations: [
     AppComponent,

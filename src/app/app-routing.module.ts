@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { HomeAuthComponent } from './components/home-auth/home-auth.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignupOptionsComponent } from './components/signup/signup-options/signup-options.component';
-import { SignupOwnerComponent } from './components/signup/signup-owner/signup-owner.component';
-import { SignupVetComponent } from './components/signup/signup-vet/signup-vet.component';
-import { CustomersComponent } from './components/customer/customers/customers.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { HomeAuthComponent } from './pages/home-auth/home-auth.component';
+import { LoginComponent } from './pages/login/login.component';
+import { SignupOptionsComponent } from './pages/signup-options/signup-options.component';
+import { SignupOwnerComponent } from './pages/signup-owner/signup-owner.component';
+import { SignupVetComponent } from './pages/signup-vet/signup-vet.component';
+import { CustomersComponent } from './pages/customer/customers/customers.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UnauthGuard } from './guards/unauth.guard';
-import { CustomersPetsComponent } from './components/customer/customers-pets/customers-pets.component';
-import { PetComponent } from './components/pet/pet/pet.component';
-import { VetComponent } from './components/vet/vet.component';
+import { CustomersPetsComponent } from './pages/customer/customers-pets/customers-pets.component';
+import { PetComponent } from './pages/pet/pet/pet.component';
+import { VetComponent } from './pages/vet/vet.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
-import { PetHistoryComponent } from './components/pet/pet-history/pet-history.component';
+import { PetHistoryComponent } from './pages/pet/pet-history/pet-history.component';
 
 const routes: Routes = [
   { path: 'login', canActivate: [UnauthGuard], component: LoginComponent },

@@ -14,8 +14,8 @@ import { PetService } from 'src/app/services/collections/pet.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UiService } from 'src/app/services/ui.service';
 import { ConfirmationDialogData } from 'src/app/utils';
-import { PetFormComponent } from '../../pet/pet-form/pet-form.component';
-import { ConfirmationDialogComponent } from '../../utils/confirmation-dialog/confirmation-dialog.component';
+import { PetFormComponent } from '../../../components/pet/pet-form/pet-form.component';
+import { ConfirmationDialogComponent } from '../../../components/utils/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-customers-pets',
