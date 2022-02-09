@@ -4,8 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Customer } from 'src/app/Models/Customer';
 import { Session } from 'src/app/Models/Session';
 import { User } from 'src/app/Models/User';
-import { SignupService } from 'src/app/services/signup.service';
-import { UiService } from 'src/app/services/ui.service';
+import { SignupService } from 'src/app/services/auth/signup.service';
+import { UiService } from 'src/app/services/ui/ui.service';
 
 @Component({
   selector: 'app-signup-owner-form',

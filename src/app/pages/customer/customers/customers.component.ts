@@ -8,8 +8,8 @@ import { Employee } from 'src/app/Models/Employee';
 import { ListResponse, SingleResponse } from 'src/app/Models/RestObjects';
 import { Vet } from 'src/app/Models/Vet';
 import { VetService } from 'src/app/services/collections/vet.service';
-import { StorageService } from 'src/app/services/storage.service';
-import { UiService } from 'src/app/services/ui.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
+import { UiService } from 'src/app/services/ui/ui.service';
 import { SignupOwnerDialogComponent } from '../../../components/signup/signup-owner-dialog/signup-owner-dialog.component';
 
 @Component({

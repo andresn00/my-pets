@@ -1,1 +1,10 @@
-<p>pet-actions works!</p>
+<div fxLayout="row wrap" fxLayoutAlign="space-evenly">
+    <mat-card class="action-card mb-1" appMaterialElevation [canSelect]="true" *ngFor="let action of actions"
+      (click)="action.click()">
+      <div fxLayout="column" fxLayoutAlign="center center" [style.background-color]="action.bgColor"
+        [style.color]="action.color">
+        <mat-icon class="icon-2x mt-1 mb-1">{{action.icon}}</mat-icon>
+        <h4 class="text-center">{{action.title}}</h4>
+      </div>
+    </mat-card>
+  </div>

@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 import { Employee } from 'src/app/Models/Employee';
 import { ListResponse } from 'src/app/Models/RestObjects';
 import { Session } from 'src/app/Models/Session';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService } from 'src/app/services/auth/authentication.service';
 import { EmployeeService } from 'src/app/services/collections/employee.service';
-import { StorageService } from 'src/app/services/storage.service';
-import { UiService } from 'src/app/services/ui.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
+import { UiService } from 'src/app/services/ui/ui.service';
 
 @Component({
   selector: 'app-login',

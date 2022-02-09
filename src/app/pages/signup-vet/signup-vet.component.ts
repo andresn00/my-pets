@@ -6,9 +6,9 @@ import { SingleResponse } from 'src/app/Models/RestObjects';
 import { Session } from 'src/app/Models/Session';
 import { User } from 'src/app/Models/User';
 import { Vet } from 'src/app/Models/Vet';
-import { SignupService } from 'src/app/services/signup.service';
-import { StorageService } from 'src/app/services/storage.service';
-import { UiService } from 'src/app/services/ui.service';
+import { SignupService } from 'src/app/services/auth/signup.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
+import { UiService } from 'src/app/services/ui/ui.service';
 
 @Component({
   selector: 'app-signup-vet',

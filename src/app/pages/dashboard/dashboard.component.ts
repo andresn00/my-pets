@@ -3,8 +3,8 @@ import { Employee } from 'src/app/Models/Employee';
 import { ListResponse, SingleResponse } from 'src/app/Models/RestObjects';
 import { Session } from 'src/app/Models/Session';
 import { EmployeeService } from 'src/app/services/collections/employee.service';
-import { StorageService } from 'src/app/services/storage.service';
-import { UiService } from 'src/app/services/ui.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
+import { UiService } from 'src/app/services/ui/ui.service';
 import * as moment from 'moment'
 import { AppointmentService } from 'src/app/services/collections/appointment.service';
 import { Vet } from 'src/app/Models/Vet';

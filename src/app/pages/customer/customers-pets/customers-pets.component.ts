@@ -11,8 +11,8 @@ import { User } from 'src/app/Models/User';
 import { Vet } from 'src/app/Models/Vet';
 import { CustomerService } from 'src/app/services/collections/customer.service';
 import { PetService } from 'src/app/services/collections/pet.service';
-import { StorageService } from 'src/app/services/storage.service';
-import { UiService } from 'src/app/services/ui.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
+import { UiService } from 'src/app/services/ui/ui.service';
 import { ConfirmationDialogData } from 'src/app/utils';
 import { PetFormComponent } from '../../../components/pet/pet-form/pet-form.component';
 import { ConfirmationDialogComponent } from '../../../components/utils/confirmation-dialog/confirmation-dialog.component';
@@ -49,7 +49,6 @@ export class CustomersPetsComponent implements OnInit {
       .subscribe({
         next: c => {
           this.customer = c
-          console.log('c', c);
           const pets = c.data.attributes.pets as ListResponse<Pet>
           this.pets = this.spreadPetsAttributes(pets)
           this.user = this.customer.data.attributes.user as SingleResponse<User>

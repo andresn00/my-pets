@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../Models/User';
-import { Vet } from '../Models/Vet';
+import { User } from '../../Models/User';
+import { Vet } from '../../Models/Vet';
 import { environment } from 'src/app/environment'
-import { StorageService } from './storage.service';
-import { Employee } from '../Models/Employee';
+import { StorageService } from '../storage/storage.service';
+import { Employee } from '../../Models/Employee';
 import { Observable } from 'rxjs';
-import { RestBody, SingleResponse } from '../Models/RestObjects';
-import { Customer } from '../Models/Customer';
+import { RestBody, SingleResponse } from '../../Models/RestObjects';
+import { Customer } from '../../Models/Customer';
 
 @Injectable({
   providedIn: 'root'

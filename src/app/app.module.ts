@@ -52,7 +52,7 @@ import { SignupOwnerComponent } from './pages/signup-owner/signup-owner.componen
 import { SignupOptionsComponent } from './pages/signup-options/signup-options.component';
 import { HomeAuthComponent } from './pages/home-auth/home-auth.component';
 import { CustomersComponent } from './pages/customer/customers/customers.component'
-import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
 import { SignupOwnerFormComponent } from './components/signup/signup-owner-form/signup-owner-form.component';
 import { SignupOwnerDialogComponent } from './components/signup/signup-owner-dialog/signup-owner-dialog.component';
 import { CustomersPetsComponent } from './pages/customer/customers-pets/customers-pets.component';
@@ -64,6 +64,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { VetComponent } from './pages/vet/vet.component';
 import { PetHistoryComponent } from './pages/pet/pet-history/pet-history.component';
 import { PetActionsComponent } from './components/pet/pet-actions/pet-actions.component';
+import { PetPendingApptsTableComponent } from './components/pet/pet-pending-appts-table/pet-pending-appts-table.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,7 +86,8 @@ import { PetActionsComponent } from './components/pet/pet-actions/pet-actions.co
     CalendarComponent,
     VetComponent,
     PetHistoryComponent,
-    PetActionsComponent
+    PetActionsComponent,
+    PetPendingApptsTableComponent
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,7 @@ import { Pet } from 'src/app/Models/Pet';
 import { ListResponse, SingleResponse } from 'src/app/Models/RestObjects';
 import { Vet } from 'src/app/Models/Vet';
 import { AppointmentService } from 'src/app/services/collections/appointment.service';
-import { StorageService } from 'src/app/services/storage.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
   selector: 'app-calendar',

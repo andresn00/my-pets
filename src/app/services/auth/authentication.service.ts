@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from 'src/app/environment'
 import { Observable } from 'rxjs';
-import { Session } from '../Models/Session';
+import { Session } from 'src/app/Models/Session'
 
 interface LoginObject {
   identifier: string,
