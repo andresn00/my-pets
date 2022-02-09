@@ -10,6 +10,7 @@ import { AppointmentService } from 'src/app/services/collections/appointment.ser
 import { Vet } from 'src/app/Models/Vet';
 import { Appointment } from 'src/app/Models/Appointment';
 import { CalendarEvent } from 'angular-calendar';
+import { Pet } from 'src/app/Models/Pet';
 
 interface Card {
   title: string
@@ -56,7 +57,7 @@ export class DashboardComponent implements OnInit {
       this.todaysAppts = todaysAppts
       this.todaysEvents = todaysAppts.data.map(a => {
         const title = `${moment(a.attributes.date).format('hh:mm a')} | 
-        ${a.attributes.pet.data.attributes.name}, 
+        ${(a.attributes.pet as SingleResponse<Pet>).data.attributes.name}, 
         ${a.attributes.description}`
         const event: CalendarEvent = {
           id: a.id,

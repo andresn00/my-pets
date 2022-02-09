@@ -63,6 +63,7 @@ import { ConfirmationDialogComponent } from './components/utils/confirmation-dia
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { VetComponent } from './pages/vet/vet.component';
 import { PetHistoryComponent } from './pages/pet/pet-history/pet-history.component';
+import { PetActionsComponent } from './components/pet/pet-actions/pet-actions.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,7 +84,8 @@ import { PetHistoryComponent } from './pages/pet/pet-history/pet-history.compone
     ConfirmationDialogComponent,
     CalendarComponent,
     VetComponent,
-    PetHistoryComponent
+    PetHistoryComponent,
+    PetActionsComponent
   ],
   imports: [
     BrowserModule,

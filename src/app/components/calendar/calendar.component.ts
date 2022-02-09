@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
+import { MonthViewDay } from 'calendar-utils';
 import * as moment from 'moment';
 import { Observable, Subject, Subscriber, Subscription } from 'rxjs';
 import { Appointment } from 'src/app/Models/Appointment';
 import { Employee } from 'src/app/Models/Employee';
+import { Pet } from 'src/app/Models/Pet';
 import { ListResponse, SingleResponse } from 'src/app/Models/RestObjects';
 import { Vet } from 'src/app/Models/Vet';
 import { AppointmentService } from 'src/app/services/collections/appointment.service';
@@ -26,10 +29,12 @@ export class CalendarComponent implements OnInit {
   locale: string = 'es'
   viewDateChange: Subject<Date> = new Subject()
   refreshCalendar: Subject<boolean> = new Subject()
+  activeDayIsOpen: boolean = false
 
   constructor(
     private apptService: AppointmentService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -109,7 +114,7 @@ export class CalendarComponent implements OnInit {
   
   private getEventFromAppt(a: { id: number; attributes: Appointment; }) {
     const title = `${moment(a.attributes.date).format('hh:mm a')} | 
-          ${a.attributes.pet.data.attributes.name}, 
+          ${(a.attributes.pet as SingleResponse<Pet>).data.attributes.name}, 
           ${a.attributes.description}`;
     const event: CalendarEvent<Appointment> = {
       id: a.id,
@@ -120,5 +125,27 @@ export class CalendarComponent implements OnInit {
     return event;
   }
 
+  dayClicked(day: MonthViewDay){
+    console.log('day', day);
+    this.viewDate = day.date
+    if (!day.inMonth){
+      this.viewDateChange.next(this.viewDate)
+    }
+    if (this.activeDayIsOpen){
+      this.activeDayIsOpen = false
+      return
+    }
+    const events = day.events
+    if (events.length !== 0){
+      this.activeDayIsOpen = true
+    }
+  }
+
+  eventClicked(event: CalendarEvent<Appointment>){
+    console.log('event', event);
+    const appt = event.meta
+    const pet = appt?.pet as SingleResponse<Pet>
+    this.router.navigate(['pet', pet.data.id])
+  }
 
 }

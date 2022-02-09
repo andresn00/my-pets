@@ -16,13 +16,8 @@ export class PetService {
   ) { }
 
   
-  fetchPetById(petId: number, populate?: string): Observable<SingleResponse<Pet>>{
+  fetchPetById(petId: number, params: HttpParams = new HttpParams()): Observable<SingleResponse<Pet>>{
     const url = `${this.petsApi}/${petId}`
-    let params: HttpParams = new HttpParams()
-    params = params.appendAll({
-      'populate': `${populate || ''}`
-    })
-    
     return this.http.get<SingleResponse<Pet>>(url, {params})
   }
   

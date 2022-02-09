@@ -125,3 +125,7 @@ body {
 .text-center {
   text-align: center;
 }
+
+.primary-bg {
+  background-color: mat.get-color-from-palette($my-pets-primary) !important;
+}

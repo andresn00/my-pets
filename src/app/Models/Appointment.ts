@@ -1,5 +1,6 @@
+import { Employee } from "./Employee";
 import { Pet } from "./Pet";
-import { SingleResponse } from "./RestObjects";
+import { ListResponse, SingleResponse } from "./RestObjects";
 import { Vet } from "./Vet";
 
 export interface Appointment {
@@ -7,7 +8,8 @@ export interface Appointment {
     description: string
     date: Date | string
     status: string
-    pet: SingleResponse<Pet>
-    vet: SingleResponse<Vet>
+    pet: SingleResponse<Pet> | number
+    vet: SingleResponse<Vet> | number
+    employees: ListResponse<Employee> | number[]
     [x: string]: any
 }
