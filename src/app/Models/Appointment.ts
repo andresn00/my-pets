@@ -6,7 +6,7 @@ import { Vet } from "./Vet";
 export interface Appointment {
     id?: number
     description: string
-    date: Date | string
+    datetime: string
     status: string
     pet: SingleResponse<Pet> | number
     vet: SingleResponse<Vet> | number

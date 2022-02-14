@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HomeAuthComponent } from './pages/home-auth/home-auth.component';
 import { LoginComponent } from './pages/login/login.component';
-import { SignupOptionsComponent } from './pages/signup-options/signup-options.component';
-import { SignupOwnerComponent } from './pages/signup-owner/signup-owner.component';
-import { SignupVetComponent } from './pages/signup-vet/signup-vet.component';
+import { SignupOptionsComponent } from './pages/signup/signup-options/signup-options.component';
+import { SignupOwnerComponent } from './pages/signup/signup-owner/signup-owner.component';
+import { SignupVetComponent } from './pages/signup/signup-vet/signup-vet.component';
 import { CustomersComponent } from './pages/customer/customers/customers.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UnauthGuard } from './guards/unauth.guard';
@@ -14,6 +14,7 @@ import { PetComponent } from './pages/pet/pet/pet.component';
 import { VetComponent } from './pages/vet/vet.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { PetHistoryComponent } from './pages/pet/pet-history/pet-history.component';
+import { CalendarHomeComponent } from './pages/calendar/calendar-home/calendar-home.component';
 
 const routes: Routes = [
   { path: 'login', canActivate: [UnauthGuard], component: LoginComponent },
@@ -44,7 +45,7 @@ const routes: Routes = [
         ]
       },
       { path: 'vet', component: VetComponent },
-      { path: 'calendar', component: CalendarComponent },
+      { path: 'calendar', component: CalendarHomeComponent },
       { path: '**', redirectTo: 'dashboard' },
     ]
   },

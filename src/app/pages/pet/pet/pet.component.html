@@ -1,12 +1,12 @@
 <mat-drawer-container class="drawer-container">
-  <mat-drawer #profileDrawer mode="side" opened class="side-drawer">
+  <mat-drawer #profileDrawer mode="side" opened class="side-drawer bg-alternate">
     <div class="pb-2">
       <div fxLayoutAlign="end">
         <button mat-icon-button (click)="profileDrawer.toggle()">
           <mat-icon>close</mat-icon>
         </button>
       </div>
-      <h1 style="text-align: center;">{{pet?.name}}</h1>
+      <h1 class="text-center">{{pet?.name}}</h1>
       <mat-list>
         <mat-list-item>Especie: {{pet?.species || 'N/A'}} </mat-list-item>
         <mat-list-item>Raza: {{pet?.race || 'N/A'}} </mat-list-item>
@@ -15,7 +15,7 @@
         <mat-list-item>Edad: {{getAgeToString(getAge(pet?.birthday)) || 'N/A'}} </mat-list-item>
         <mat-divider></mat-divider>
       </mat-list>
-      <h2 class="mt-1" style="text-align: center;">Dueño</h2>
+      <h2 class="mt-1" class="text-center">Dueño</h2>
       <mat-list>
         <mat-list-item>Nombre: {{customer?.name || 'N/A'}} </mat-list-item>
         <mat-list-item>CI: {{customer?.ci || 'N/A'}} </mat-list-item>
@@ -31,7 +31,7 @@
       Menú
     </button>
     <div class="content-90 pt-1 pb-2">
-      <app-pet-actions></app-pet-actions>
+      <app-pet-actions [petId]="pet?.id" (apptCreated)="addNewPendingAppt($event)"></app-pet-actions>
 
       <h1>Próximas Citas</h1>
       <app-pet-pending-appts-table [pendingAppts]="pendingAppts"></app-pet-pending-appts-table>

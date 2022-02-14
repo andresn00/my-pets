@@ -7,6 +7,11 @@ export interface ConfirmationDialogData {
   actionColor?: string
 }
 
+export interface FormDialogData<T = any> {
+  title: string
+  formData?: T
+}
+
 
 export const getPetSex = (n: number) => {
   return n === 0 ? 'Hembra' : 'Macho'

@@ -14,6 +14,8 @@ export class StorageService {
   private currentSession!: Session | null
   private currentEmployeeKey: string = 'currentEmployee'
   private currentEmployee!: Employee | null
+  private currentVetIdKey: string = 'currentVetId'
+  private currentVetId!: number | null
 
   public sessionChanged: Subject<any> = new Subject<any>()
 
@@ -26,6 +28,8 @@ export class StorageService {
     this.currentSession = sessionStr ? <Session> JSON.parse(sessionStr) : null
     const employeeStr = localStorage.getItem(this.currentEmployeeKey)
     this.currentEmployee = employeeStr ? <Employee> JSON.parse(employeeStr) : null
+    const vetIdStr = localStorage.getItem(this.currentVetIdKey)
+    this.currentVetId = vetIdStr ? <number> +vetIdStr : null
    }
 
    setCurrentSession(session: Session){
@@ -38,6 +42,10 @@ export class StorageService {
      this.currentEmployee = employee
      localStorage.setItem(this.currentEmployeeKey, JSON.stringify(employee))
    }
+   setCurrentVetId(vetId: number){
+     this.currentVetId = vetId
+     localStorage.setItem(this.currentVetIdKey, vetId.toString())
+   }
 
    getCurrentSession(): Session | null {
      return this.currentSession
@@ -47,16 +55,25 @@ export class StorageService {
      return this.currentEmployee
    }
 
+   getCurrentVetId(): number | null {
+     return this.currentVetId
+   }
+
    removeCurrentSession(): void {
      localStorage.removeItem(this.currentSessionKey)
      this.currentSession = null
      this.removeCurrentEmployee()
+     this.removeCurrentVetId()
      this.sessionChanged.next(true)
    }
 
    removeCurrentEmployee(): void {
      localStorage.removeItem(this.currentEmployeeKey)
      this.currentEmployee = null
+   }
+   removeCurrentVetId(): void {
+     localStorage.removeItem(this.currentVetIdKey)
+     this.currentVetId = null
    }
 
    isAuthenticated(): boolean {

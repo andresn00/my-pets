@@ -2,11 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Pet } from 'src/app/Models/Pet';
+import { FormDialogData } from 'src/app/utils';
 
-interface PetFormData {
-  title: string
-  pet?: Pet
-}
 @Component({
   selector: 'app-pet-form',
   templateUrl: './pet-form.component.html',
@@ -24,15 +21,16 @@ export class PetFormComponent implements OnInit {
     avatar: new FormControl(),
   })
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: PetFormData,
+    @Inject(MAT_DIALOG_DATA) public data: FormDialogData<Pet>,
     private dialogRef: MatDialogRef<PetFormComponent>,
   ) { }
 
   ngOnInit(): void {
     console.log(`this.data`, this.data)
-    if(this.data.pet){
+    const pet = this.data.formData
+    if(pet){
       this.petForm.patchValue({
-        ...this.data.pet
+        ...pet
       })
       this.petForm.markAllAsTouched()
     }

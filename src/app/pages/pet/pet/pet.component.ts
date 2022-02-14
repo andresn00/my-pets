@@ -72,5 +72,9 @@ export class PetComponent implements OnInit {
     })
   }
 
+  addNewPendingAppt(appt: Appointment){
+    console.log('addNewPA')
+    this.pendingAppts = [...this.pendingAppts, appt]
+  }
 
 }

@@ -39,6 +39,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es'
@@ -47,9 +49,9 @@ registerLocaleData(localeEs)
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MaterialElevationDirective } from './directives/material-elevation.directive';
-import { SignupVetComponent } from './pages/signup-vet/signup-vet.component';
-import { SignupOwnerComponent } from './pages/signup-owner/signup-owner.component';
-import { SignupOptionsComponent } from './pages/signup-options/signup-options.component';
+import { SignupVetComponent } from './pages/signup/signup-vet/signup-vet.component';
+import { SignupOwnerComponent } from './pages/signup/signup-owner/signup-owner.component';
+import { SignupOptionsComponent } from './pages/signup/signup-options/signup-options.component';
 import { HomeAuthComponent } from './pages/home-auth/home-auth.component';
 import { CustomersComponent } from './pages/customer/customers/customers.component'
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
@@ -65,6 +67,8 @@ import { VetComponent } from './pages/vet/vet.component';
 import { PetHistoryComponent } from './pages/pet/pet-history/pet-history.component';
 import { PetActionsComponent } from './components/pet/pet-actions/pet-actions.component';
 import { PetPendingApptsTableComponent } from './components/pet/pet-pending-appts-table/pet-pending-appts-table.component';
+import { AppointmentDialogComponent } from './components/petActions/appointment-dialog/appointment-dialog.component';
+import { CalendarHomeComponent } from './pages/calendar/calendar-home/calendar-home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,7 +91,9 @@ import { PetPendingApptsTableComponent } from './components/pet/pet-pending-appt
     VetComponent,
     PetHistoryComponent,
     PetActionsComponent,
-    PetPendingApptsTableComponent
+    PetPendingApptsTableComponent,
+    AppointmentDialogComponent,
+    CalendarHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -124,6 +130,8 @@ import { PetPendingApptsTableComponent } from './components/pet/pet-pending-appt
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTooltipModule,
+    NgxMaterialTimepickerModule,
   ],
   providers: [ 
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }

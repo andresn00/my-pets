@@ -3,8 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Employee } from 'src/app/Models/Employee';
-import { ListResponse } from 'src/app/Models/RestObjects';
+import { ListResponse, SingleResponse } from 'src/app/Models/RestObjects';
 import { Session } from 'src/app/Models/Session';
+import { Vet } from 'src/app/Models/Vet';
 import { AuthenticationService } from 'src/app/services/auth/authentication.service';
 import { EmployeeService } from 'src/app/services/collections/employee.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
@@ -50,6 +51,8 @@ export class LoginComponent implements OnInit {
             .subscribe((emp: ListResponse<Employee>) => {
               const employee = { id: emp.data[0].id, ...emp.data[0].attributes }
               this.storageService.setCurrentEmployee(employee);
+              const vetId = (employee.vet as SingleResponse<Vet>).data.id
+              this.storageService.setCurrentVetId(vetId);
               this.router.navigate(['./'])
             });
         } else {

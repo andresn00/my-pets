@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
 import { MonthViewDay } from 'calendar-utils';
@@ -18,12 +18,16 @@ import { StorageService } from 'src/app/services/storage/storage.service';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
+  @Input() canAddApptInDay: boolean = false
+  @Output() eventClicked = new EventEmitter<CalendarEvent<Appointment>>()
+  @Output() daySelected = new EventEmitter<MonthViewDay>()
 
   currentVetId!: number
   apptsEvents: CalendarEvent[] = []
   apptsStartMoment!: moment.Moment
   apptsEndMoment!: moment.Moment
 
+  //* Calendar
   viewDate = moment().startOf('day').toDate()
   view: CalendarView = CalendarView.Month
   locale: string = 'es'
@@ -50,7 +54,7 @@ export class CalendarComponent implements OnInit {
 
   getApptsInRange(startDate: string, endDate: string): Observable<ListResponse<Appointment>> {
     console.log('fetched');
-    return this.apptService.fetchAppointmentsFromVetInRange(
+    return this.apptService.fetchPendingApptsFromVetInRange(
       this.currentVetId, startDate, endDate
     )
   }
@@ -72,6 +76,7 @@ export class CalendarComponent implements OnInit {
 
   subscribeViewDateChange() {
     this.viewDateChange.subscribe(vd => {
+      this.activeDayIsOpen = false
       const vdMoment = moment(vd)
       if (vdMoment.isBefore(this.apptsStartMoment)) {
         this.addEventsBefore(vdMoment);
@@ -113,39 +118,37 @@ export class CalendarComponent implements OnInit {
   }
   
   private getEventFromAppt(a: { id: number; attributes: Appointment; }) {
-    const title = `${moment(a.attributes.date).format('hh:mm a')} | 
+    const title = `${moment(a.attributes.datetime).format('hh:mm a')} | 
           ${(a.attributes.pet as SingleResponse<Pet>).data.attributes.name}, 
           ${a.attributes.description}`;
     const event: CalendarEvent<Appointment> = {
       id: a.id,
       title,
-      start: moment(a.attributes.date).toDate(),
+      start: moment(a.attributes.datetime).toDate(),
       meta: a.attributes
     };
     return event;
   }
 
   dayClicked(day: MonthViewDay){
-    console.log('day', day);
+    this.daySelected.emit(day)
+    if (this.activeDayIsOpen && moment(this.viewDate).isSame(moment(day.date))){
+      this.activeDayIsOpen = false
+      return
+    }
     this.viewDate = day.date
     if (!day.inMonth){
       this.viewDateChange.next(this.viewDate)
     }
-    if (this.activeDayIsOpen){
-      this.activeDayIsOpen = false
-      return
-    }
     const events = day.events
     if (events.length !== 0){
       this.activeDayIsOpen = true
+      return
     }
+    this.activeDayIsOpen = true
   }
 
-  eventClicked(event: CalendarEvent<Appointment>){
-    console.log('event', event);
-    const appt = event.meta
-    const pet = appt?.pet as SingleResponse<Pet>
-    this.router.navigate(['pet', pet.data.id])
+  onEventClicked(event: CalendarEvent<Appointment>){
+    this.eventClicked.emit(event)
   }
-
 }
