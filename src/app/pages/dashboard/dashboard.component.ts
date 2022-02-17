@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
   ]
 
   employeeLoged!: Employee
-  todaysAppts!: ListResponse<Appointment>
+  todaysAppts!: Appointment[]
   todaysEvents: CalendarEvent[] = []
 
   constructor(
@@ -55,14 +55,14 @@ export class DashboardComponent implements OnInit {
     const tomorrow = moment().endOf('day').toISOString()
     this.appointmentService.fetchPendingApptsFromVetInRange(vetId, today, tomorrow).subscribe(todaysAppts => {
       this.todaysAppts = todaysAppts
-      this.todaysEvents = todaysAppts.data.map(a => {
-        const title = `${moment(a.attributes.datetime).format('hh:mm a')} | 
-        ${(a.attributes.pet as SingleResponse<Pet>).data.attributes.name}, 
-        ${a.attributes.description}`
+      this.todaysEvents = todaysAppts.map(a => {
+        const title = `${moment(a.datetime).format('hh:mm a')} | 
+        ${(a.pet as SingleResponse<Pet>).data.attributes.name}, 
+        ${a.description}`
         const event: CalendarEvent = {
           id: a.id,
           title,
-          start: moment(a.attributes.datetime).toDate()
+          start: moment(a.datetime).toDate()
         }
         return event
       })

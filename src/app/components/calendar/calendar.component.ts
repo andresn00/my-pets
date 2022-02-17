@@ -52,7 +52,7 @@ export class CalendarComponent implements OnInit {
     this.currentVetId = vet.data.id
   }
 
-  getApptsInRange(startDate: string, endDate: string): Observable<ListResponse<Appointment>> {
+  getApptsInRange(startDate: string, endDate: string): Observable<Appointment[]> {
     console.log('fetched');
     return this.apptService.fetchPendingApptsFromVetInRange(
       this.currentVetId, startDate, endDate
@@ -67,7 +67,7 @@ export class CalendarComponent implements OnInit {
       this.apptsEndMoment.toISOString()
     )
       .subscribe(appts => {
-        this.apptsEvents = appts.data.map(a => {
+        this.apptsEvents = appts.map(a => {
           return this.getEventFromAppt(a);
         })
         console.log('appts', appts);
@@ -94,7 +94,7 @@ export class CalendarComponent implements OnInit {
     const endMom = moment(vdMoment).endOf('month');
     this.apptsStartMoment = startMom;
     this.getApptsInRange(startMom.toISOString(), endMom.toISOString()).subscribe(appts => {
-      const events = appts.data.map(a => {
+      const events = appts.map(a => {
         return this.getEventFromAppt(a);
       });
       console.log('events', events);
@@ -108,7 +108,7 @@ export class CalendarComponent implements OnInit {
     const endMom = moment(vdMoment).endOf('month');
     this.apptsEndMoment = endMom;
     this.getApptsInRange(startMom.toISOString(), endMom.toISOString()).subscribe(appts => {
-      const events = appts.data.map(a => {
+      const events = appts.map(a => {
         return this.getEventFromAppt(a);
       });
       console.log('events', events);
@@ -117,15 +117,15 @@ export class CalendarComponent implements OnInit {
     });
   }
   
-  private getEventFromAppt(a: { id: number; attributes: Appointment; }) {
-    const title = `${moment(a.attributes.datetime).format('hh:mm a')} | 
-          ${(a.attributes.pet as SingleResponse<Pet>).data.attributes.name}, 
-          ${a.attributes.description}`;
+  private getEventFromAppt(a: Appointment) {
+    const title = `${moment(a.datetime).format('hh:mm a')} | 
+          ${(a.pet as SingleResponse<Pet>).data.attributes.name}, 
+          ${a.description}`;
     const event: CalendarEvent<Appointment> = {
       id: a.id,
       title,
-      start: moment(a.attributes.datetime).toDate(),
-      meta: a.attributes
+      start: moment(a.datetime).toDate(),
+      meta: a
     };
     return event;
   }

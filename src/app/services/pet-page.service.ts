@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SingleResponse } from '../Models/RestObjects';
 import { Vet } from '../Models/Vet';
 import { VetService } from './collections/vet.service';
 
@@ -9,13 +8,13 @@ import { VetService } from './collections/vet.service';
 })
 export class PetPageService {
 
-  vetWithEmployees!: Observable<SingleResponse<Vet>>
+  vetWithEmployees!: Observable<Vet>
 
   constructor(
     private vetService: VetService
   ) { }
 
-  getVetByIdWithEmployees(vetId: number): Observable<SingleResponse<Vet>> {
+  getVetByIdWithEmployees(vetId: number): Observable<Vet> {
     if (!this.vetWithEmployees) {
       this.vetWithEmployees = this.vetService.fetchVetById(vetId, 'employees')
       console.log('vetFetched')

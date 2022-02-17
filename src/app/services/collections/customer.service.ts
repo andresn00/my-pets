@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/app/environment';
 import { Customer } from 'src/app/Models/Customer';
 import { SingleResponse } from 'src/app/Models/RestObjects';
@@ -15,12 +15,13 @@ export class CustomerService {
     private http: HttpClient
   ) { }
 
-  fetchCustomerById(id: number | string, populate?: string): Observable<SingleResponse<Customer>> {
+  fetchCustomerById(id: number | string, populate?: string): Observable<Customer> {
     const url: string = `${this.customersApi}/${id}`
     let params = new HttpParams()
     params = params.appendAll({
       populate: `${populate || '*'}`
     })
-    return this.http.get<SingleResponse<Customer>>(url, {params})
+    return this.http.get<SingleResponse<Customer>>(url, { params })
+      .pipe(map(c => ({ id: c.data.id, ...c.data.attributes })))
   }
 }

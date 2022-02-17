@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Employee } from '../../Models/Employee';
-import { ListResponse } from '../../Models/RestObjects';
 import { Session } from '../../Models/Session';
 
 @Injectable({

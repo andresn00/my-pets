@@ -5,11 +5,11 @@
         <mat-icon>close</mat-icon>
       </button>
     </div>
-    <h1 style="text-align: center;">{{customer?.data?.attributes?.name}}</h1>
+    <h1 style="text-align: center;">{{customer?.name}}</h1>
     <mat-list>
-      <mat-list-item>CI: {{customer?.data?.attributes?.ci || 'N/A'}} </mat-list-item>
-      <mat-list-item>Teléfono: {{customer?.data?.attributes?.phone || 'N/A'}} </mat-list-item>
-      <mat-list-item>Dirección: {{customer?.data?.attributes?.address || 'N/A'}} </mat-list-item>
+      <mat-list-item>CI: {{customer?.ci || 'N/A'}} </mat-list-item>
+      <mat-list-item>Teléfono: {{customer?.phone || 'N/A'}} </mat-list-item>
+      <mat-list-item>Dirección: {{customer?.address || 'N/A'}} </mat-list-item>
       <mat-divider></mat-divider>
       <mat-list-item>Email: {{user?.data?.attributes?.email || 'N/A'}} </mat-list-item>
     </mat-list>

@@ -22,7 +22,7 @@ interface Link {
 export class HomeAuthComponent implements OnInit {
 
   currentUser!: User
-  currentEmployee!: ListResponse<Employee>
+  currentEmployee!: Employee
 
   links: Link[] = [
     { name: 'Dashboard', url: 'dashboard', icon: 'home' },
@@ -53,9 +53,8 @@ export class HomeAuthComponent implements OnInit {
     this.currentUser = currentSession.user;
     if (this.currentUser.isEmployee) {
       this.employeeService.fetchEmployeeByUserId(this.currentUser.id as number, 'user,vet')
-        .subscribe((emp: ListResponse<Employee>) => {
-          const employee = { id: emp.data[0].id, ...emp.data[0].attributes}
-          this.storageService.setCurrentEmployee(employee);
+        .subscribe(emp => {
+          this.storageService.setCurrentEmployee(emp);
           this.currentEmployee = emp
         });
     }

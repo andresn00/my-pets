@@ -53,8 +53,8 @@ export class CustomersComponent implements OnInit {
 
   private getCustomersByVetId() {
     this.vetService.fetchVetById(this.currentVetId, 'customers')
-      .subscribe((vet: SingleResponse<Vet>) => {
-        const custResponse = <ListResponse<Customer>> vet.data.attributes.customers
+      .subscribe(vet => {
+        const custResponse = <ListResponse<Customer>> vet.customers
         const customers = custResponse.data.map(c => {
           return { id: c.id, ...c.attributes}
         })

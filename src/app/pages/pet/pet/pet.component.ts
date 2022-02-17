@@ -46,7 +46,7 @@ export class PetComponent implements OnInit {
     this.getCurrentVetId()
   }
 
-  getCurrentVetId(){
+  getCurrentVetId() {
     this.currentVetId = this.storageService.getCurrentVetId() as number
   }
 
@@ -67,21 +67,19 @@ export class PetComponent implements OnInit {
     })
   }
 
-  private loadPetData(petResponse: SingleResponse<Pet>) {
-    this.pet = { id: petResponse.data.id, ...petResponse.data.attributes };
+  private loadPetData(petResponse: Pet) {
+    this.pet = petResponse
     const customer = this.pet.customer as SingleResponse<Customer>;
     this.customer = { id: customer.data.id, ...customer.data.attributes };
   }
 
-  getPetPendingAppts(){
-    this.apptService.fetchPendingApptsFromPetInVet(+this.petId, this.currentVetId).subscribe(apptsLR => {
-      this.pendingAppts = apptsLR.data.map(a => {
-        return { id: a.id, ...a.attributes };
-      });
+  getPetPendingAppts() {
+    this.apptService.fetchPendingApptsFromPetInVet(+this.petId, this.currentVetId).subscribe(appts => {
+      this.pendingAppts = appts
     })
   }
 
-  addNewPendingAppt(appt: Appointment){
+  addNewPendingAppt(appt: Appointment) {
     console.log('addNewPA')
     this.pendingAppts = [...this.pendingAppts, appt]
   }

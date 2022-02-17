@@ -25,7 +25,7 @@ import { ConfirmationDialogComponent } from '../../../components/utils/confirmat
 export class CustomersPetsComponent implements OnInit {
 
   customerId!: string
-  customer!: SingleResponse<Customer>
+  customer!: Customer
   user!: SingleResponse<User>
   pets!: Pet[]
 
@@ -49,9 +49,9 @@ export class CustomersPetsComponent implements OnInit {
       .subscribe({
         next: c => {
           this.customer = c
-          const pets = c.data.attributes.pets as ListResponse<Pet>
+          const pets = c.pets as ListResponse<Pet>
           this.pets = this.spreadPetsAttributes(pets)
-          this.user = this.customer.data.attributes.user as SingleResponse<User>
+          this.user = this.customer.user as SingleResponse<User>
           this.validateCustomerBelongsToVet()
         },
         error: e => {
@@ -81,10 +81,10 @@ export class CustomersPetsComponent implements OnInit {
     const dialogRef = this.openPetDialog('Nueva Mascota')
     dialogRef.afterClosed().subscribe((pet: Pet | null) => {
       if (!pet) return
-      pet.customer = this.customer.data.id
+      pet.customer = this.customer.id
       this.petService.createPet(pet).subscribe({
         next: petRes => {
-          this.pets.push({ id: petRes.data.id, ...petRes.data.attributes })
+          this.pets.push(petRes)
           this.uiService.openNotificationSnackBar('Mascota creada', 'primary')
         },
         error: err => {
@@ -102,7 +102,7 @@ export class CustomersPetsComponent implements OnInit {
       this.petService.updatePet(pet.id as number, petFormValue).subscribe({
         next: petRes => {
           this.pets = this.pets.filter(p => p.id != pet.id)
-          this.pets.push({ id: petRes.data.id, ...petRes.data.attributes })
+          this.pets.push(petRes)
           this.uiService.openNotificationSnackBar('Mascota editada', 'primary')
         },
         error: err => {
@@ -138,7 +138,7 @@ export class CustomersPetsComponent implements OnInit {
   }
 
   validateCustomerBelongsToVet() {
-    const customersVets = this.customer.data.attributes.vets as ListResponse<Vet>
+    const customersVets = this.customer.vets as ListResponse<Vet>
     const customersVetsIds: number[] = customersVets.data.map(v => v.id)
     const employeeLoged = this.storageService.getCurrentEmployee() as Employee
     const vet = employeeLoged.vet as SingleResponse<Vet>

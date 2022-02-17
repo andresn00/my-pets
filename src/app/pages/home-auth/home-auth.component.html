@@ -2,7 +2,7 @@
   <mat-toolbar-row color="primary" fxLayout="row" fxLayoutAlign="space-between center">
     <div name="title">
       <a mat-button routerLink="dashboard" (click)="activeUrl = 'dashboard'">
-        <h1>{{currentEmployee?.data?.[0]?.attributes?.name}} <small>| My Pets</small></h1>
+        <h1>{{currentEmployee?.name}} <small>| My Pets</small></h1>
       </a>
     </div>
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
@@ -10,7 +10,7 @@
         <mat-icon>notifications</mat-icon>
       </button>
       <button mat-mini-fab [mat-menu-trigger-for]="profileMenu" color="" class="profileBtn">
-        {{currentEmployee?.data?.[0]?.attributes?.name?.[0] || 'V'}}
+        {{currentEmployee?.name?.[0] || 'V'}}
       </button>
       <mat-menu #profileMenu>
         <a mat-menu-item>Perfil</a>

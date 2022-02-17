@@ -47,7 +47,7 @@ export class AppointmentDialogComponent implements OnInit {
 
   loadEmployeesFromCurrentVet(){
     this.petPageService.getVetByIdWithEmployees(this.currentVetId).subscribe(vetRes => {
-      const employees = vetRes.data.attributes.employees as ListResponse<Employee>
+      const employees = vetRes.employees as ListResponse<Employee>
       this.vetEmployees = employees.data.map(e => ({id: e.id, ...e.attributes}))
     })
   }

@@ -48,10 +48,9 @@ export class LoginComponent implements OnInit {
         this.storageService.setCurrentSession(session)
         if (session.user.isEmployee) {
           this.employeeService.fetchEmployeeByUserId(session.user.id as number, 'user,vet')
-            .subscribe((emp: ListResponse<Employee>) => {
-              const employee = { id: emp.data[0].id, ...emp.data[0].attributes }
-              this.storageService.setCurrentEmployee(employee);
-              const vetId = (employee.vet as SingleResponse<Vet>).data.id
+            .subscribe((emp: Employee) => {
+              this.storageService.setCurrentEmployee(emp);
+              const vetId = (emp.vet as SingleResponse<Vet>).data.id
               this.storageService.setCurrentVetId(vetId);
               this.router.navigate(['./'])
             });

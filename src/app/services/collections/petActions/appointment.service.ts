@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/app/environment';
 import { Appointment } from 'src/app/Models/PetActions';
 import { ListResponse, RestBody, SingleResponse } from 'src/app/Models/RestObjects';
@@ -16,11 +16,14 @@ export class AppointmentService {
     private http: HttpClient
   ) { }
 
-  fetchAppointments(params: HttpParams): Observable<ListResponse<Appointment>> {
+  fetchAppointments(params: HttpParams): Observable<Appointment[]> {
     return this.http.get<ListResponse<Appointment>>(this.appointmentsApi, { params })
+      .pipe(map(apptsRes => {
+        return apptsRes.data.map(a => ({ id: a.id, ...a.attributes }))
+      }))
   }
 
-  fetchPendingApptsFromVetInRange(vetId: number, startDate: string, endDate: string): Observable<ListResponse<Appointment>> {
+  fetchPendingApptsFromVetInRange(vetId: number, startDate: string, endDate: string): Observable<Appointment[]> {
     let params = new HttpParams()
     params = params.appendAll({
       'filters[vet][id]': `${vetId}`,
@@ -33,7 +36,7 @@ export class AppointmentService {
     return this.fetchAppointments(params)
   }
 
-  fetchPendingApptsFromPetInVet(petId: number, vetId: number): Observable<ListResponse<Appointment>> {
+  fetchPendingApptsFromPetInVet(petId: number, vetId: number): Observable<Appointment[]> {
     let params = new HttpParams()
     params = params.appendAll({
       'populate': 'vet,employees',
@@ -53,7 +56,7 @@ export class AppointmentService {
     const data: RestBody<Appointment> = {
       data: appt
     }
-    return this.http.post<SingleResponse<Appointment>>(this.appointmentsApi, data, {params})
+    return this.http.post<SingleResponse<Appointment>>(this.appointmentsApi, data, { params })
   }
 
   private updateAppointment(apptId: number, data: any): Observable<SingleResponse<Appointment>> {

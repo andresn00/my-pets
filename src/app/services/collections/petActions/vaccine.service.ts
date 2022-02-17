@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/app/environment';
 import { Vaccine } from 'src/app/Models/PetActions';
 import { RestBody, SingleResponse } from 'src/app/Models/RestObjects';
@@ -15,10 +15,11 @@ export class VaccineService {
     private http: HttpClient
   ) { }
 
-  createVaccine(vaccine: Vaccine): Observable<SingleResponse<Vaccine>> {
+  createVaccine(vaccine: Vaccine): Observable<Vaccine> {
     const vaccineData: RestBody<Vaccine> = {
       data: vaccine
     }
     return this.http.post<SingleResponse<Vaccine>>(this.vaccinesApi, vaccineData)
+      .pipe(map(v => ({ id: v.data.id, ...v.data.attributes })))
   }
 }

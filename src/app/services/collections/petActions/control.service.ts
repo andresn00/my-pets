@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Control } from 'src/app/Models/PetActions';
 import { RestBody, SingleResponse } from 'src/app/Models/RestObjects';
 import { environment } from 'src/app/environment';
@@ -15,11 +15,12 @@ export class ControlService {
     private http: HttpClient
   ) { }
 
-  createControl(control: Control): Observable<SingleResponse<Control>> {
+  createControl(control: Control): Observable<Control> {
     const controlData: RestBody<Control> = {
       data: control
     }
     return this.http.post<SingleResponse<Control>>(this.controlsApi, controlData)
+      .pipe(map(c => ({ id: c.data.id, ...c.data.attributes })))
   }
 
 }
