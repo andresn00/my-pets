@@ -6,9 +6,9 @@ import { EmployeeService } from 'src/app/services/collections/employee.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { UiService } from 'src/app/services/ui/ui.service';
 import * as moment from 'moment'
-import { AppointmentService } from 'src/app/services/collections/appointment.service';
+import { AppointmentService } from 'src/app/services/collections/petActions/appointment.service';
 import { Vet } from 'src/app/Models/Vet';
-import { Appointment } from 'src/app/Models/Appointment';
+import { Appointment } from 'src/app/Models/PetActions';
 import { CalendarEvent } from 'angular-calendar';
 import { Pet } from 'src/app/Models/Pet';
 

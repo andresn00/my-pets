@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Appointment } from 'src/app/Models/Appointment';
+import { Appointment } from 'src/app/Models/PetActions';
 import { Employee } from 'src/app/Models/Employee';
 import { ListResponse } from 'src/app/Models/RestObjects';
-import { AppointmentService } from 'src/app/services/collections/appointment.service';
+import { AppointmentService } from 'src/app/services/collections/petActions/appointment.service';
 import { UiService } from 'src/app/services/ui/ui.service';
 import { convertDateFormat } from 'src/app/utils';
 

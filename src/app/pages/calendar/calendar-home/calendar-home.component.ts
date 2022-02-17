@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CalendarEvent } from 'angular-calendar';
-import { Appointment } from 'src/app/Models/Appointment';
+import { Appointment } from 'src/app/Models/PetActions';
 import { Pet } from 'src/app/Models/Pet';
 import { SingleResponse } from 'src/app/Models/RestObjects';
 

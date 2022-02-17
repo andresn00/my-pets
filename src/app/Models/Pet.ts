@@ -1,4 +1,4 @@
-import { Appointment } from "./Appointment";
+import { Appointment } from "./PetActions";
 import { Customer } from "./Customer";
 import { ListResponse, SingleResponse } from "./RestObjects";
 

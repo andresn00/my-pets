@@ -4,12 +4,12 @@ import { CalendarEvent, CalendarView } from 'angular-calendar';
 import { MonthViewDay } from 'calendar-utils';
 import * as moment from 'moment';
 import { Observable, Subject, Subscriber, Subscription } from 'rxjs';
-import { Appointment } from 'src/app/Models/Appointment';
+import { Appointment } from 'src/app/Models/PetActions';
 import { Employee } from 'src/app/Models/Employee';
 import { Pet } from 'src/app/Models/Pet';
 import { ListResponse, SingleResponse } from 'src/app/Models/RestObjects';
 import { Vet } from 'src/app/Models/Vet';
-import { AppointmentService } from 'src/app/services/collections/appointment.service';
+import { AppointmentService } from 'src/app/services/collections/petActions/appointment.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({

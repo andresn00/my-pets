@@ -2,13 +2,14 @@ import { Location } from '@angular/common';
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Appointment } from 'src/app/Models/Appointment';
+import { Appointment } from 'src/app/Models/PetActions';
 import { Customer } from 'src/app/Models/Customer';
 import { Employee } from 'src/app/Models/Employee';
 import { Pet } from 'src/app/Models/Pet';
 import { ListResponse, SingleResponse } from 'src/app/Models/RestObjects';
-import { AppointmentService } from 'src/app/services/collections/appointment.service';
+import { AppointmentService } from 'src/app/services/collections/petActions/appointment.service';
 import { PetService } from 'src/app/services/collections/pet.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
 import { UiService } from 'src/app/services/ui/ui.service';
 import { getPetSex, getAge, getAgeToString, convertDateFormat } from 'src/app/utils';
 
@@ -23,6 +24,8 @@ export class PetComponent implements OnInit {
   getAgeToString = getAgeToString
   convertDateFormat = convertDateFormat
 
+  currentVetId!: number
+
   petId!: string
   pet!: Pet
   customer!: Customer
@@ -31,6 +34,7 @@ export class PetComponent implements OnInit {
   constructor(
     private petService: PetService,
     private apptService: AppointmentService,
+    private storageService: StorageService,
     private uiService: UiService,
     private route: ActivatedRoute,
     private location: Location
@@ -39,6 +43,11 @@ export class PetComponent implements OnInit {
   ngOnInit(): void {
     this.petId = this.route.snapshot.paramMap.get('petId') as string
     this.getPet()
+    this.getCurrentVetId()
+  }
+
+  getCurrentVetId(){
+    this.currentVetId = this.storageService.getCurrentVetId() as number
   }
 
   getPet() {
@@ -65,7 +74,7 @@ export class PetComponent implements OnInit {
   }
 
   getPetPendingAppts(){
-    this.apptService.fetchPendingAppointmentsFromPet(+this.petId).subscribe(apptsLR => {
+    this.apptService.fetchPendingApptsFromPetInVet(+this.petId, this.currentVetId).subscribe(apptsLR => {
       this.pendingAppts = apptsLR.data.map(a => {
         return { id: a.id, ...a.attributes };
       });

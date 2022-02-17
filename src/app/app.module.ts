@@ -69,6 +69,8 @@ import { PetActionsComponent } from './components/pet/pet-actions/pet-actions.co
 import { PetPendingApptsTableComponent } from './components/pet/pet-pending-appts-table/pet-pending-appts-table.component';
 import { AppointmentDialogComponent } from './components/petActions/appointment-dialog/appointment-dialog.component';
 import { CalendarHomeComponent } from './pages/calendar/calendar-home/calendar-home.component';
+import { ControlDialogComponent } from './components/petActions/control-dialog/control-dialog.component';
+import { VaccineDialogComponent } from './components/petActions/vaccine-dialog/vaccine-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,7 +95,9 @@ import { CalendarHomeComponent } from './pages/calendar/calendar-home/calendar-h
     PetActionsComponent,
     PetPendingApptsTableComponent,
     AppointmentDialogComponent,
-    CalendarHomeComponent
+    CalendarHomeComponent,
+    ControlDialogComponent,
+    VaccineDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import { User } from "./User";
 import { Vet } from "./Vet";
 
 export interface Employee {
+    id?: number
     name: string
     ci?: string | null
     phone?: string | null

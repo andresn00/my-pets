@@ -6,4 +6,6 @@ export const environment = {
     usersApi: "/api/users",
     petsApi: "/api/pets",
     appointmentsApi: "/api/appointments",
+    controlsApi: "/api/controls",
+    vaccinesApi: "/api/vaccines",
 }

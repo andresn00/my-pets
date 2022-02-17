@@ -1,12 +1,18 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, TemplateRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Appointment } from 'src/app/Models/Appointment';
+import { Appointment, Control, Vaccine } from 'src/app/Models/PetActions';
 import { Employee } from 'src/app/Models/Employee';
-import { AppointmentService } from 'src/app/services/collections/appointment.service';
+import { AppointmentService } from 'src/app/services/collections/petActions/appointment.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { UiService } from 'src/app/services/ui/ui.service';
 import { FormDialogData } from 'src/app/utils';
 import { AppointmentDialogComponent } from '../../petActions/appointment-dialog/appointment-dialog.component';
+import { ControlDialogComponent } from '../../petActions/control-dialog/control-dialog.component';
+import { ControlService } from 'src/app/services/collections/petActions/control.service';
+import { VaccineDialogComponent } from '../../petActions/vaccine-dialog/vaccine-dialog.component';
+import { map, Observable, of } from 'rxjs';
+import { ComponentType } from '@angular/cdk/portal';
+import { VaccineService } from 'src/app/services/collections/petActions/vaccine.service';
 
 interface Action {
   title: string
@@ -29,13 +35,13 @@ export class PetActionsComponent implements OnInit {
     { title: 'Nueva Cita', icon: 'event', bgColor: '#e8e8e8', color: '#444444', 
     click: () => this.newAppointment()},
     { title: 'Nuevo Diagnóstico', icon: 'monitor_heart', bgColor: '#e8e8e8', color: '#444444', 
-    click: this.onClick},
+    click: () => this.onClick()},
     { title: 'Nuevo Control', icon: 'check_circle', bgColor: '#d1e7dd', color: '#008f4e', 
-    click: this.onClick},
+    click: () => this.newControl()},
     { title: 'Nueva Consulta', icon: 'healing', bgColor: '#cfe2ff', color: '#084298',
     click: this.onClick},
     { title: 'Nueva Vacuna', icon: 'vaccines', bgColor: '#f5c2c7', color: '#be0025',
-    click: this.onClick},
+    click: () => this.newVaccine()},
     { title: 'Nueva Desparasitación', icon: 'medication_liquid', bgColor: '#ffe3c3', color: '#b66200',
     click: this.onClick},
     { title: 'Historial', icon: 'history', bgColor: '#e8e8e8', color: '#444444',
@@ -46,6 +52,8 @@ export class PetActionsComponent implements OnInit {
 
   constructor(
     private apptService: AppointmentService,
+    private controlService: ControlService,
+    private vaccineService: VaccineService,
     private uiService: UiService,
     private storageService: StorageService,
     private dialog: MatDialog
@@ -63,25 +71,50 @@ export class PetActionsComponent implements OnInit {
     const data: FormDialogData = {
       title: 'Nueva Cita'
     }
-    const dialogRef = this.dialog.open(AppointmentDialogComponent, {data, panelClass: 'dialog-responsive'})
-    dialogRef.afterClosed().subscribe(apptDialog => {
-      if (!apptDialog) return
-      const {datetime, status, description, employees} = apptDialog
-      const newAppt: Appointment = {
-        pet: this.petId as number,
-        vet: this.currentVetId,
-        description,
-        datetime,
-        status,
-        employees,
-      }
-      console.log('newAppt', newAppt)
-      this.apptService.createAppointment(newAppt).subscribe(apptRes => {
+    this.openPetActionDialog(AppointmentDialogComponent, data).subscribe(appt => {
+      if (!appt) return
+      this.apptService.createAppointment(appt).subscribe(apptRes => {
         const appt: Appointment = {id: apptRes.data.id, ...apptRes.data.attributes }
         this.uiService.openNotificationSnackBar('Cita creada', 'primary')
         this.apptCreated.emit(appt)
       })
     })
+  }
+
+  newControl(){
+    const data: FormDialogData<Control> = {
+      title: 'Nuevo Control',
+    }
+    this.openPetActionDialog(ControlDialogComponent, data).subscribe((control: Control) => {
+      if (!control) return
+      this.controlService.createControl(control).subscribe(controlRes => {
+        this.uiService.openNotificationSnackBar('Control agregado', 'primary')
+      })
+    })
+  }
+
+  newVaccine(){
+    const data: FormDialogData<Vaccine> = {
+      title: 'Nueva Vacuna',
+    }
+    this.openPetActionDialog(VaccineDialogComponent, data).subscribe(vacc => {
+      if (!vacc) return
+      console.log('vacc', vacc)
+      // this.vaccineService.createVaccine(vacc).subscribe(vaccRes => {
+      //   this.uiService.openNotificationSnackBar('Vacuna agregada', 'primary')
+      // })
+    })
+  }
+
+  openPetActionDialog(petAction: ComponentType<unknown>, data: FormDialogData<any>, 
+    panelClass='dialog-responsive'): Observable<any> {
+    const dialogRef = this.dialog.open(petAction, {data, panelClass})
+    return dialogRef.afterClosed().pipe(map(formDialogData => {
+      if (!formDialogData) return null
+      formDialogData.pet = this.petId
+      formDialogData.vet = this.currentVetId
+      return formDialogData
+    }))
   }
 
 }

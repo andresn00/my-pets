@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment';
-import { Appointment } from 'src/app/Models/Appointment';
+import { Appointment } from 'src/app/Models/PetActions';
 import { ListResponse, RestBody, SingleResponse } from 'src/app/Models/RestObjects';
 
 @Injectable({
@@ -33,11 +33,12 @@ export class AppointmentService {
     return this.fetchAppointments(params)
   }
 
-  fetchPendingAppointmentsFromPet(petId: number): Observable<ListResponse<Appointment>> {
+  fetchPendingApptsFromPetInVet(petId: number, vetId: number): Observable<ListResponse<Appointment>> {
     let params = new HttpParams()
     params = params.appendAll({
       'populate': 'vet,employees',
       'filters[pet][id]': petId,
+      'filters[vet][id]': vetId,
       'filters[status]': 'pending',
       'sort': 'datetime'
     })

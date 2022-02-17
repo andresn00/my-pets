@@ -31,7 +31,9 @@
     <div class="bg-light-gray open-day-events" *ngIf="isOpen" role="application">
       <div>
         <div *ngFor="let event of events; trackBy: trackByEventId">
-          <button mat-button (click)="mwlEventClicked.emit({event, sourceEvent: $event})">{{event.title}}</button>
+          <button mat-button (click)="mwlEventClicked.emit({event, sourceEvent: $event})">
+            {{event.title}}
+          </button>
         </div>
         <div *ngIf="events.length === 0">No hay eventos</div>
       </div>
