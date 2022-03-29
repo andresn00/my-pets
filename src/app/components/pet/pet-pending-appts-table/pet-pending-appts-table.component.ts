@@ -15,7 +15,7 @@ export class PetPendingApptsTableComponent implements OnInit {
   convertDateFormat = convertDateFormat
 
   @Input() pendingAppts!: Appointment[]
-  apptsTableCols = ['date', 'time', 'description', 'vet', 'employees', 'actions']
+  apptsTableCols = ['date', 'time', 'description', 'employees', 'actions']
 
   constructor(
     private apptService: AppointmentService,

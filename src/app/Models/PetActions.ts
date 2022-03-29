@@ -30,4 +30,8 @@ export interface Vaccine {
     pet?: SingleResponse<Pet> | number
     vet?: SingleResponse<Vet> | number
     employees?: ListResponse<Employee> | number[]
+    type?: string
+    dose?: string
+    administrationRoute?: string
+    observations?: string
 }

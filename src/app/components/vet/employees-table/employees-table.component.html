@@ -1,0 +1,39 @@
+<h1>Empleados</h1>
+<div fxLayout="row wrap" fxLayoutGap.gt-md="20px" fxLayoutAlign="space-between center" style="margin-bottom: 10px;">
+  <mat-form-field appearance="standard" fxFlex>
+    <mat-label>Filtro</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Nombre, CI o Teléfono">
+  </mat-form-field>
+  <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center" fxFlex.gt-md="20" fxFlex.lt-md="100">
+    <button mat-raised-button color="primary" fxFlex (click)="createEmployee()">
+      <mat-icon>person_add</mat-icon>
+      <span>Crear empleado</span>
+    </button>
+  </div>
+</div>
+<table mat-table matSort [dataSource]="employeesDS" class="width-100 mat-elevation-z8">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+    <td mat-cell *matCellDef="let emp">{{emp.name}}</td>
+  </ng-container>
+  <ng-container matColumnDef="ci">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>CI</th>
+    <td mat-cell *matCellDef="let emp">{{emp.ci || 'N/A'}}</td>
+  </ng-container>
+  <ng-container matColumnDef="phone">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
+    <td mat-cell *matCellDef="let emp">{{emp.phone || 'N/A'}}</td>
+  </ng-container>
+  <ng-container matColumnDef="address">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Dirección</th>
+    <td mat-cell *matCellDef="let emp">{{emp.address || 'N/A'}}</td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr class="mat-row-selectable" mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <!-- No Matches Found Row -->
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No hay resultados</td>
+  </tr>
+</table>
+<mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of customers"></mat-paginator>
+

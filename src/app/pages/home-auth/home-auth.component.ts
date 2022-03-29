@@ -27,7 +27,7 @@ export class HomeAuthComponent implements OnInit {
   links: Link[] = [
     { name: 'Dashboard', url: 'dashboard', icon: 'home' },
     { name: 'Clientes', url: 'customers', icon: 'person' },
-    { name: 'Veterinaria', url: 'vet', icon: 'local_hospital' },
+    { name: 'Mi Veterinaria', url: 'vet', icon: 'local_hospital' },
     { name: 'Calendario', url: 'calendar', icon: 'calendar_month' },
   ]
   activeUrl!: string

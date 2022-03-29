@@ -1,1 +1,38 @@
-<p>vet works!</p>
+<mat-drawer-container class="drawer-container">
+  <mat-drawer #profileDrawer mode="side" opened class="side-drawer">
+    <div fxLayoutAlign="end">
+      <button mat-icon-button color="" (click)="profileDrawer.toggle()">
+        <mat-icon>navigate_before</mat-icon>
+      </button>
+    </div>
+    <mat-selection-list multiple="false" #options class="pt-0">
+      <mat-list-option class="list-option" value="myVet" selected>Mi Veterinaria</mat-list-option>
+      <mat-list-option class="list-option" value="employees">Empleados</mat-list-option>
+      <mat-list-option class="list-option" value="myProfile">Mi Perfil</mat-list-option>
+    </mat-selection-list>
+  </mat-drawer>
+  <div>
+    <button type="button" mat-button (click)="profileDrawer.toggle()" *ngIf="!profileDrawer.opened">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <div class="mt-1-5 content-90" [ngSwitch]="options.selectedOptions.selected[0]?.value">
+      <div *ngSwitchCase="'myVet'">
+        <h1>Mi Veterinaria</h1>
+        <h2>{{vet?.name || 'N/A'}}</h2>
+        <mat-list>
+          <mat-list-item>RUC: {{vet?.ruc || 'N/A'}}</mat-list-item>
+          <mat-list-item>Teléfono: {{vet?.phone || 'N/A'}}</mat-list-item>
+          <mat-list-item>Dirección: {{vet?.address || 'N/A'}}</mat-list-item>
+        </mat-list>
+      </div>
+      <app-employees-table *ngSwitchCase="'employees'" [employeesDS]="employeesDS"></app-employees-table>
+
+      <div *ngSwitchCase="'myProfile'">
+        <h1>Mi Perfil</h1>
+      </div>
+
+    </div>
+
+  </div>
+</mat-drawer-container>

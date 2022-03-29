@@ -1,23 +1,17 @@
-<div class="pt-1" fxLayout="row wrap" fxLayoutAlign="space-around">
-    <mat-card class="card mb-1-5" *ngFor="let card of cards" 
-    appMaterialElevation [canSelect]="true">
-        <div fxLayout="column" style="height: 100%;">
-            <div fxLayoutAlign="center center" fxFlex="30" [style.background-color]="card.bgColor">
-                <mat-card-title [style.color]="card.color" style="text-align: center;">
-                    {{ card.title }}
-                </mat-card-title>
-            </div>
-            <div fxFlex fxLayoutAlign="center center">
-                <mat-icon class="icon-4x" [style.color]="card.color">
-                    {{ card.icon }}
-                </mat-icon>
-            </div>
+<mat-drawer-container>
+  <mat-drawer class="side-drawer px-1" opened mode="side">
+    <div class="pt-1" fxLayout="column" fxLayoutAlign="space-around">
+      <mat-card class="card mb-1-5" *ngFor="let card of cards" appMaterialElevation [canSelect]="true">
+        <div fxLayout="column" fxLayoutAlign="center center" [style.background-color]="card.bgColor"
+          [style.color]="card.color">
+          <mat-icon class="icon-2x mt-1 mb-1">{{card.icon}}</mat-icon>
+          <h4 class="text-center">{{card.title}}</h4>
         </div>
-    </mat-card>
-</div>
-
-<div class="content-90 mt-1 pb-2">
-    <mwl-calendar-day-view [dayStartHour]="7" [dayEndHour]="20"
-    [events]="todaysEvents"></mwl-calendar-day-view>
-</div>
-
+      </mat-card>
+    </div>
+  </mat-drawer>
+  <div class="content-90 mt-1 pb-2">
+    <h1 class="mb-2">Citas para hoy</h1>
+    <mwl-calendar-day-view [dayStartHour]="7" [dayEndHour]="20" [events]="todaysEvents"></mwl-calendar-day-view>
+  </div>
+</mat-drawer-container>

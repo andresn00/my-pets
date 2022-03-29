@@ -71,6 +71,8 @@ import { AppointmentDialogComponent } from './components/petActions/appointment-
 import { CalendarHomeComponent } from './pages/calendar/calendar-home/calendar-home.component';
 import { ControlDialogComponent } from './components/petActions/control-dialog/control-dialog.component';
 import { VaccineDialogComponent } from './components/petActions/vaccine-dialog/vaccine-dialog.component';
+import { EmployeesTableComponent } from './components/vet/employees-table/employees-table.component';
+import { EmployeeDialogComponent } from './components/vet/employee-dialog/employee-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,7 +99,9 @@ import { VaccineDialogComponent } from './components/petActions/vaccine-dialog/v
     AppointmentDialogComponent,
     CalendarHomeComponent,
     ControlDialogComponent,
-    VaccineDialogComponent
+    VaccineDialogComponent,
+    EmployeesTableComponent,
+    EmployeeDialogComponent
   ],
   imports: [
     BrowserModule,

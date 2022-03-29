@@ -2,6 +2,7 @@ import { Customer } from "./Customer";
 import { Employee } from "./Employee";
 import { ListResponse } from "./RestObjects";
 export interface Vet {
+    id?: number
     name: string
     ruc?: string | null
     address: string | null

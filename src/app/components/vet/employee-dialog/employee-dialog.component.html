@@ -1,0 +1,54 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="empForm" fxLayout="column">
+    <h2>Empleado</h2>
+    <div fxLayout="row wrap" fxLayoutGap.gt-md="10px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Nombre</mat-label>
+        <input type="number" matInput formControlName="name">
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Ci</mat-label>
+        <input type="number" matInput formControlName="ci">
+      </mat-form-field>
+    </div>
+    <div fxLayout="row wrap" fxLayoutGap.gt-md="10px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Teléfono</mat-label>
+        <input type="number" matInput formControlName="address">
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Dirección</mat-label>
+        <input type="number" matInput formControlName="address">
+      </mat-form-field>
+    </div>
+  </form>
+  <form [formGroup]="userForm" fxLayout="column">
+    <h2>Cuenta</h2>
+    <div fxLayout="row wrap" fxLayoutGap.gt-md="10px">
+      <mat-form-field appearance="outline" fxFlex.gt-md="50">
+        <mat-label>Username</mat-label>
+        <input type="number" matInput formControlName="username">
+      </mat-form-field>
+    </div>
+    <div fxLayout="row wrap" fxLayoutGap.gt-md="10px">
+      <mat-form-field appearance="outline" fxFlex.gt-md="50">
+        <mat-label>Email</mat-label>
+        <input type="number" matInput formControlName="email">
+      </mat-form-field>
+    </div>
+    <div fxLayout="row wrap" fxLayoutGap.gt-md="10px">
+      <mat-form-field appearance="outline" fxFlex.gt-md="50">
+        <mat-label>Contraseña</mat-label>
+        <input type="number" matInput formControlName="password">
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button [mat-dialog-close]="null">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="!empForm.valid || !userForm.valid" 
+  (click)="closeDialog()">
+    Guardar
+  </button>
+</div>

@@ -1,1 +1,60 @@
-<p>vaccine-dialog works!</p>
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="vaccForm" fxLayout="column">
+    <div fxLayout="row wrap" fxLayoutGap.gt-md="10px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Fecha</mat-label>
+        <input matInput [matDatepicker]="date" formControlName="date" readonly>
+        <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+        <mat-datepicker #date disabled="false"></mat-datepicker>
+        <mat-error>Campo requerido</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Hora</mat-label>
+        <input matInput [ngxTimepicker]="time" formControlName="time" #timeInput readonly>
+        <ngx-material-timepicker [enableKeyboardInput]="true" #time></ngx-material-timepicker>
+        <button mat-icon-button matSuffix (click)="timeInput.click()">
+          <mat-icon>schedule</mat-icon>
+        </button>
+        <mat-error>Campo requerido</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Empleado a cargo</mat-label>
+        <mat-select formControlName="employees">
+          <mat-option *ngFor="let emp of vetEmployees" [value]="emp.id">
+            {{emp.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row wrap" fxLayoutGap.gt-md="10px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Tipo</mat-label>
+        <input matInput formControlName="type">
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Dose</mat-label>
+        <input matInput formControlName="dose">
+      </mat-form-field>
+    </div>
+    <div fxLayout="row wrap" fxLayoutGap.gt-md="10px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Vía de administración</mat-label>
+        <input matInput formControlName="administrationRoute">
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline" fxFlex>
+      <mat-label>Observaciones</mat-label>
+      <textarea matInput formControlName="observations"></textarea>
+    </mat-form-field>
+
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button [mat-dialog-close]="null">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="!vaccForm.valid" (click)="closeDialog()">
+    Guardar
+  </button>
+</div>

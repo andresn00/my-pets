@@ -32,20 +32,34 @@ export class PetActionsComponent implements OnInit {
   @Output() apptCreated = new EventEmitter<Appointment>()
 
   actions: Action[] = [
-    { title: 'Nueva Cita', icon: 'event', bgColor: '#e8e8e8', color: '#444444', 
-    click: () => this.newAppointment()},
-    { title: 'Nuevo Diagnóstico', icon: 'monitor_heart', bgColor: '#e8e8e8', color: '#444444', 
-    click: () => this.onClick()},
-    { title: 'Nuevo Control', icon: 'check_circle', bgColor: '#d1e7dd', color: '#008f4e', 
-    click: () => this.newControl()},
-    { title: 'Nueva Consulta', icon: 'healing', bgColor: '#cfe2ff', color: '#084298',
-    click: this.onClick},
-    { title: 'Nueva Vacuna', icon: 'vaccines', bgColor: '#f5c2c7', color: '#be0025',
-    click: () => this.newVaccine()},
-    { title: 'Nueva Desparasitación', icon: 'medication_liquid', bgColor: '#ffe3c3', color: '#b66200',
-    click: this.onClick},
-    { title: 'Historial', icon: 'history', bgColor: '#e8e8e8', color: '#444444',
-    click: this.onClick},
+    {
+      title: 'Nueva Cita', icon: 'event', bgColor: '#e8e8e8', color: '#444444',
+      click: () => this.newAppointment()
+    },
+    {
+      title: 'Nuevo Diagnóstico', icon: 'monitor_heart', bgColor: '#e8e8e8', color: '#444444',
+      click: () => this.onClick()
+    },
+    {
+      title: 'Nuevo Control', icon: 'check_circle', bgColor: '#d1e7dd', color: '#008f4e',
+      click: () => this.newControl()
+    },
+    {
+      title: 'Nueva Consulta', icon: 'healing', bgColor: '#cfe2ff', color: '#084298',
+      click: this.onClick
+    },
+    {
+      title: 'Nueva Vacuna', icon: 'vaccines', bgColor: '#f5c2c7', color: '#be0025',
+      click: () => this.newVaccine()
+    },
+    {
+      title: 'Nueva Desparasitación', icon: 'medication_liquid', bgColor: '#ffe3c3', color: '#b66200',
+      click: this.onClick
+    },
+    {
+      title: 'Historial', icon: 'history', bgColor: '#e8e8e8', color: '#444444',
+      click: this.onClick
+    },
   ]
 
   currentVetId!: number
@@ -63,52 +77,67 @@ export class PetActionsComponent implements OnInit {
     this.currentVetId = this.storageService.getCurrentVetId() as number
   }
 
-  onClick(){
+  onClick() {
     console.log('onClick')
   }
 
-  newAppointment(){
+  newAppointment() {
     const data: FormDialogData = {
       title: 'Nueva Cita'
     }
     this.openPetActionDialog(AppointmentDialogComponent, data).subscribe(appt => {
       if (!appt) return
-      this.apptService.createAppointment(appt).subscribe(apptRes => {
-        const appt: Appointment = {id: apptRes.data.id, ...apptRes.data.attributes }
-        this.uiService.openNotificationSnackBar('Cita creada', 'primary')
-        this.apptCreated.emit(appt)
+      this.apptService.createAppointment(appt).subscribe({
+        next: apptRes => {
+          const appt: Appointment = { id: apptRes.data.id, ...apptRes.data.attributes }
+          this.uiService.openNotificationSnackBar('Cita creada', 'primary')
+          this.apptCreated.emit(appt)
+        },
+        error: e => {
+          this.uiService.openNotificationSnackBar('Error creando cita', 'warn')
+        }
       })
     })
   }
 
-  newControl(){
+  newControl() {
     const data: FormDialogData<Control> = {
       title: 'Nuevo Control',
     }
     this.openPetActionDialog(ControlDialogComponent, data).subscribe((control: Control) => {
       if (!control) return
-      this.controlService.createControl(control).subscribe(controlRes => {
-        this.uiService.openNotificationSnackBar('Control agregado', 'primary')
+      this.controlService.createControl(control).subscribe({
+        next: controlRes => {
+          this.uiService.openNotificationSnackBar('Control agregado', 'primary')
+        },
+        error: e => {
+          this.uiService.openNotificationSnackBar('Error creando control', 'warn')
+        }
       })
     })
   }
 
-  newVaccine(){
+  newVaccine() {
     const data: FormDialogData<Vaccine> = {
       title: 'Nueva Vacuna',
     }
     this.openPetActionDialog(VaccineDialogComponent, data).subscribe(vacc => {
       if (!vacc) return
       console.log('vacc', vacc)
-      // this.vaccineService.createVaccine(vacc).subscribe(vaccRes => {
-      //   this.uiService.openNotificationSnackBar('Vacuna agregada', 'primary')
-      // })
+      this.vaccineService.createVaccine(vacc).subscribe({
+        next: vaccRes => {
+          this.uiService.openNotificationSnackBar('Vacuna agregada', 'primary')
+        },
+        error: e => {
+          this.uiService.openNotificationSnackBar('Error creando vacuna', 'warn')
+        }
+      })
     })
   }
 
-  openPetActionDialog(petAction: ComponentType<unknown>, data: FormDialogData<any>, 
-    panelClass='dialog-responsive'): Observable<any> {
-    const dialogRef = this.dialog.open(petAction, {data, panelClass})
+  openPetActionDialog(petAction: ComponentType<unknown>, data: FormDialogData<any>,
+    panelClass = 'dialog-responsive'): Observable<any> {
+    const dialogRef = this.dialog.open(petAction, { data, panelClass })
     return dialogRef.afterClosed().pipe(map(formDialogData => {
       if (!formDialogData) return null
       formDialogData.pet = this.petId

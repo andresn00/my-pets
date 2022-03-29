@@ -11,6 +11,7 @@ export class AuthInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       const token: string | null = this.storageService.getCurrentToken()
       const hasAuthorization = req.headers.has('Authorization')
+      console.log('intercepted')
       if (hasAuthorization) {
         return next.handle(req)
       }

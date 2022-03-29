@@ -1,0 +1,13 @@
+.side-drawer {
+    width: 250px;
+    max-width: 90%;
+}
+.drawer-container {
+    height: calc(100vh - 114px);
+    width: 100%;
+}
+
+.close-side-drawer-btn {
+    position: absolute;
+    right: -20px;
+}

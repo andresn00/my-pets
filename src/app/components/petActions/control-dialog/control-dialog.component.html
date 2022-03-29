@@ -19,18 +19,6 @@
         <mat-error>Campo requerido</mat-error>
       </mat-form-field>
     </div>
-    <div fxLayout="row wrap" fxLayoutGap.gt-md="10px">
-      <mat-form-field appearance="outline" fxFlex>
-        <mat-label>Peso</mat-label>
-        <input type="number" matInput formControlName="weight">
-      </mat-form-field>
-      <!-- TODO Unit -->
-      <mat-form-field appearance="outline" fxFlex>
-        <mat-label>Temperatura</mat-label>
-        <input matInput type="number" formControlName="temperature">
-      </mat-form-field>
-      <!-- TODO Unit -->
-    </div>
     <div>
       <mat-form-field appearance="outline" fxFlex>
         <mat-label>Empleado a cargo</mat-label>
@@ -38,6 +26,31 @@
           <mat-option *ngFor="let emp of vetEmployees" [value]="emp.id">
             {{emp.name}}
           </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row wrap" fxLayoutGap.gt-md="10px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Peso</mat-label>
+        <input type="number" matInput formControlName="weight">
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Unidad</mat-label>
+        <mat-select formControlName="weightUnit">
+          <mat-option value="kg">kg</mat-option>
+          <mat-option value="g">g</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row wrap" fxLayoutGap.gt-md="10px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Temperatura</mat-label>
+        <input matInput type="number" formControlName="temperature">
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Unidad</mat-label>
+        <mat-select formControlName="temperatureUnit">
+          <mat-option value="deg">deg</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

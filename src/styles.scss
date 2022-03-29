@@ -95,6 +95,10 @@ body {
   margin: auto;
 }
 
+.list-option[aria-selected="true"] {
+  box-shadow: inset 5px 0px 0px 0px mat.get-color-from-palette($my-pets-primary);
+}
+
 .bg-alternate {
   background-color: mat.get-color-from-palette($my-pets-alternate, 900) !important;
 }
@@ -153,6 +157,10 @@ body {
 
 .pt-1 {
   padding-top: 1rem !important;
+}
+
+.pt-0 {
+  padding-top: 0 !important;
 }
 
 
