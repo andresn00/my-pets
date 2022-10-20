@@ -5,9 +5,10 @@ import { Vet } from '../../Models/Vet';
 import { environment } from 'src/app/environment'
 import { StorageService } from '../storage/storage.service';
 import { Employee } from '../../Models/Employee';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { RestBody, SingleResponse } from '../../Models/RestObjects';
 import { Customer } from '../../Models/Customer';
+import { Session } from 'src/app/Models/Session';
 
 @Injectable({
   providedIn: 'root'
@@ -30,11 +31,12 @@ export class SignupService {
     return this.http.post(this.vetsApi, vetBody)
   }
 
-  registerEmployee(employee: Employee): Observable<any> {
+  registerEmployee(employee: Employee): Observable<Employee> {
     const employeeBody: RestBody<Employee> = {
       data: employee
     }
-    return this.http.post(this.employeesApi, employeeBody)
+    return this.http.post<SingleResponse<Employee>>(this.employeesApi, employeeBody)
+      .pipe(map(empRes => ({id: empRes.data.id, ...empRes.data.attributes})))
   }
 
   registerCustomer(customer: Customer): Observable<SingleResponse<Customer>> {
@@ -44,11 +46,11 @@ export class SignupService {
     return this.http.post<SingleResponse<Customer>>(this.customersApi, customerBody)
   }
 
-  registerUser(user: User): Observable<any> {
+  registerUser(user: User): Observable<Session> {
     const userBody: RestBody<User> = {
       data: user
     }
-    return this.http.post(this.registerUsersApi, user)
+    return this.http.post<Session>(this.registerUsersApi, user)
   }
 
   rollbackVet(id: number): Observable<any> {

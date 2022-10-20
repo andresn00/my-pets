@@ -30,6 +30,10 @@
 
       <div *ngSwitchCase="'myProfile'">
         <h1>Mi Perfil</h1>
+        <mat-list>
+          <mat-list-item>Username: {{user?.username || 'N/A'}}</mat-list-item>
+          <mat-list-item>Email: {{user?.email || 'N/A'}}</mat-list-item>
+        </mat-list>
       </div>
 
     </div>

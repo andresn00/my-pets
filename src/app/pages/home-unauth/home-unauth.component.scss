@@ -1,0 +1,47 @@
+.title-box {
+    position: absolute;
+    top: 100px;
+    left: 50px;
+    color: #424241;
+}
+
+.card {
+    width: min(350px, 60%);
+    padding: 3rem;
+    // height: 250px;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+.card-title {
+    font-size: x-large;
+    margin-bottom: 1.5rem !important;
+}
+
+.card-content {
+    font-size: medium;
+    line-height: 1.5;
+}
+
+.py-2 {
+    padding: 2rem 0;
+}
+.img-card {
+    width: min(85%, 600px);
+    height: 300px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.image {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    transition-property: width;
+    transition-duration: 2s;
+}
+
+.image:hover {
+    width: 110%;
+}

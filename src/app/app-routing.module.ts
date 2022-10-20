@@ -15,8 +15,10 @@ import { VetComponent } from './pages/vet/vet.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { PetHistoryComponent } from './pages/pet/pet-history/pet-history.component';
 import { CalendarHomeComponent } from './pages/calendar/calendar-home/calendar-home.component';
+import { HomeUnauthComponent } from './pages/home-unauth/home-unauth.component';
 
 const routes: Routes = [
+  { path: 'home', canActivate: [UnauthGuard], component: HomeUnauthComponent },
   { path: 'login', canActivate: [UnauthGuard], component: LoginComponent },
   {
     path: 'signup', canActivate: [UnauthGuard],

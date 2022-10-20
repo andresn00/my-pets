@@ -1,0 +1,56 @@
+<div class="height-100vh">
+  <div style="position: relative;">
+    <div fxHide.lt-lg class="title-box">
+      <h1 style="font-size: xxx-large;">My Pets</h1>
+      <mat-divider style="margin: 20px 0;"></mat-divider>
+      <p style="font-size: large;">Una aplicación web para el cuidado de tus mascotas</p>
+    </div>
+    <img src="../../../assets/dog.jpg" alt="dog" width="100%">
+  </div>
+  <div fxLayout="column">
+    <div class="py-2" fxLayout="row wrap" fxLayoutAlign="space-evenly center"
+      dir="rtl">
+      <mat-card class="card" appMaterialElevation>
+        <mat-card-header>
+          <mat-card-title class="card-title">My Pets</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="card-content">
+          My Pets es una aplicación web que busca mejorar la interacción entre Veterinarias y Dueños de mascotas. 
+          Permitiendo gestionar los historiales médicos de las mascotas para mantener un control sobre su salud
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="img-card" appMaterialElevation [defaultElevation]="4" [raisedElevation]="16">
+        <img class="image" [src]="imgSrc3" alt="">
+      </mat-card>
+    </div>
+    <div class="py-2" style="background-color: #64b7ff;" fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+      <mat-card class="card" appMaterialElevation>
+        <mat-card-header>
+          <mat-card-title class="card-title">Veterinarias</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="card-content">
+          My Pets permite a las veterinarias la gestión de sus clientes, historiales médicos de las mascotas, 
+          manejo de citas y mejora de procesos
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="img-card" appMaterialElevation [defaultElevation]="4" [raisedElevation]="16">
+        <img class="image" [src]="imgSrc1" alt="">
+      </mat-card>
+    </div>
+    <div class="py-2" fxLayout="row wrap" fxLayoutAlign="space-evenly center"
+      dir="rtl">
+      <mat-card class="card" appMaterialElevation>
+        <mat-card-header>
+          <mat-card-title class="card-title">Dueños de mascotas</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="card-content">
+          Con My Pets podrás mantener un control de las citas de tus mascotas, su historial médico y más.
+          Tendrás acceso a la salud de tus mascotas a tu alcance.
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="img-card" appMaterialElevation [defaultElevation]="4" [raisedElevation]="16">
+        <img class="image" [src]="imgSrc2" alt="">
+      </mat-card>
+    </div>
+  </div>
+</div>

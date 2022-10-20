@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Employee } from 'src/app/Models/Employee';
 import { ListResponse } from 'src/app/Models/RestObjects';
+import { User } from 'src/app/Models/User';
 import { Vet } from 'src/app/Models/Vet';
 import { VetService } from 'src/app/services/collections/vet.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
@@ -16,6 +17,8 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 export class VetComponent implements OnInit {
   vetId!: number
   vet!: Vet
+
+  user!: User
 
   employeesDS: MatTableDataSource<Employee> = new MatTableDataSource()
   displayedColumns = ['name', 'ci', 'phone', 'address']
@@ -31,6 +34,10 @@ export class VetComponent implements OnInit {
   ngOnInit(): void {
     this.getCurrentVetId()
     this.loadCurrentVet()
+    this.loadUser()
+  }
+  loadUser() {
+    this.user = this.storageService.getCurrentSession()?.user as User
   }
 
   ngAfterViewInit(){

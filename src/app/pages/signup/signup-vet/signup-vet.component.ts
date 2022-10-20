@@ -67,12 +67,12 @@ export class SignupVetComponent implements OnInit {
     this.signupService.registerVet(vet).subscribe({
       next: (vetRes: SingleResponse<Vet>) => {
         this.signupService.registerUser(user).subscribe({
-          next: (userSession: Session) => {
+          next: userSession => {
             console.log(`userRes`, userSession)
             employee.user = userSession.user.id;
             employee.vet = vetRes.data.id;
             this.signupService.registerEmployee(employee).subscribe({
-              next: (employeeRes: SingleResponse<Employee>) => {
+              next: employeeRes => {
                 this.storageService.setCurrentSession(userSession)
                 this.router.navigate(['../dashboard']).then(() => {
                   this.uiService.openNotificationSnackBar('Veterinaria registrada con éxito.', 'primary')

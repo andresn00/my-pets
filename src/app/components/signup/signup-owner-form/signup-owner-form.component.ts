@@ -55,7 +55,7 @@ export class SignupOwnerFormComponent implements OnInit {
     this.signupInProgress = true
     this.signupService.registerUser(user)
       .subscribe({
-        next: (userSession: Session) => {
+        next: userSession => {
           customer.user = userSession.user.id
           customer.vets = this.vetId ? [this.vetId] : null
           this.signupService.registerCustomer(customer)
@@ -76,7 +76,7 @@ export class SignupOwnerFormComponent implements OnInit {
             })
         },
         error: err => {
-          const errMessage = err.status === 400 ? 'Email en uso' : 'Error creando registro'
+          const errMessage = err.status === 400 ? 'Email o usuario en uso' : 'Error creando registro'
           this.uiService.openNotificationSnackBar(errMessage, 'warn')
           this.signupInProgress = false
         }

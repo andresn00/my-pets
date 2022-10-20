@@ -73,6 +73,7 @@ import { ControlDialogComponent } from './components/petActions/control-dialog/c
 import { VaccineDialogComponent } from './components/petActions/vaccine-dialog/vaccine-dialog.component';
 import { EmployeesTableComponent } from './components/vet/employees-table/employees-table.component';
 import { EmployeeDialogComponent } from './components/vet/employee-dialog/employee-dialog.component';
+import { HomeUnauthComponent } from './pages/home-unauth/home-unauth.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -101,7 +102,8 @@ import { EmployeeDialogComponent } from './components/vet/employee-dialog/employ
     ControlDialogComponent,
     VaccineDialogComponent,
     EmployeesTableComponent,
-    EmployeeDialogComponent
+    EmployeeDialogComponent,
+    HomeUnauthComponent
   ],
   imports: [
     BrowserModule,

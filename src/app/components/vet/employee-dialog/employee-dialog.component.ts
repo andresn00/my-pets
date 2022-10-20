@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Employee } from 'src/app/Models/Employee';
 import { FormDialogData } from 'src/app/utils';
@@ -19,20 +19,30 @@ export class EmployeeDialogComponent implements OnInit {
   })
   
   userForm = new FormGroup({
-    username: new FormControl(),
-    email: new FormControl(),
-    password: new FormControl(),
+    username: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required),
   })
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: FormDialogData<Employee>,
+    @Inject(MAT_DIALOG_DATA) public data: FormDialogData<any>,
     private dialogRef: MatDialogRef<EmployeeDialogComponent>
   ) { }
 
   ngOnInit(): void {
+    const formData = this.data.formData
+    if (formData) {
+      this.empForm.patchValue({...formData.employee})
+      this.userForm.patchValue({...formData.user})
+    }
   }
 
   closeDialog(){
-    
+    if (!this.empForm.valid || !this.userForm.valid) return
+    const formsData = {
+      employee: this.empForm.value,
+      user: this.userForm.value,
+    }
+    this.dialogRef.close(formsData)
   }
 }
