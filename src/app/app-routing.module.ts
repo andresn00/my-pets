@@ -16,6 +16,9 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { PetHistoryComponent } from './pages/pet/pet-history/pet-history.component';
 import { CalendarHomeComponent } from './pages/calendar/calendar-home/calendar-home.component';
 import { HomeUnauthComponent } from './pages/home-unauth/home-unauth.component';
+import { VaccinesComponent } from './components/pet/medical-history/vaccines/vaccines.component';
+import { AppointmentsComponent } from './components/pet/medical-history/appointments/appointments.component';
+import { ControlsComponent } from './components/pet/medical-history/controls/controls.component';
 
 const routes: Routes = [
   { path: 'home', canActivate: [UnauthGuard], component: HomeUnauthComponent },
@@ -43,7 +46,13 @@ const routes: Routes = [
       {
         path: 'pet/:petId', children: [
           { path: '', component: PetComponent },
-          { path: 'historial', component: PetHistoryComponent },
+          { path: 'medical-history', component: PetHistoryComponent,
+            children: [
+                { path: 'appointments', component: AppointmentsComponent },
+                { path: 'vaccines', component: VaccinesComponent },
+                { path: 'controls', component: ControlsComponent },
+            ] 
+          },
         ]
       },
       { path: 'vet', component: VetComponent },

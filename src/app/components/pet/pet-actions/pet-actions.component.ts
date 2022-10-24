@@ -13,6 +13,7 @@ import { VaccineDialogComponent } from '../../petActions/vaccine-dialog/vaccine-
 import { map, Observable, of } from 'rxjs';
 import { ComponentType } from '@angular/cdk/portal';
 import { VaccineService } from 'src/app/services/collections/petActions/vaccine.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface Action {
   title: string
@@ -58,7 +59,7 @@ export class PetActionsComponent implements OnInit {
     },
     {
       title: 'Historial', icon: 'history', bgColor: '#e8e8e8', color: '#444444',
-      click: this.onClick
+      click: () => this.onHistoryClick()
     },
   ]
 
@@ -70,7 +71,9 @@ export class PetActionsComponent implements OnInit {
     private vaccineService: VaccineService,
     private uiService: UiService,
     private storageService: StorageService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -144,6 +147,10 @@ export class PetActionsComponent implements OnInit {
       formDialogData.vet = this.currentVetId
       return formDialogData
     }))
+  }
+
+  onHistoryClick() {
+    this.router.navigate(['medical-history'], {relativeTo: this.activatedRoute})
   }
 
 }

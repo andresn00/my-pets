@@ -1,0 +1,42 @@
+<h1>Vacunas</h1>
+<div fxLayoutAlign="end" style="margin-bottom: 1rem;">
+  <button mat-raised-button color="primary" (click)="onNew()">
+    <mat-icon>add</mat-icon> Nuevo
+  </button>
+</div>
+<table mat-table matSort [dataSource]="vaccinesDS" class="width-100 mat-elevation-z8">
+  <ng-container matColumnDef="datetime">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+    <td mat-cell *matCellDef="let vacc">{{convertDateFormat(vacc.datetime, '', 'DD-MM-YYYY')}}</td>
+  </ng-container>
+  <ng-container matColumnDef="type">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+    <td mat-cell *matCellDef="let vacc">{{vacc.type || 'N/A'}}</td>
+  </ng-container>
+  <ng-container matColumnDef="dose">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Dosis</th>
+    <td mat-cell *matCellDef="let vacc">{{vacc.dose || 'N/A'}}</td>
+  </ng-container>
+  <ng-container matColumnDef="administrationRoute">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Via de Administracion</th>
+    <td mat-cell *matCellDef="let vacc">{{vacc.administrationRoute || 'N/A'}}</td>
+  </ng-container>
+  <ng-container matColumnDef="observations">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Observaciones</th>
+    <td mat-cell *matCellDef="let vacc">{{vacc.observations || 'N/A'}}</td>
+  </ng-container>
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+    <td mat-cell *matCellDef="let vacc">
+      <button mat-icon-button color="primary">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr class="mat-row-selectable" mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <!-- No Matches Found Row -->
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No hay resultados</td>
+  </tr>
+</table>
