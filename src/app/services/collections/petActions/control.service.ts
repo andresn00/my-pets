@@ -23,4 +23,12 @@ export class ControlService {
       .pipe(map(c => ({ id: c.data.id, ...c.data.attributes })))
   }
 
+  updateControl(controlId: number, control: Control): Observable<Control> {
+    const controlData: RestBody<Control> = {
+      data: control
+    }
+    return this.http.put<SingleResponse<Control>>(`${this.controlsApi}/${controlId}`, controlData)
+      .pipe(map(c => ({ id: c.data.id, ...c.data.attributes })))
+  }
+
 }

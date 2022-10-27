@@ -72,7 +72,7 @@ export class CustomersPetsComponent implements OnInit {
   openPetDialog(title: string, pet?: Pet) {
     const data = {
       title,
-      pet
+      formData: pet
     }
     const dialogRef = this.dialog.open(PetFormComponent, { data, minWidth: '50%', maxWidth: '90vw' })
     return dialogRef
@@ -147,5 +147,9 @@ export class CustomersPetsComponent implements OnInit {
         this.uiService.openNotificationSnackBar('Cliente inexistente', 'warn')
       })
     }
+  }
+
+  onCustomerEdit() {
+
   }
 }

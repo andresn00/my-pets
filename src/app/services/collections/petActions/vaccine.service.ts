@@ -22,4 +22,12 @@ export class VaccineService {
     return this.http.post<SingleResponse<Vaccine>>(this.vaccinesApi, vaccineData)
       .pipe(map(v => ({ id: v.data.id, ...v.data.attributes })))
   }
+
+  updateVaccine(vaccineId: number, vaccine: Vaccine): Observable<Vaccine> {
+    const vaccineData: RestBody<Vaccine> = {
+      data: vaccine
+    }
+    return this.http.put<SingleResponse<Vaccine>>(`${this.vaccinesApi}/${vaccineId}`, vaccineData)
+      .pipe(map(v => ({ id: v.data.id, ...v.data.attributes })))
+  }
 }

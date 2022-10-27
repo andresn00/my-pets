@@ -59,7 +59,7 @@ export class AppointmentService {
     return this.http.post<SingleResponse<Appointment>>(this.appointmentsApi, data, { params })
   }
 
-  private updateAppointment(apptId: number, data: any): Observable<SingleResponse<Appointment>> {
+  updateAppointment(apptId: number, data: RestBody<any>): Observable<SingleResponse<Appointment>> {
     return this.http.put<SingleResponse<Appointment>>(`${this.appointmentsApi}/${apptId}`, data)
   }
 

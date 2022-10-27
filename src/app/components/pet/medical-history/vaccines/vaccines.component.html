@@ -1,13 +1,13 @@
 <h1>Vacunas</h1>
 <div fxLayoutAlign="end" style="margin-bottom: 1rem;">
-  <button mat-raised-button color="primary" (click)="onNew()">
-    <mat-icon>add</mat-icon> Nuevo
+  <button mat-raised-button color="primary" (click)="newVaccine()">
+    <mat-icon>add</mat-icon> Nueva
   </button>
 </div>
 <table mat-table matSort [dataSource]="vaccinesDS" class="width-100 mat-elevation-z8">
   <ng-container matColumnDef="datetime">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
-    <td mat-cell *matCellDef="let vacc">{{convertDateFormat(vacc.datetime, '', 'DD-MM-YYYY')}}</td>
+    <td mat-cell *matCellDef="let vacc">{{convertDateFormat(vacc.datetime, '', 'DD-MM-YYYY, hh:mm A')}}</td>
   </ng-container>
   <ng-container matColumnDef="type">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
@@ -25,10 +25,14 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Observaciones</th>
     <td mat-cell *matCellDef="let vacc">{{vacc.observations || 'N/A'}}</td>
   </ng-container>
+  <ng-container matColumnDef="employee">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Empleado a cargo</th>
+    <td mat-cell *matCellDef="let vacc">{{vacc.employees.data?.[0]?.attributes.name || 'N/A'}}</td>
+  </ng-container>
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
     <td mat-cell *matCellDef="let vacc">
-      <button mat-icon-button color="primary">
+      <button mat-icon-button color="primary" (click)="editVaccine(vacc)">
         <mat-icon>edit</mat-icon>
       </button>
     </td>

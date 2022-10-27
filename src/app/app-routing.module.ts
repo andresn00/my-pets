@@ -51,6 +51,7 @@ const routes: Routes = [
                 { path: 'appointments', component: AppointmentsComponent },
                 { path: 'vaccines', component: VaccinesComponent },
                 { path: 'controls', component: ControlsComponent },
+                { path: '**', redirectTo: 'appointments' },
             ] 
           },
         ]

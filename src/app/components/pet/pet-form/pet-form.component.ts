@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Pet } from 'src/app/Models/Pet';
 import { FormDialogData } from 'src/app/utils';
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-pet-form',
@@ -26,14 +27,12 @@ export class PetFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(`this.data`, this.data)
     const pet = this.data.formData
-    if(pet){
-      this.petForm.patchValue({
-        ...pet
-      })
-      this.petForm.markAllAsTouched()
+    if (pet) {
+      const birthday = moment(pet.birthday).toDate()
+      this.petForm.patchValue({ ...this.data.formData, birthday, })
     }
+
   }
 
   closeDialog(){

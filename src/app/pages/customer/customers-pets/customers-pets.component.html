@@ -13,6 +13,9 @@
       <mat-divider></mat-divider>
       <mat-list-item>Email: {{user?.data?.attributes?.email || 'N/A'}} </mat-list-item>
     </mat-list>
+    <button mat-raised-button color="primary" style="margin-left: 12px;" (click)="onCustomerEdit()">
+      Editar
+    </button>
   </mat-drawer>
   <div>
     <button type="button" mat-button (click)="profileDrawer.toggle()" *ngIf="!profileDrawer.opened">

@@ -7,7 +7,7 @@ import { Vaccine } from 'src/app/Models/PetActions';
 import { ListResponse } from 'src/app/Models/RestObjects';
 import { PetPageService } from 'src/app/services/pet-page.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
-import { FormDialogData } from 'src/app/utils';
+import { convertDateFormat, FormDialogData } from 'src/app/utils';
 
 @Component({
   selector: 'app-vaccine-dialog',
@@ -37,6 +37,14 @@ export class VaccineDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (this.data.formData) {
+      const control = this.data.formData
+      const date = moment(control.datetime).toDate()
+      const time = convertDateFormat(control.datetime, '', 'hh:mm A')
+      const employees = (control.employees as ListResponse<Employee>).data?.[0]?.id
+      this.vaccForm.patchValue({ ...this.data.formData, date, time, employees })
+    }
+
     this.loadCurrentVetId()
     this.loadEmployeesFromCurrentVet()
   }

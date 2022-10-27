@@ -7,7 +7,7 @@ import { Employee } from 'src/app/Models/Employee';
 import { ListResponse } from 'src/app/Models/RestObjects';
 import { PetPageService } from 'src/app/services/pet-page.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
-import { FormDialogData } from 'src/app/utils';
+import { convertDateFormat, FormDialogData } from 'src/app/utils';
 
 @Component({
   selector: 'app-control-dialog',
@@ -37,6 +37,19 @@ export class ControlDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (this.data.formData) {
+      const control = this.data.formData
+      const date = moment(control.datetime).toDate()
+      const time = convertDateFormat(control.datetime, '', 'hh:mm A')
+      const employees = (control.employees as ListResponse<Employee>).data?.[0]?.id
+      const weight = control.weight.replace(/\D+/, '')
+      const weightUnit = control.weight.replace(/\d+/, '')
+      const temperature = control.temperature.replace(/\D+/, '')
+      const temperatureUnit = control.temperature.replace(/\d+/, '')
+      this.controlForm.patchValue({ ...this.data.formData, 
+        date, time, employees, weight, weightUnit, temperature, temperatureUnit })
+    }
+
     this.loadCurrentVetId()
     this.loadEmployeesFromCurrentVet()
   }
@@ -62,7 +75,8 @@ export class ControlDialogComponent implements OnInit {
     const control: Control = {
       datetime: datetime.toISOString(),
       weight: `${controlFormValue.weight}${controlFormValue.weightUnit}`,
-      temperature: `${controlFormValue.temperature}${controlFormValue.temperatureUnit}`
+      temperature: `${controlFormValue.temperature}${controlFormValue.temperatureUnit}`,
+      employees: controlFormValue.employees
     }
     this.dialogRef.close(control)
   }

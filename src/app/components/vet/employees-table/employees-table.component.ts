@@ -18,7 +18,7 @@ import { EmployeeDialogComponent } from '../employee-dialog/employee-dialog.comp
 })
 export class EmployeesTableComponent implements OnInit {
   @Input() employeesDS: MatTableDataSource<Employee> = new MatTableDataSource()
-  displayedColumns = ['name', 'ci', 'phone', 'address']
+  displayedColumns = ['name', 'ci', 'phone', 'address', 'actions']
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -90,4 +90,9 @@ export class EmployeesTableComponent implements OnInit {
       }
     });
   }
+
+  onEdit(empId: number) {
+    console.log('empId', empId)
+  }
+
 }

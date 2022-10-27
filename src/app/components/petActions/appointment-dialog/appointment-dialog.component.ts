@@ -9,7 +9,7 @@ import { ListResponse } from 'src/app/Models/RestObjects';
 import { VetService } from 'src/app/services/collections/vet.service';
 import { PetPageService } from 'src/app/services/pet-page.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
-import { FormDialogData } from 'src/app/utils';
+import { convertDateFormat, FormDialogData } from 'src/app/utils';
 
 @Component({
   selector: 'app-appointment-dialog',
@@ -17,7 +17,7 @@ import { FormDialogData } from 'src/app/utils';
   styleUrls: ['./appointment-dialog.component.scss']
 })
 export class AppointmentDialogComponent implements OnInit {
-
+console = console
   currentVetId!: number
   vetEmployees!: Employee[]
   showCalendar: boolean = true
@@ -37,6 +37,13 @@ export class AppointmentDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (this.data.formData) {
+      const appt = this.data.formData
+      const date = moment(appt.datetime).toDate()
+      const time = convertDateFormat(appt.datetime, '', 'hh:mm A')
+      const employees = (appt.employees as ListResponse<Employee>).data?.[0]?.id
+      this.apptForm.patchValue({ ...this.data.formData, date, time, employees })
+    }
     this.loadCurrentVetId()
     this.loadEmployeesFromCurrentVet()
   }
