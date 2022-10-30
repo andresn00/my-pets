@@ -12,6 +12,6 @@
   </mat-drawer>
   <div class="content-90 mt-1 pb-2">
     <h1 class="mb-2">Citas para hoy</h1>
-    <mwl-calendar-day-view [dayStartHour]="7" [dayEndHour]="20" [events]="todaysEvents"></mwl-calendar-day-view>
+    <mwl-calendar-day-view [dayStartHour]="7" [dayEndHour]="20" [events]="todaysEvents" (eventClicked)="onEventClicked($event.event)"></mwl-calendar-day-view>
   </div>
 </mat-drawer-container>

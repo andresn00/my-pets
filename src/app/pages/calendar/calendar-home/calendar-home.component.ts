@@ -20,7 +20,6 @@ export class CalendarHomeComponent implements OnInit {
   }
 
   eventClicked(event: CalendarEvent<Appointment>){
-    console.log('event', event)
     const appt = event.meta
     const pet = appt?.pet as SingleResponse<Pet>
     this.router.navigate(['pet', pet.data.id])

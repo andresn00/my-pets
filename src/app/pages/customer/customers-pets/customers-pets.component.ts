@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { EditCustomerDialogComponent } from 'src/app/components/customer/edit-customer-dialog/edit-customer-dialog.component';
 import { Customer } from 'src/app/Models/Customer';
 import { Employee } from 'src/app/Models/Employee';
 import { Pet } from 'src/app/Models/Pet';
@@ -13,7 +14,7 @@ import { CustomerService } from 'src/app/services/collections/customer.service';
 import { PetService } from 'src/app/services/collections/pet.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { UiService } from 'src/app/services/ui/ui.service';
-import { ConfirmationDialogData } from 'src/app/utils';
+import { ConfirmationDialogData, FormDialogData } from 'src/app/utils';
 import { PetFormComponent } from '../../../components/pet/pet-form/pet-form.component';
 import { ConfirmationDialogComponent } from '../../../components/utils/confirmation-dialog/confirmation-dialog.component';
 
@@ -140,8 +141,9 @@ export class CustomersPetsComponent implements OnInit {
   validateCustomerBelongsToVet() {
     const customersVets = this.customer.vets as ListResponse<Vet>
     const customersVetsIds: number[] = customersVets.data.map(v => v.id)
-    const employeeLoged = this.storageService.getCurrentEmployee() as Employee
-    const vet = employeeLoged.vet as SingleResponse<Vet>
+    const employeeLogged = this.storageService.getCurrentEmployee() as Employee
+    if (!employeeLogged) return
+    const vet = employeeLogged.vet as SingleResponse<Vet>
     if (!customersVetsIds.includes(vet.data.id)) {
       this.router.navigate(['customers']).then(() => {
         this.uiService.openNotificationSnackBar('Cliente inexistente', 'warn')
@@ -150,6 +152,12 @@ export class CustomersPetsComponent implements OnInit {
   }
 
   onCustomerEdit() {
-
+    const data: FormDialogData<Customer> = {
+      formData: this.customer
+    }
+    this.dialog.open(EditCustomerDialogComponent, { data, minWidth: '50%', maxWidth: '90vw' })
+      .afterClosed().subscribe((res: Customer) => {
+        this.customer = { ...this.customer, ...res }
+      })
   }
 }

@@ -1,8 +1,8 @@
 <mat-toolbar color="primary" class="">
   <mat-toolbar-row color="primary" fxLayout="row" fxLayoutAlign="space-between center">
     <div name="title">
-      <a mat-button routerLink="dashboard" (click)="activeUrl = 'dashboard'">
-        <h1>{{currentEmployee?.name}} <small>| My Pets</small></h1>
+      <a mat-button [routerLink]="this.currentEmployee ? 'dashboard' : 'customers/' + this.currentUser.customer" (click)="activeUrl = 'dashboard'">
+        <h1>{{currentVet ? currentVet.name + ' | ' : ''}} <small>My Pets</small></h1>
       </a>
     </div>
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
@@ -13,7 +13,7 @@
         {{currentEmployee?.name?.[0] || 'V'}}
       </button>
       <mat-menu #profileMenu>
-        <a mat-menu-item>Perfil</a>
+        <!-- <a mat-menu-item>Perfil</a> -->
         <button mat-menu-item (click)="onLogout()">Cerrar Sesión</button>
       </mat-menu>
     </div>
@@ -21,11 +21,20 @@
 </mat-toolbar>
 
 <nav mat-tab-nav-bar mat-align-tabs="center">
-  <a mat-tab-link [routerLink]="link.url" *ngFor="let link of links" (click)="activeUrl = link.url"
-    [active]="activeUrl == link.url">
-    <mat-icon style="margin-right: 8px;">{{link.icon}}</mat-icon>
-    {{link.name}}
-  </a>
+  <ng-container *ngIf="this.currentEmployee">
+    <a mat-tab-link [routerLink]="link.url" *ngFor="let link of links" (click)="activeUrl = link.url"
+      [active]="activeUrl == link.url">
+      <mat-icon style="margin-right: 8px;">{{link.icon}}</mat-icon>
+      {{link.name}}
+    </a>
+  </ng-container>
+  <ng-container *ngIf="!this.currentEmployee">
+    <a mat-tab-link [routerLink]="'customers/' + this.currentUser.customer" #rla="routerLinkActive"
+      routerLinkActive [active]="rla.isActive">
+      <mat-icon style="margin-right: 8px;">pets</mat-icon>
+      Mis Mascotas
+    </a>
+  </ng-container>
 </nav>
 
 <router-outlet></router-outlet>

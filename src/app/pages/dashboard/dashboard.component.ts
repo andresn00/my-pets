@@ -11,6 +11,7 @@ import { Vet } from 'src/app/Models/Vet';
 import { Appointment } from 'src/app/Models/PetActions';
 import { CalendarEvent } from 'angular-calendar';
 import { Pet } from 'src/app/Models/Pet';
+import { Router } from '@angular/router';
 
 interface Card {
   title: string
@@ -40,7 +41,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private appointmentService: AppointmentService,
     private storageService: StorageService,
-    private uiService: UiService
+    private uiService: UiService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -58,15 +60,24 @@ export class DashboardComponent implements OnInit {
       this.todaysEvents = todaysAppts.map(a => {
         const title = `${moment(a.datetime).format('hh:mm a')} | 
         ${(a.pet as SingleResponse<Pet>).data.attributes.name}, 
-        ${a.description}`
-        const event: CalendarEvent = {
+        ${a.description} | 
+        ${(a.employees as ListResponse<Employee>).data[0].attributes.name}`
+        const event: CalendarEvent<Appointment> = {
           id: a.id,
           title,
-          start: moment(a.datetime).toDate()
+          start: moment(a.datetime).toDate(),
+          meta: a
         }
         return event
       })
     })
   }
+
+  onEventClicked(event: CalendarEvent<Appointment>){
+    const appt = event.meta
+    const pet = appt?.pet as SingleResponse<Pet>
+    this.router.navigate(['pet', pet.data.id])
+  }
+
 
 }

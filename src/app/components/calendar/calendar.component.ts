@@ -120,7 +120,8 @@ export class CalendarComponent implements OnInit {
   private getEventFromAppt(a: Appointment) {
     const title = `${moment(a.datetime).format('hh:mm a')} | 
           ${(a.pet as SingleResponse<Pet>).data.attributes.name}, 
-          ${a.description}`;
+          ${a.description} | 
+          ${(a.employees as ListResponse<Employee>).data[0].attributes.name}`;
     const event: CalendarEvent<Appointment> = {
       id: a.id,
       title,

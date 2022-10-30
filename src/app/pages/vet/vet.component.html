@@ -25,11 +25,11 @@
           <mat-list-item>Teléfono: {{vet?.phone || 'N/A'}}</mat-list-item>
           <mat-list-item>Dirección: {{vet?.address || 'N/A'}}</mat-list-item>
         </mat-list>
-        <button mat-raised-button color="primary">
+        <button mat-raised-button color="primary" (click)="onVetEdit()">
           Editar
         </button>
       </div>
-      <app-employees-table *ngSwitchCase="'employees'" [employeesDS]="employeesDS"></app-employees-table>
+      <app-employees-table *ngSwitchCase="'employees'" [employeesDS]="employeesDS" (employeeUpdated)="loadCurrentVet()"></app-employees-table>
 
       <div *ngSwitchCase="'myProfile'">
         <h1>Mi Perfil</h1>

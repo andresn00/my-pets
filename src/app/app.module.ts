@@ -77,6 +77,9 @@ import { HomeUnauthComponent } from './pages/home-unauth/home-unauth.component';
 import { VaccinesComponent } from './components/pet/medical-history/vaccines/vaccines.component';
 import { AppointmentsComponent } from './components/pet/medical-history/appointments/appointments.component';
 import { ControlsComponent } from './components/pet/medical-history/controls/controls.component';
+import { EditCustomerDialogComponent } from './components/customer/edit-customer-dialog/edit-customer-dialog.component';
+import { EditVetDialogComponent } from './components/vet/edit-vet-dialog/edit-vet-dialog.component';
+import { EditEmployeeDialogComponent } from './components/vet/edit-employee-dialog/edit-employee-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -109,7 +112,10 @@ import { ControlsComponent } from './components/pet/medical-history/controls/con
     HomeUnauthComponent,
     VaccinesComponent,
     AppointmentsComponent,
-    ControlsComponent
+    ControlsComponent,
+    EditCustomerDialogComponent,
+    EditVetDialogComponent,
+    EditEmployeeDialogComponent
   ],
   imports: [
     BrowserModule,

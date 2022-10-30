@@ -12,6 +12,7 @@ import { PetService } from 'src/app/services/collections/pet.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { UiService } from 'src/app/services/ui/ui.service';
 import { getPetSex, getAge, getAgeToString, convertDateFormat } from 'src/app/utils';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-pet',
@@ -29,7 +30,7 @@ export class PetComponent implements OnInit {
   petId!: string
   pet!: Pet
   customer!: Customer
-  pendingAppts!: Appointment[]
+  pendingApptsDS: MatTableDataSource<Appointment> = new MatTableDataSource()
 
   constructor(
     private petService: PetService,
@@ -75,13 +76,12 @@ export class PetComponent implements OnInit {
 
   getPetPendingAppts() {
     this.apptService.fetchPendingApptsFromPetInVet(+this.petId, this.currentVetId).subscribe(appts => {
-      this.pendingAppts = appts
+      this.pendingApptsDS.data = appts
     })
   }
 
   addNewPendingAppt(appt: Appointment) {
-    console.log('addNewPA')
-    this.pendingAppts = [...this.pendingAppts, appt]
+    this.pendingApptsDS.data = [...this.pendingApptsDS.data, appt]
   }
 
 }

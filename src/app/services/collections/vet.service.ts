@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { SingleResponse } from 'src/app/Models/RestObjects';
+import { RestBody, SingleResponse } from 'src/app/Models/RestObjects';
 import { Vet } from 'src/app/Models/Vet';
 import { environment } from 'src/app/environment';
 
@@ -32,4 +32,14 @@ export class VetService {
     }
     return this.vet
   }
+
+  updateVet(vetId: number, vet: Vet): Observable<Vet> {
+    const vetData: RestBody<Vet> = {
+      data: vet
+    }
+
+    return this.http.put<SingleResponse<Vet>>(`${this.vetsApi}/${vetId}`, vetData)
+      .pipe(map(res => { return { id: res.data.id, ...res.data.attributes} }))
+  }
+
 }

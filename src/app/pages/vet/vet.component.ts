@@ -1,13 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { EditVetDialogComponent } from 'src/app/components/vet/edit-vet-dialog/edit-vet-dialog.component';
 import { Employee } from 'src/app/Models/Employee';
 import { ListResponse } from 'src/app/Models/RestObjects';
 import { User } from 'src/app/Models/User';
 import { Vet } from 'src/app/Models/Vet';
 import { VetService } from 'src/app/services/collections/vet.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
+import { FormDialogData } from 'src/app/utils';
 
 @Component({
   selector: 'app-vet',
@@ -28,7 +31,8 @@ export class VetComponent implements OnInit {
 
   constructor(
     private vetService: VetService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -66,5 +70,14 @@ export class VetComponent implements OnInit {
     }
   }
 
+  onVetEdit() {
+    const data: FormDialogData<Vet> = {
+      formData: this.vet
+    }
+    this.dialog.open(EditVetDialogComponent, { data, minWidth: '50%', maxWidth: '90vw' })
+      .afterClosed().subscribe((res: Vet) => {
+        this.vet = { ...this.vet, ...res }
+      })
+  }
 
 }

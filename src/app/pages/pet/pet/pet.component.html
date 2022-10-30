@@ -34,7 +34,7 @@
       <app-pet-actions [petId]="pet?.id" (apptCreated)="addNewPendingAppt($event)"></app-pet-actions>
 
       <h1>Próximas Citas</h1>
-      <app-pet-pending-appts-table [pendingAppts]="pendingAppts"></app-pet-pending-appts-table>
+      <app-pet-pending-appts-table [pendingApptsDS]="pendingApptsDS"></app-pet-pending-appts-table>
     </div>
   </div>
 </mat-drawer-container>

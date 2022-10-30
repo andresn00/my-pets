@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { Employee } from 'src/app/Models/Employee';
-import { ListResponse } from 'src/app/Models/RestObjects';
+import { ListResponse, SingleResponse } from 'src/app/Models/RestObjects';
 import { Session } from 'src/app/Models/Session';
 import { User } from 'src/app/Models/User';
+import { Vet } from 'src/app/Models/Vet';
 import { EmployeeService } from 'src/app/services/collections/employee.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { UiService } from 'src/app/services/ui/ui.service';
@@ -23,6 +24,7 @@ export class HomeAuthComponent implements OnInit {
 
   currentUser!: User
   currentEmployee!: Employee
+  currentVet!: Vet
 
   links: Link[] = [
     { name: 'Dashboard', url: 'dashboard', icon: 'home' },
@@ -56,6 +58,8 @@ export class HomeAuthComponent implements OnInit {
         .subscribe(emp => {
           this.storageService.setCurrentEmployee(emp);
           this.currentEmployee = emp
+          const vetSR = emp.vet as SingleResponse<Vet>
+          this.currentVet = { id: vetSR.data.id, ...vetSR.data.attributes }
         });
     }
   }

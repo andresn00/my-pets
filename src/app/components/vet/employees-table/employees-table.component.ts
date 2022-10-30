@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -9,6 +9,7 @@ import { SignupService } from 'src/app/services/auth/signup.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { UiService } from 'src/app/services/ui/ui.service';
 import { FormDialogData } from 'src/app/utils';
+import { EditEmployeeDialogComponent } from '../edit-employee-dialog/edit-employee-dialog.component';
 import { EmployeeDialogComponent } from '../employee-dialog/employee-dialog.component';
 
 @Component({
@@ -18,6 +19,7 @@ import { EmployeeDialogComponent } from '../employee-dialog/employee-dialog.comp
 })
 export class EmployeesTableComponent implements OnInit {
   @Input() employeesDS: MatTableDataSource<Employee> = new MatTableDataSource()
+  @Output() employeeUpdated = new EventEmitter<Employee>()
   displayedColumns = ['name', 'ci', 'phone', 'address', 'actions']
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -60,9 +62,9 @@ export class EmployeesTableComponent implements OnInit {
   }
 
   private createEmployee(res: any) {
-    console.log('res', res);
     if (!res) return
     const user: User = res.user;
+    user.isEmployee = true;
     const employee: Employee = res.employee;
     employee.vet = this.storageService.getCurrentVetId();
     this.signupService.registerUser(user).subscribe({
@@ -91,8 +93,14 @@ export class EmployeesTableComponent implements OnInit {
     });
   }
 
-  onEdit(empId: number) {
-    console.log('empId', empId)
+  onEdit(emp: Employee) {
+    const data: FormDialogData<Employee> = {
+      formData: emp
+    }
+    this.dialog.open(EditEmployeeDialogComponent, { data, minWidth: '50%', maxWidth: '90vw' })
+      .afterClosed().subscribe((res: Employee) => {
+        this.employeeUpdated.emit(res)
+      })
   }
 
 }

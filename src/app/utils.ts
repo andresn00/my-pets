@@ -8,10 +8,9 @@ export interface ConfirmationDialogData {
 }
 
 export interface FormDialogData<T = any> {
-  title: string
+  title?: string
   formData?: T
 }
-
 
 export const getPetSex = (n: number) => {
   return n === 0 ? 'Hembra' : 'Macho'

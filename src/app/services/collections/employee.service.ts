@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
 import { environment } from 'src/app/environment';
 import { Employee } from 'src/app/Models/Employee';
-import { ListResponse, SingleResponse } from 'src/app/Models/RestObjects';
+import { ListResponse, RestBody, SingleResponse } from 'src/app/Models/RestObjects';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,15 @@ export class EmployeeService {
         }
         return emp
       }))
+  }
+
+  updateEmployee(employeeId: number, employee: Employee): Observable<Employee> {
+    const customerData: RestBody<Employee> = {
+      data: employee
+    }
+
+    return this.http.put<SingleResponse<Employee>>(`${this.employeesApi}/${employeeId}`, customerData)
+      .pipe(map(res => { return { id: res.data.id, ...res.data.attributes} }))
   }
 
 }
